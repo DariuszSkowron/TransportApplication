@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.model;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transit {
@@ -12,25 +13,20 @@ public class Transit {
     private String destinationAdress;
     private Long price;
     private Date date;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String dateString = dateFormat.format(date);
     private Long distance;
 
-    public Transit() {
+    public Transit(String poznan, String warszawa, long l, String s) {
     }
 
-    public Transit(String sourceAdress, String destinationAdress, Long price, Date date) {
-        this.sourceAdress = sourceAdress;
-        this.destinationAdress = destinationAdress;
-        this.price = price;
-        this.date = date;
-    }
 
-    public Transit(Long id, String sourceAdress, String destinationAdress, Long price, Date date, Long distance) {
+    public Transit(Long id, String sourceAdress, String destinationAdress, Long price, String dateString) {
         this.id = id;
         this.sourceAdress = sourceAdress;
         this.destinationAdress = destinationAdress;
         this.price = price;
-        this.date = date;
-        this.distance = distance;
+        this.dateString = dateString;
     }
 
     public Long getId() {
