@@ -15,9 +15,7 @@ public class TransitController {
 
 
     @Autowired
-    public TransitRepository(TransitRepository transitRepository){
-        this.transitRepository = transitRepository;
-    }
+    public TransitRepository transitRepository = new TransitRepository();
 
     @GetMapping("/transit")
     public ModelAndView showform(ModelMap modelMap){
