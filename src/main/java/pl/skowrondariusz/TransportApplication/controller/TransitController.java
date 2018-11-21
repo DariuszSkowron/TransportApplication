@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,11 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
+@Controller
 public class TransitController {
 
 
     @Autowired
-    TransitRepository transitRepository = new TransitRepository();
+    public TransitRepository(TransitRepository transitRepository){
+        this.transitRepository = transitRepository;
+    }
 
     @GetMapping("/transit")
     public ModelAndView showform(ModelMap modelMap){
@@ -26,7 +30,9 @@ public class TransitController {
         transitRepository.calculateDistance(transit);
         transitRepository.addTransit(transit);
         modelMap.addAttribute("transit", transit);
-        return "redirect:showtransit";
+        return "redirect:showTransit";
 
     }
+
+
 }
