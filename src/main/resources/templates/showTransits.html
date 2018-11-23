@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Transit Form</title>
+</head>
+<body>
+Show transit
+
+<a th:href="@{/transit}">Add transit</a>
+
+
+<ul>
+    <li th:each="showTransit: ${transitsAttribute}" th:text="|${showTransit.sourceAdress} - ${showTransit.price}|"> Transits</li>
+    <ul/>
+
+</body>
+</html>

@@ -22,18 +22,24 @@ public class TransitService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransitService.class);
 
-    private TransitRepository transitRepository;
 
-    private List<Transit> transits = new ArrayList<>();
+    @Autowired
+   TransitRepository transitRepository;
+
     private static final String API_KEY = "AIzaSyBlJos2RY_SBYeQIKWQJdwEN_2VnJhRY-0";
 
 
+//    @Autowired
+//    public TransitService(TransitRepository transitRepository){
+//        this.transitRepository = transitRepository;
+//        transitRepository.save(new Transit("Warszawa", "Kraków",999l));
+//    }
 
-    public void addTransit(Transit transit){
-        transits.add(transit);
+    public void save(Transit transitAttribute){
+        transitRepository.save(transitAttribute);
     }
 
-    public void calculateDistance(Transit transit){
+    public void calculateDistance(Transit transit) {
         GeoApiContext geoApiContext = new GeoApiContext.Builder().apiKey(API_KEY).build();
         DistanceMatrixApiRequest request = DistanceMatrixApi.newRequest(geoApiContext);
 
@@ -45,5 +51,19 @@ public class TransitService {
 
         Long distance = result.rows[0].elements[0].distance.inMeters;
         transit.setDistance(distance);
+    }
+
+    public List<Transit> findAll() {
+        Iterable<Transit> all = transitRepository.findAll();
+        List<Transit> transits = convertToList(all);
+        return transits;
+    }
+
+    private List<Transit> convertToList(Iterable<Transit> all) {
+        List<Transit> transits = new ArrayList<>();
+        for (Transit transit : all) {
+            transits.add(transit);
+        }
+        return transits;
     }
 }

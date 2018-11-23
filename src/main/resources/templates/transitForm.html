@@ -6,7 +6,7 @@
 </head>
 <body>
 Add Transit
-<form method="post" th:action="@{/transit}" th:object="${transit}">
+<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
     <input type="text" th:field="*{sourceAdress}" />
     <input type="text" th:field="*{destinationAdress}" />
     <input type="text" th:field="*{price}" />

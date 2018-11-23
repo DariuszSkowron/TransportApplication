@@ -15,27 +15,24 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 public class TransitController {
 
     TransitService transitService;
-
-
     @Autowired
-    public TransitController(TransitService transitService){
+    public  TransitController(TransitService transitService){
         this.transitService = transitService;
-    }
+    };
 
     @GetMapping("/transit")
-    public ModelAndView showform(ModelMap modelMap){
-        modelMap.addAttribute("transit", new Transit());
-        return new ModelAndView("addtransit", modelMap);
+    public String showFormTransit(ModelMap modelMap){
+        Transit transitAttr = new Transit();
+        modelMap.addAttribute("transitAttribute", transitAttr);
+        return "transitForm";
     }
 
-    @PostMapping("/transit")
-    public String addTransit(@ModelAttribute Transit transit, ModelMap modelMap){
-        transitService.calculateDistance(transit);
-        transitService.addTransit(transit);
-        modelMap.addAttribute("transit", transit);
-        return "redirect:showTransit";
+    @PostMapping("/addtransit")
+    public String addTransit(@ModelAttribute Transit transitAttribute, ModelMap modelMap){
+        transitService.calculateDistance(transitAttribute);
+        transitService.save(transitAttribute);
+        modelMap.addAttribute("transitsAttribute", transitService.findAll());
+        return "showTransit";
 
     }
-
-
 }
