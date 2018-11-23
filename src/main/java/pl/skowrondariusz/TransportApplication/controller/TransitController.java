@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
+import pl.skowrondariusz.TransportApplication.service.TransitService;
 
 @Controller
 public class TransitController {
 
+    TransitService transitService;
+
 
     @Autowired
-    public TransitRepository transitRepository = new TransitRepository();
+    public TransitController(TransitService transitService){
+        this.transitService = transitService;
+    }
 
     @GetMapping("/transit")
     public ModelAndView showform(ModelMap modelMap){
@@ -25,8 +30,8 @@ public class TransitController {
 
     @PostMapping("/transit")
     public String addTransit(@ModelAttribute Transit transit, ModelMap modelMap){
-        transitRepository.calculateDistance(transit);
-        transitRepository.addTransit(transit);
+        transitService.calculateDistance(transit);
+        transitService.addTransit(transit);
         modelMap.addAttribute("transit", transit);
         return "redirect:showTransit";
 
