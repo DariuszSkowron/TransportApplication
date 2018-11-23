@@ -29,8 +29,9 @@ public class TransitController {
 
     @PostMapping("/addtransit")
     public String addTransit(@ModelAttribute Transit transitAttribute, ModelMap modelMap){
-        transitService.calculateDistance(transitAttribute);
+//
         transitService.save(transitAttribute);
+        transitService.calculateDistance(transitAttribute);
         modelMap.addAttribute("transitsAttribute", transitService.findAll());
         return "showTransit";
 
