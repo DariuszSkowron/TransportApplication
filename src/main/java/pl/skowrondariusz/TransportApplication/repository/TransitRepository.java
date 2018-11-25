@@ -19,4 +19,5 @@ import java.util.List;
 public interface TransitRepository extends CrudRepository<Transit, Long> {
 
 
+    List<Transit> findByDateBetween(Date startDate, Date endDate);
 }

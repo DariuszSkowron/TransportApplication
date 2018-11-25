@@ -15,6 +15,7 @@ import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,6 +65,11 @@ public class TransitService {
         for (Transit transit : all) {
             transits.add(transit);
         }
+        return transits;
+    }
+
+    public List<Transit> getTransits(Date startDate, Date endDate) {
+        List<Transit> transits = transitRepository.findByDateBetween(startDate, endDate);
         return transits;
     }
 }
