@@ -2,6 +2,7 @@ package pl.skowrondariusz.TransportApplication.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class ApiTransitController {
     private TransitService transitService;
 
 
-    @GetMapping("/reports/daily")
+    @GetMapping(path = "/reports/daily", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void getDailyReport(@RequestParam("startDate") Date startDate, @RequestParam("endDate") Date endDate){
         double totalDistance = 0.0;
         double totalPrice = 0.0;
