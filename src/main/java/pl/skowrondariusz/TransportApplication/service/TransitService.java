@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,8 +69,11 @@ public class TransitService {
         return transits;
     }
 
-    public List<Transit> getTransits(Date startDate, Date endDate) {
-        List<Transit> transits = transitRepository.findByDateBetween(startDate, endDate);
+    public List<Transit> getTransits(LocalDate startDate, LocalDate endDate) {
+        List<Transit> transits = transitRepository.find(startDate, endDate);
+        for(int i = 0; i < transits.size(); i++) {
+            System.out.println(transits.get(i).toString());
+        }
         return transits;
     }
 }
