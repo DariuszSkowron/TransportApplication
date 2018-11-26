@@ -14,8 +14,6 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 @Controller
 public class TransitController {
 
-
-
     TransitService transitService;
     @Autowired
     public  TransitController(TransitService transitService){
@@ -34,6 +32,7 @@ public class TransitController {
 //
         transitService.save(transitAttribute);
         transitService.calculateDistance(transitAttribute);
+        transitService.save(transitAttribute);
         modelMap.addAttribute("transitsAttribute", transitService.findAll());
         return "showTransit";
 
