@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.api;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,9 +44,10 @@ public class ApiTransitController {
             }
         }
         return "Total distance" + totalDistance + ", total price: " + totalPrice;
+        JSONPObject myResponse = new JSONPObject("totalDistance");
     }
 
-    @RequestMapping(path = "reports/monthly", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("reports/monthly")
     public String getMonthlyReport() {
 
         LocalDate startDate = LocalDate.now().withDayOfMonth(1);
