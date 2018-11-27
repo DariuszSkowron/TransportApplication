@@ -13,6 +13,7 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -24,6 +25,11 @@ public class ApiTransitController {
     @Autowired
     public void setTransitService(TransitService transitService){
         this.transitService = transitService;
+    }
+
+    @GetMapping("/transits/{id}")
+    public Optional<Transit> getTransitFromId(@PathVariable Long id){
+        return transitService.getTransit(id);
     }
 
 
@@ -44,7 +50,7 @@ public class ApiTransitController {
             }
         }
         return "Total distance" + totalDistance + ", total price: " + totalPrice;
-        JSONPObject myResponse = new JSONPObject("totalDistance");
+//        JSONPObject myResponse = new JSONPObject("totalDistance");
     }
 
     @GetMapping("reports/monthly")

@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransitService {
@@ -75,6 +76,10 @@ public class TransitService {
             System.out.println(transits.get(i).toString());
         }
         return transits;
+    }
+
+    public Optional<Transit> getTransit(Long id){
+        return transitRepository.findById(id);
     }
 
 
