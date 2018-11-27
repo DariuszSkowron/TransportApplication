@@ -47,11 +47,12 @@ public class ApiTransitController {
 
     @RequestMapping(path = "reports/monthly", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getMonthlyReport() {
-        double totalDistance = 0.0;
-        double totalPrice = 0.0;
+
         LocalDate startDate = LocalDate.now().withDayOfMonth(1);
         LocalDate currentDate = LocalDate.now();
         List<Transit> transits = transitService.getTransits(startDate, currentDate);
+        long totalDistance = 0;
+        long totalPrice = 0;
         for (Transit transit : transits) {
             if (transit.getDistance() != null && transit.getPrice() != null) {
                 try {

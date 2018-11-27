@@ -2,20 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Transit</title>
+    <title>Added Transit</title>
 </head>
 <body>
-show transit
+Added transit:
 
-<h1 th:text="${transit.distance}">author</h1>
-<h1 th:text="${transit.sourceAdress}">title</h1>
-<h1 th:text="${transit.destinationAdress}">price</h1>
-<h1 th:text="${transit.date}">price</h1>
-<h1 th:text="${transit.price}">price</h1>
-
-<!--<h1 th:text="${#dates.format(transit.date, 'yyyy-MM-dd')}">price</h1>-->
-
-<!--<cc></cc>-->
+<h1 th:text="${transit.distance}">Distance</h1>
+<h1 th:text="${transit.sourceAdress}">Source Adress</h1>
+<h1 th:text="${transit.destinationAdress}">Destination Adress</h1>
+<h1 th:text="${transit.date}">Date</h1>
+<h1 th:text="${transit.price}">Price</h1>
 
 </body>
 </html>

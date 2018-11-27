@@ -7,11 +7,25 @@
 <body>
 Show transit
 
-<a th:href="@{/transit}">Add transit</a>
+<a th:href="@{/transits}">Add transit</a>
 
+<h2>Table</h2>
+<table border="1">
+    <tr>
+        <th>x</th>
+        <th>y</th>
+        <th>z</th>
+    </tr>
+
+    <tr th:each="transit: ${transits}" th:object="${transit}">
+        <td th:text="*{price}">price</td>
+        <td th:text="*{distance}">distance</td>
+    </tr>
+
+</table>
 
 <ul>
-    <li th:each="showTransit: ${transitsAttribute}" th:text="|${showTransit.sourceAdress} - ${showTransit.price}|"> Transits</li>
+    <li th:each="transit: ${transits}" th:text="|${transit.distance} - ${transit.price}|"> Transits</li>
     <ul/>
 
 </body>

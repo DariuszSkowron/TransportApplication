@@ -51,7 +51,7 @@ public class TransitService {
                 .units(Unit.METRIC)
                 .awaitIgnoreError();
 
-        Long distance = result.rows[0].elements[0].distance.inMeters;
+        Long distance = result.rows[0].elements[0].distance.inMeters / 1000;
         transit.setDistance(distance);
     }
 
@@ -76,4 +76,6 @@ public class TransitService {
         }
         return transits;
     }
+
+
 }
