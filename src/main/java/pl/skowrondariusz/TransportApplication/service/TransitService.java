@@ -83,4 +83,8 @@ public class TransitService {
     }
 
 
+    public void addTransit(Transit transit) {
+        transitRepository.save(transit);
+    }
+
 }
