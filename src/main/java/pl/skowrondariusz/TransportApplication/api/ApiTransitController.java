@@ -27,7 +27,7 @@ public class ApiTransitController {
         this.transitService = transitService;
     }
 
-    @GetMapping(value = "/transits/{id}", produces = "application/json")
+    @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id){
         return transitService.getTransit(id);
     }
