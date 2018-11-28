@@ -18,14 +18,14 @@ Show transit
     </tr>
 
     <tr th:each="transit: ${transits}" th:object="${transit}">
-        <td th:text="*{price}">price</td>
-        <td th:text="*{distance}">distance</td>
+        <td th:text="*{totalPrice}">totalPrice</td>
+        <td th:text="*{totalDistance}">totalDistance</td>
     </tr>
 
 </table>
 
 <ul>
-    <li th:each="transit: ${transits}" th:text="|${transit.distance} - ${transit.price}|"> Transits</li>
+    <li th:each="transit: ${transits}" th:text="|${transit.totalDistance} - ${transit.totalPrice}|"> Transits</li>
     <ul/>
 
 </body>
