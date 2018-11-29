@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class ReportsService {
 
-        @Autowired
+    @Autowired
     TransitService transitService;
-//
+    //
 ////    @Autowired
 ////    TransitRepository transitRepository;
 //
@@ -51,35 +51,5 @@ public class ReportsService {
         }
         reports.setTotalDistance((long) totalPrice);
     }
-//
-//    }
 
 }
-
-//    double totalDistance = 0.0;
-//    double totalPrice = 0.0;
-//    List<Transit> transits = transitService.getTransits(startDate, endDate);
-//        for (Transit transit : transits) {
-//        if (transit.getDistance() != null && transit.getPrice() != null) {
-//            try {
-//                totalDistance = totalDistance + transit.getDistance();
-//                totalPrice = totalPrice + transit.getPrice();
-//
-//            } catch (NullPointerException e) {
-//                logger.error("Nullpointer exception", e);
-//            }
-//        }
-//    }
-//        return "Total distance" + totalDistance + ", total price: " + totalPrice;
-//        JSONPObject myResponse = new JSONPObject("totalDistance");
-//}
-//}
-
-
-//public List<Transit> getTransits(LocalDate startDate, LocalDate endDate) {
-//        List<Transit> transits = transitRepository.find(startDate, endDate);
-//        for(int i = 0; i < transits.size(); i++) {
-//        System.out.println(transits.get(i).toString());
-//        }
-//        return transits;
-//        }
