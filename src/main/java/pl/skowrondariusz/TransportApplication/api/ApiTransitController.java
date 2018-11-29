@@ -1,14 +1,18 @@
 package pl.skowrondariusz.TransportApplication.api;
 
 
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
+//import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +23,7 @@ import java.util.Optional;
 @RestController
 public class ApiTransitController {
     private TransitService transitService;
+//    private ReportsService reportsService;
     private Logger logger;
 
 
@@ -26,6 +31,11 @@ public class ApiTransitController {
     public void setTransitService(TransitService transitService){
         this.transitService = transitService;
     }
+
+//    @Autowired
+//    public void setReportsService(ReportsService reportsService){
+//        this.reportsService = reportsService;
+//    }
 
     @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id){
@@ -39,11 +49,16 @@ public class ApiTransitController {
     }
 
     @PostMapping("/api/transit")
-    public String createTransit(@RequestBody Transit transit){
+    public void createTransit(@RequestBody Transit transit){
         transitService.addTransit(transit);
-        return "showtransit";
     }
 
+
+//    @GetMapping("/api/reports/daily/{start_date}&{end_date}")
+//    public Optional<Reports> getReportFromStartAndEndDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+//        List<Transit> transits = transitService.getTransits(startDate, endDate);
+//
+//    }
 
     @RequestMapping(path = "/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public String getDailyReport(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {

@@ -10,7 +10,9 @@ import com.google.maps.model.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
@@ -85,6 +87,20 @@ public class TransitService {
 
     public void addTransit(Transit transit) {
         transitRepository.save(transit);
+    }
+
+    public void getDailyReport(LocalDate startDate  , LocalDate endDate) {
+        double totalDistance = 0.0;
+        double totalPrice = 0.0;
+        List<Transit> transits = getTransits(startDate, endDate);
+        for (Transit transit : transits) {
+            if (transit.getDistance() != null && transit.getPrice() != null) {
+                    totalDistance = totalDistance + transit.getDistance();
+                    totalPrice = totalPrice + transit.getPrice();
+
+                }
+            }
+        reportsRepository.save()
     }
 
 }

@@ -20,6 +20,12 @@ public class Reports {
     private Long totalDistance;
     private Long totalPrice;
 
+
+    public Reports(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Reports(LocalDate startDate, LocalDate endDate, Long distance, Long totalPrice) {
         this.startDate = startDate;
         this.endDate = endDate;
