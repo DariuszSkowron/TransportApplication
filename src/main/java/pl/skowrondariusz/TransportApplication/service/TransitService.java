@@ -89,18 +89,18 @@ public class TransitService {
         transitRepository.save(transit);
     }
 
-    public void getDailyReport(LocalDate startDate  , LocalDate endDate) {
-        double totalDistance = 0.0;
-        double totalPrice = 0.0;
-        List<Transit> transits = getTransits(startDate, endDate);
-        for (Transit transit : transits) {
-            if (transit.getDistance() != null && transit.getPrice() != null) {
-                    totalDistance = totalDistance + transit.getDistance();
-                    totalPrice = totalPrice + transit.getPrice();
-
-                }
-            }
-        reportsRepository.save()
-    }
+//    public void getDailyReport(LocalDate startDate  , LocalDate endDate) {
+//        double totalDistance = 0.0;
+//        double totalPrice = 0.0;
+//        List<Transit> transits = getTransits(startDate, endDate);
+//        for (Transit transit : transits) {
+//            if (transit.getDistance() != null && transit.getPrice() != null) {
+//                    totalDistance = totalDistance + transit.getDistance();
+//                    totalPrice = totalPrice + transit.getPrice();
+//
+//                }
+//            }
+//        reportsRepository.save()
+//    }
 
 }

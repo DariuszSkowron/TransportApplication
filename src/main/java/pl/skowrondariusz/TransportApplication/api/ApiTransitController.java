@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
-//import pl.skowrondariusz.TransportApplication.service.ReportsService;
+import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
 
 import javax.swing.text.html.Option;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @RestController
 public class ApiTransitController {
     private TransitService transitService;
-//    private ReportsService reportsService;
+    private ReportsService reportsService;
     private Logger logger;
 
 
@@ -32,10 +32,10 @@ public class ApiTransitController {
         this.transitService = transitService;
     }
 
-//    @Autowired
-//    public void setReportsService(ReportsService reportsService){
-//        this.reportsService = reportsService;
-//    }
+    @Autowired
+    public void setReportsService(ReportsService reportsService){
+        this.reportsService = reportsService;
+    }
 
     @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id){
@@ -50,6 +50,7 @@ public class ApiTransitController {
 
     @PostMapping("/api/transit")
     public void createTransit(@RequestBody Transit transit){
+        transitService.calculateDistance(transit);
         transitService.addTransit(transit);
     }
 
@@ -101,6 +102,17 @@ public class ApiTransitController {
         return "Total distance " + totalDistance + ", total price: " + totalPrice;
 
     }
+
+    @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        Reports reports = new Reports();
+        reportsService.addReports(reports);
+        reportsService.calculateTotalDistance(reports);
+        reportsService.calculateTotalPrice(reports);
+        reportsService.addReports(reports);
+        return "Total distance: " + reports.getTotalDistance() + ", total price: " + reports.getTotalPrice();
+    }
+
 }
 
 

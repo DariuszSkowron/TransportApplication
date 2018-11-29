@@ -26,12 +26,10 @@ public class Reports {
         this.endDate = endDate;
     }
 
-    public Reports(LocalDate startDate, LocalDate endDate, Long distance, Long totalPrice) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.totalDistance = distance;
-        this.totalPrice = totalPrice;
+    public Reports() {
+
     }
+
 
     public Long getId() {
         return id;
