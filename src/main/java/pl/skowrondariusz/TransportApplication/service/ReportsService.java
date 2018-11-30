@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
-import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
 
 import java.time.LocalDate;
@@ -46,10 +45,19 @@ public class ReportsService {
         List<Transit> transits = transitService.getTransits(reports.getStartDate(), reports.getEndDate());
         for (Transit transit : transits) {
             if (transit.getPrice() != null) {
-                totalPrice = totalPrice + transit.getDistance();
+                totalPrice = totalPrice + transit.getPrice();
             }
         }
-        reports.setTotalDistance((long) totalPrice);
+        reports.setTotalPrice((long) totalPrice);
     }
 
+    public String addReports1(LocalDate startDate, LocalDate endDate) {
+        Reports reports = new Reports();
+        reports.setStartDate(startDate);
+        reports.setEndDate(endDate);
+        calculateTotalDistance(reports);
+        calculateTotalPrice(reports);
+        reportsRepository.save(reports);
+        return "Total distance " + reports.getTotalDistance()+ ", total price: " + reports.getTotalPrice();
+    }
 }

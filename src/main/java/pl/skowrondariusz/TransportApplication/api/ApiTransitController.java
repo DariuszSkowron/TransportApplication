@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.api;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,13 +106,12 @@ public class ApiTransitController {
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        Reports reports = new Reports();
-        reportsService.addReports(reports);
-        reportsService.calculateTotalDistance(reports);
-        reportsService.calculateTotalPrice(reports);
-        reportsService.addReports(reports);
-        return "Total distance: " + reports.getTotalDistance() + ", total price: " + reports.getTotalPrice();
+        reportsService.addReports1(startDate, endDate);
+        return reportsService.addReports1(startDate, endDate);
     }
+
+
+
 
 }
 
