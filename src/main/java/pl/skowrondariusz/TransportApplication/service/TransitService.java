@@ -81,7 +81,7 @@ public class TransitService {
     }
 
     public Optional<Transit> getTransit(Long id){
-        return transitRepository.findById(id);
+            return transitRepository.findById(id);
     }
 
 

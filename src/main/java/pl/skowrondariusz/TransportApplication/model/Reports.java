@@ -1,5 +1,7 @@
 package pl.skowrondariusz.TransportApplication.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,9 @@ public class Reports {
     @Id
     @GeneratedValue
     private Long id;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
     private Long totalDistance;
     private Long totalPrice;

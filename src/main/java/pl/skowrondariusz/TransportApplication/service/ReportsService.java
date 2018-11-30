@@ -8,7 +8,9 @@ import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReportsService {
@@ -60,4 +62,25 @@ public class ReportsService {
         reportsRepository.save(reports);
         return "Total distance " + reports.getTotalDistance()+ ", total price: " + reports.getTotalPrice();
     }
+
+
+
+    public List<Reports> findAllReports() {
+        Iterable<Reports> all = reportsRepository.findAll();
+        List<Reports> reports = convertReportsToList(all);
+        return reports;
+    }
+
+    private List<Reports> convertReportsToList(Iterable<Reports> all) {
+        List<Reports> reports = new ArrayList<>();
+        for (Reports report : all) {
+            reports.add(report);
+        }
+        return reports;
+    }
+
+    public Optional<Reports> getReport(Long id){
+        return reportsRepository.findById(id);
+    }
+
 }

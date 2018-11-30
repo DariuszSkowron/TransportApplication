@@ -110,6 +110,16 @@ public class ApiTransitController {
         return reportsService.addReports1(startDate, endDate);
     }
 
+    @GetMapping(value = "/api/reports/{id}", produces = "application/json")
+    public Optional<Reports> getReportsFromId(@PathVariable Long id){
+        return reportsService.getReport(id);
+    }
+
+    @GetMapping("/api/reports")
+    public Collection<Reports> getAllReports(){
+        return reportsService.findAllReports();
+    }
+
 
 
 
