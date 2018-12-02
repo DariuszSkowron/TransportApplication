@@ -104,14 +104,13 @@ public class ApiTransitController {
     }
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-    public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Reports reports = new Reports();
         reports.setStartDate(startDate);
         reports.setEndDate(endDate);
         reportsService.calculateTotalDistance(reports);
         reportsService.calculateTotalPrice(reports);
-        String answer = "Total distance";
-        return answer;
+        return reports;
     }
 
     @GetMapping(value = "/api/reports/{id}", produces = "application/json")
