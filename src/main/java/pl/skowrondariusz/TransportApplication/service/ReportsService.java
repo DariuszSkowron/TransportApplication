@@ -53,14 +53,14 @@ public class ReportsService {
         reports.setTotalPrice((long) totalPrice);
     }
 
-    public String addReports1(LocalDate startDate, LocalDate endDate) {
-        Reports reports = new Reports();
-        reports.setStartDate(startDate);
-        reports.setEndDate(endDate);
-        calculateTotalDistance(reports);
-        calculateTotalPrice(reports);
+    public void addReports1(Reports reports) {
+//        Reports reports = new Reports();
+//        reports.setStartDate(startDate);
+//        reports.setEndDate(endDate);
+//        calculateTotalDistance(reports);
+//        calculateTotalPrice(reports);
         reportsRepository.save(reports);
-        return "Total distance " + reports.getTotalDistance()+ ", total price: " + reports.getTotalPrice();
+//        return reports;
     }
 
 

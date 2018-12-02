@@ -81,7 +81,7 @@ public class Reports {
                 "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", totalDistance=" + totalDistance +
+                ", totalDistance=" + totalDistance + ", km" +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

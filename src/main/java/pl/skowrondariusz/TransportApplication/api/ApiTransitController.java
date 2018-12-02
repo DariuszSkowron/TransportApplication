@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.api;
 
 
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class ApiTransitController {
     private TransitService transitService;
     private ReportsService reportsService;
     private Logger logger;
+
 
 
     @Autowired
@@ -103,7 +105,13 @@ public class ApiTransitController {
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return reportsService.addReports1(startDate, endDate);
+        Reports reports = new Reports();
+        reports.setStartDate(startDate);
+        reports.setEndDate(endDate);
+        reportsService.calculateTotalDistance(reports);
+        reportsService.calculateTotalPrice(reports);
+        String answer = "Total distance";
+        return answer;
     }
 
     @GetMapping(value = "/api/reports/{id}", produces = "application/json")
@@ -115,7 +123,6 @@ public class ApiTransitController {
     public Collection<Reports> getAllReports(){
         return reportsService.findAllReports();
     }
-
 
 
 
