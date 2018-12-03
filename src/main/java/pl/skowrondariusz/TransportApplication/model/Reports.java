@@ -81,8 +81,12 @@ public class Reports {
                 "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", totalDistance=" + totalDistance + ", km" +
+                ", totalDistance=" + totalDistance + "km" +
                 ", totalPrice=" + totalPrice +
                 '}';
+    }
+
+    public  jsonResponse(){
+        return "Total distance" + totalDistance + "Total Price" + totalPrice;
     }
 }

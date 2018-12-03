@@ -17,10 +17,7 @@ public class ReportsService {
 
     @Autowired
     TransitService transitService;
-    //
-////    @Autowired
-////    TransitRepository transitRepository;
-//
+
     @Autowired
     ReportsRepository reportsRepository;
 
@@ -54,13 +51,7 @@ public class ReportsService {
     }
 
     public void addReports1(Reports reports) {
-//        Reports reports = new Reports();
-//        reports.setStartDate(startDate);
-//        reports.setEndDate(endDate);
-//        calculateTotalDistance(reports);
-//        calculateTotalPrice(reports);
         reportsRepository.save(reports);
-//        return reports;
     }
 
 

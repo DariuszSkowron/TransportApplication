@@ -2,6 +2,8 @@ package pl.skowrondariusz.TransportApplication.api;
 
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,12 +57,6 @@ public class ApiTransitController {
     }
 
 
-//    @GetMapping("/api/reports/daily/{start_date}&{end_date}")
-//    public Optional<Reports> getReportFromStartAndEndDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
-//        List<Transit> transits = transitService.getTransits(startDate, endDate);
-//
-//    }
-
     @RequestMapping(path = "/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public String getDailyReport(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         double totalDistance = 0.0;
@@ -104,13 +100,18 @@ public class ApiTransitController {
     }
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-    public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Reports reports = new Reports();
         reports.setStartDate(startDate);
         reports.setEndDate(endDate);
         reportsService.calculateTotalDistance(reports);
         reportsService.calculateTotalPrice(reports);
-        return reports;
+        Gson gsonBuilder = new GsonBuilder().create();
+        String jsonFromPojo = gsonBuilder.toJson(reports.getTotalDistance() + reports.getTotalPrice());
+        return jsonFromPojo();
+    }
+
+    private String jsonFromPojo() {
     }
 
     @GetMapping(value = "/api/reports/{id}", produces = "application/json")
