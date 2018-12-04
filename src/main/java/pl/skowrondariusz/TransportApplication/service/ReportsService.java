@@ -27,28 +27,29 @@ public class ReportsService {
     }
 
 
-    public void calculateTotalDistance(Reports reports) {
-        double totalDistance = 0.0;
-        List<Transit> transits = transitService.getTransits(reports.getStartDate(), reports.getEndDate());
-        for (Transit transit : transits) {
-            if (transit.getDistance() != null) {
-                totalDistance = totalDistance + transit.getDistance();
-            }
-        }
-        reports.setTotalDistance((long) totalDistance);
-    }
+//    public void calculateTotalDistance(Reports reports) {
+//        double totalDistance = 0.0;
+//        List<Transit> transits = transitService.getTransits(reports.getStartDate(), reports.getEndDate());
+//        for (Transit transit : transits) {
+//            if (transit.getDistance() != null) {
+//                totalDistance = totalDistance + transit.getDistance();
+//            }
+//        }
+//        reports.setTotalDistance((long) totalDistance);
+//    }
 
 
-    public void calculateTotalPrice(Reports reports) {
-        double totalPrice = 0.0;
-        List<Transit> transits = transitService.getTransits(reports.getStartDate(), reports.getEndDate());
-        for (Transit transit : transits) {
-            if (transit.getPrice() != null) {
-                totalPrice = totalPrice + transit.getPrice();
-            }
-        }
-        reports.setTotalPrice((long) totalPrice);
-    }
+//    public void calculateTotalPrice(LocalDate startDate, LocalDate endDate) {
+//        double totalPrice = 0.0;
+//        Reports reports = new Reports();
+//        List<Transit> transits = transitService.getTransits(startDate, endDate);
+//        for (Transit transit : transits) {
+//            if (transit.getPrice() != null) {
+//                totalPrice = totalPrice + transit.getPrice();
+//            }
+//        }
+//        reports.setTotalPrice((long) totalPrice);
+//    }
 
     public void addReports1(Reports reports) {
         reportsRepository.save(reports);

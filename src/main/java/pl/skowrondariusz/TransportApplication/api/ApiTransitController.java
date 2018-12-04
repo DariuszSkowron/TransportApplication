@@ -102,10 +102,20 @@ public class ApiTransitController {
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Reports reports = new Reports();
-        reports.setStartDate(startDate);
+        double totalPrice = 0.0;
+        double totalDistance = 0.0;
+        List<Transit> transits = transitService.getTransits(startDate, endDate);
+        for (Transit transit : transits) {
+            if (transit.getPrice() != null && transit.getDistance() != null) {
+                totalPrice = totalPrice + transit.getPrice();
+                totalDistance = totalDistance + transit.getDistance();
+            }
+        }
         reports.setEndDate(endDate);
-        reportsService.calculateTotalDistance(reports);
-        reportsService.calculateTotalPrice(reports);
+        reports.setStartDate(startDate);
+        reports.setTotalPrice((long) totalPrice);
+        reports.setTotalDistance((long) totalDistance);
+        reportsService.addReports(reports);
         return reports;
     }
 

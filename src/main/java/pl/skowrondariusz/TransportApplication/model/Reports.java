@@ -25,6 +25,7 @@ public class Reports {
     private LocalDate endDate;
     @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
+//    @JsonSerialize(using=PriceSerializer.class)
     private Long totalPrice;
 
 
@@ -38,26 +39,26 @@ public class Reports {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public LocalDate getStartDate() {
+//        return startDate;
+//    }
+//
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
+//
+//    public LocalDate getEndDate() {
+//        return endDate;
+//    }
+//
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
