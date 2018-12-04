@@ -100,19 +100,15 @@ public class ApiTransitController {
     }
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-    public String getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Reports reports = new Reports();
         reports.setStartDate(startDate);
         reports.setEndDate(endDate);
         reportsService.calculateTotalDistance(reports);
         reportsService.calculateTotalPrice(reports);
-        Gson gsonBuilder = new GsonBuilder().create();
-        String jsonFromPojo = gsonBuilder.toJson(reports.getTotalDistance() + reports.getTotalPrice());
-        return jsonFromPojo();
+        return reports;
     }
 
-    private String jsonFromPojo() {
-    }
 
     @GetMapping(value = "/api/reports/{id}", produces = "application/json")
     public Optional<Reports> getReportsFromId(@PathVariable Long id){

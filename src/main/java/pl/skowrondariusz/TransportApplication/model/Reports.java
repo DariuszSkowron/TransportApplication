@@ -1,6 +1,8 @@
 package pl.skowrondariusz.TransportApplication.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +23,7 @@ public class Reports {
     private LocalDate startDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
+    @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
     private Long totalPrice;
 
@@ -86,7 +89,4 @@ public class Reports {
                 '}';
     }
 
-    public  jsonResponse(){
-        return "Total distance" + totalDistance + "Total Price" + totalPrice;
-    }
 }
