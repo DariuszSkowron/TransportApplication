@@ -4,11 +4,13 @@ package pl.skowrondariusz.TransportApplication.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.service.ReportsService;
@@ -16,6 +18,7 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,11 +105,25 @@ public class ApiTransitController {
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Reports reports = new Reports();
+        reportsService.addReports(reports);
         reports.setStartDate(startDate);
         reports.setEndDate(endDate);
         reports.setTotalDistance(reportsService.calculateTotalDistance(startDate, endDate));
         reports.setTotalPrice(reportsService.calculateTotalPrice(startDate, endDate));
         return reports;
+    }
+
+    @RequestMapping(path = "/api/reports/monthly", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public MonthlyReport getMonthlyReport1() {
+        MonthlyReport monthlyReport = new MonthlyReport();
+        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
+        monthlyReport.setStartDate(startDate);
+        LocalDate endDate = LocalDate.now();
+        monthlyReport.setEndDate(endDate);
+        monthlyReport.setTotalDistance(reportsService.calculateTotalDistance(startDate, endDate));
+        monthlyReport.setTotalPrice(reportsService.calculateTotalPrice(startDate, endDate));
+
+        return monthlyReport;
     }
 
 

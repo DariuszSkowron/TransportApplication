@@ -1,5 +1,8 @@
 package pl.skowrondariusz.TransportApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
@@ -63,6 +66,7 @@ public class Reports {
         this.endDate = endDate;
     }
 
+    @JsonProperty("total_distance")
     public Long getTotalDistance() {
         return totalDistance;
     }
@@ -75,6 +79,7 @@ public class Reports {
         return totalPrice;
     }
 
+    @JsonProperty("total_price")
     public void setTotalPrice(Long totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -85,8 +90,8 @@ public class Reports {
                 "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", totalDistance=" + totalDistance + "km" +
-                ", totalPrice=" + totalPrice +
+                ", total Distance=" + totalDistance + "km" +
+                ", total Price=" + totalPrice +
                 '}';
     }
 
