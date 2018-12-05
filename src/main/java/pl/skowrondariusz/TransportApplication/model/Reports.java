@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
+import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Reports {
     private LocalDate endDate;
     @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
-//    @JsonSerialize(using=PriceSerializer.class)
+    @JsonSerialize(using=PriceSerializer.class)
     private Long totalPrice;
 
 

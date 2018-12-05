@@ -20,7 +20,6 @@ public class DistanceSerializer<T> extends StdSerializer<T>{
     public void serialize(T value, JsonGenerator gen, SerializerProvider provider) throws IOException {
 //        String replaceText = (String) value;
 //        replaceText = replaceText.replace(' ', '_');
-        gen.writeString(value.toString().replace("0", "_"
-        ) + "km");
+        gen.writeString(value + " " + "km");
     }
 }
