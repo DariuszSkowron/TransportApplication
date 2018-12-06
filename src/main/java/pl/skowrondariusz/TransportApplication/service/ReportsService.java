@@ -23,8 +23,13 @@ public class ReportsService {
     @Autowired
     ReportsRepository reportsRepository;
 
-    @Autowired
+
     MonthlyReportRepository monthlyReportRepository;
+
+    @Autowired
+    public void setMonthlyReportRepository(MonthlyReportRepository monthlyReportRepository){
+        this.monthlyReportRepository = monthlyReportRepository;
+    }
 
 
     public void addReports(Reports reports) {
@@ -59,7 +64,9 @@ public class ReportsService {
         reportsRepository.save(reports);
     }
 
-
+    public void addMonthlyReports(MonthlyReport monthlyReport) {
+        monthlyReportRepository.save(monthlyReport);
+    }
 
 
 

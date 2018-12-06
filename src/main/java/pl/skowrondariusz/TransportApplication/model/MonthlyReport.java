@@ -2,8 +2,10 @@ package pl.skowrondariusz.TransportApplication.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
+@Entity
 public class MonthlyReport extends Reports {
 
 

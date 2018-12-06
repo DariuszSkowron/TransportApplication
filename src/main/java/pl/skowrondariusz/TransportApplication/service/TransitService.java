@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.MonthlyReportRepository;
+import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
 import java.time.LocalDate;
@@ -31,9 +33,12 @@ public class TransitService {
 
     @Autowired
    TransitRepository transitRepository;
+//
+//    @Autowired
+//    MonthlyReportRepository monthlyReportRepository;
 
     @Autowired
-    MonthlyReportRepository monthlyReportRepository;
+    ReportsService reportsService;
 
     private static final String API_KEY = "AIzaSyBlJos2RY_SBYeQIKWQJdwEN_2VnJhRY-0";
 
@@ -84,24 +89,33 @@ public class TransitService {
         return transits;
     }
 
-    public List<Transit> getTransitsFromCurrentMonth() {
+    public void getTransitsFromCurrentMonth() {
         for (int i = LocalDate.now().getDayOfMonth(); i > 1; i--){
-
+            MonthlyReport monthlyReport = new MonthlyReport();
             LocalDate date = LocalDate.now().withDayOfMonth(i);
-            Long numberOfTransits;
+            Long numberOfTransits = Long.valueOf(0);
+            double totalDistance = 0.0;
+            double totalPrice = 0.0;
+            double averageDistance = 0.0;
+            double averagePrice = 0.0;
             List<Transit> transits = transitRepository.findMonthly(date);
             numberOfTransits = Long.valueOf(transits.size());
-
-
+            for (Transit transit : transits) {
+                if (transit.getDistance() !=null && transit.getPrice() != null){
+                    totalDistance = totalDistance + transit.getDistance();
+                }
+            }
+            averageDistance = totalDistance/numberOfTransits;
+            averagePrice = totalPrice/numberOfTransits;
+            monthlyReport.setDate(date);
+            monthlyReport.setAverageDistance((long) averageDistance);
+            monthlyReport.setAveragePrice((long) averagePrice);
+            monthlyReport.setTotalDistance((long) totalDistance);
+            reportsService.addMonthlyReports(monthlyReport);
 
         }
-        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
-        LocalDate currentDate = LocalDate.now().ge;
-        List<Transit> transits = transitRepository.findMonthly();
-        for(int i = 1; i < transits.size(); i++) {
-            System.out.println(transits.get(i).toString());
-        }
-        return transits;
+
+
     }
 
 
