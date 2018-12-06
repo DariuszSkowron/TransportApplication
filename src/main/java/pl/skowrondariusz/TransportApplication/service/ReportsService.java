@@ -2,8 +2,10 @@ package pl.skowrondariusz.TransportApplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
+import pl.skowrondariusz.TransportApplication.repository.MonthlyReportRepository;
 import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
 
 
@@ -20,6 +22,9 @@ public class ReportsService {
 
     @Autowired
     ReportsRepository reportsRepository;
+
+    @Autowired
+    MonthlyReportRepository monthlyReportRepository;
 
 
     public void addReports(Reports reports) {
@@ -57,6 +62,7 @@ public class ReportsService {
 
 
 
+
     public List<Reports> findAllReports() {
         Iterable<Reports> all = reportsRepository.findAll();
         List<Reports> reports = convertReportsToList(all);
@@ -74,5 +80,24 @@ public class ReportsService {
     public Optional<Reports> getReport(Long id){
         return reportsRepository.findById(id);
     }
+
+
+
+
+    public List<MonthlyReport> findAll() {
+        Iterable<MonthlyReport> all = monthlyReportRepository.findAll();
+        List<MonthlyReport> monthlyReports = convertMonthlyReportsToList(all);
+        return monthlyReports;
+    }
+
+    private List<MonthlyReport> convertMonthlyReportsToList(Iterable<MonthlyReport> all) {
+        List<MonthlyReport> monthlyReports = new ArrayList<>();
+        for (MonthlyReport monthlyReport : all) {
+            monthlyReports.add(monthlyReport);
+        }
+        return monthlyReports;
+    }
+
+
 
 }

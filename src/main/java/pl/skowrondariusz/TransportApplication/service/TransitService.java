@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.skowrondariusz.TransportApplication.model.Transit;
+import pl.skowrondariusz.TransportApplication.repository.MonthlyReportRepository;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
 
 import java.time.LocalDate;
@@ -30,6 +31,9 @@ public class TransitService {
 
     @Autowired
    TransitRepository transitRepository;
+
+    @Autowired
+    MonthlyReportRepository monthlyReportRepository;
 
     private static final String API_KEY = "AIzaSyBlJos2RY_SBYeQIKWQJdwEN_2VnJhRY-0";
 
@@ -59,22 +63,53 @@ public class TransitService {
     }
 
     public List<Transit> findAll() {
-        Iterable<Transit> all = transitRepository.findAll();
-        List<Transit> transits = convertToList(all);
-        return transits;
-    }
-
-    private List<Transit> convertToList(Iterable<Transit> all) {
-        List<Transit> transits = new ArrayList<>();
-        for (Transit transit : all) {
-            transits.add(transit);
+            Iterable<Transit> all = transitRepository.findAll();
+            List<Transit> transits = convertToList(all);
+            return transits;
         }
-        return transits;
+
+        private List<Transit> convertToList(Iterable<Transit> all) {
+            List<Transit> transits = new ArrayList<>();
+            for (Transit transit : all) {
+                transits.add(transit);
+            }
+            return transits;
     }
 
     public List<Transit> getTransits(LocalDate startDate, LocalDate endDate) {
         List<Transit> transits = transitRepository.find(startDate, endDate);
         for(int i = 0; i < transits.size(); i++) {
+            System.out.println(transits.get(i).toString());
+        }
+        return transits;
+    }
+
+    public List<Transit> getTransitsFromCurrentMonth() {
+        for (int i = LocalDate.now().getDayOfMonth(); i > 1; i--){
+
+            LocalDate date = LocalDate.now().withDayOfMonth(i);
+            Long numberOfTransits;
+            List<Transit> transits = transitRepository.findMonthly(date);
+            numberOfTransits = Long.valueOf(transits.size());
+
+
+
+        }
+        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate currentDate = LocalDate.now().ge;
+        List<Transit> transits = transitRepository.findMonthly();
+        for(int i = 1; i < transits.size(); i++) {
+            System.out.println(transits.get(i).toString());
+        }
+        return transits;
+    }
+
+
+
+
+    public List<Transit> getTransitsFromCurrentMonth(LocalDate date){
+        List<Transit> transits = transitRepository.findMonthly(date);
+        for (int i = 0; i < transits.size(); i++) {
             System.out.println(transits.get(i).toString());
         }
         return transits;

@@ -117,9 +117,8 @@ public class ApiTransitController {
     public MonthlyReport getMonthlyReport1() {
         MonthlyReport monthlyReport = new MonthlyReport();
         LocalDate startDate = LocalDate.now().withDayOfMonth(1);
-        monthlyReport.setStartDate(startDate);
         LocalDate endDate = LocalDate.now();
-        monthlyReport.setEndDate(endDate);
+        LocalDate.now().getDayOfMonth();
         monthlyReport.setTotalDistance(reportsService.calculateTotalDistance(startDate, endDate));
         monthlyReport.setTotalPrice(reportsService.calculateTotalPrice(startDate, endDate));
 
