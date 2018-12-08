@@ -92,7 +92,7 @@ public class TransitService {
 
     public List<MonthlyReport> getTransitsFromCurrentMonth() {
         List<MonthlyReport> monthlyReportList = new ArrayList<>();
-        for (int i = 1; i <= LocalDate.now().getDayOfMonth(); i++){
+        for (int i = 1; i <= LocalDate.now().getDayOfMonth(); i++) {
             MonthlyReport monthlyReport = new MonthlyReport();
             LocalDate date = LocalDate.now().withDayOfMonth(i);
             Long numberOfTransits;
@@ -101,22 +101,25 @@ public class TransitService {
             double averageDistance;
             double averagePrice;
             List<Transit> transits = transitRepository.findMonthly(date);
-            numberOfTransits = Long.valueOf(transits.size());
-            for (Transit transit : transits) {
-                if (transit.getDistance() !=null && transit.getPrice() != null){
-                    totalDistance = totalDistance + transit.getDistance();
-                    totalPrice = totalPrice + transit.getPrice();
+            if (Long.valueOf(transits.size()) <= 0) continue;
+            else {
+                numberOfTransits = Long.valueOf(transits.size());
+                for (Transit transit : transits) {
+                    if (transit.getDistance() != null && transit.getPrice() != null) {
+                        totalDistance = totalDistance + transit.getDistance();
+                        totalPrice = totalPrice + transit.getPrice();
+                    }
                 }
-            }
-            averageDistance = totalDistance/numberOfTransits;
-            averagePrice = totalPrice/numberOfTransits;
-            monthlyReport.setDate(date);
-            monthlyReport.setAverageDistance((long) averageDistance);
-            monthlyReport.setAveragePrice((long) averagePrice);
-            monthlyReport.setTotalDistance((long) totalDistance);
+                averageDistance = totalDistance / numberOfTransits;
+                averagePrice = totalPrice / numberOfTransits;
+                monthlyReport.setDate(date);
+                monthlyReport.setAverageDistance((long) averageDistance);
+                monthlyReport.setAveragePrice((long) averagePrice);
+                monthlyReport.setTotalDistance((long) totalDistance);
 //            reportsService.addMonthlyReports(monthlyReport);
-            monthlyReportList.add(monthlyReport);
+                monthlyReportList.add(monthlyReport);
 
+            }
         }
         return monthlyReportList;
     }
