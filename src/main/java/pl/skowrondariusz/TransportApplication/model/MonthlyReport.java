@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.logging.log4j.util.EnglishEnums;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.skowrondariusz.TransportApplication.config.DateSerializer;
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
 import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
 
@@ -21,7 +22,8 @@ public class MonthlyReport  {
     @GeneratedValue
     private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "MMM, d", locale = "en_US")
+    @JsonSerialize(using=DateSerializer.class)
+//    @JsonFormat(pattern = "MMMM, d", locale = "en_US")
     private LocalDate date;
     @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
