@@ -98,8 +98,8 @@ public class TransitService {
             Long numberOfTransits;
             double totalDistance = 0.0;
             double totalPrice = 0.0;
-            double averageDistance;
-            double averagePrice;
+//            double averageDistance;
+//            double averagePrice;
             List<Transit> transits = transitRepository.findMonthly(date);
             if (Long.valueOf(transits.size()) <= 0) continue;
             else {
@@ -110,11 +110,11 @@ public class TransitService {
                         totalPrice = totalPrice + transit.getPrice();
                     }
                 }
-                averageDistance = totalDistance / numberOfTransits;
-                averagePrice = totalPrice / numberOfTransits;
+//                averageDistance = totalDistance / numberOfTransits;
+//                averagePrice = totalPrice / numberOfTransits;
                 monthlyReport.setDate(date);
-                monthlyReport.setAverageDistance((long) averageDistance);
-                monthlyReport.setAveragePrice((long) averagePrice);
+                monthlyReport.setAverageDistance((long)(totalDistance / numberOfTransits));
+                monthlyReport.setAveragePrice((long) (totalPrice/ numberOfTransits));
                 monthlyReport.setTotalDistance((long) totalDistance);
 //            reportsService.addMonthlyReports(monthlyReport);
                 monthlyReportList.add(monthlyReport);

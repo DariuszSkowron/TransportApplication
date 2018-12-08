@@ -1,24 +1,40 @@
 package pl.skowrondariusz.TransportApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.apache.logging.log4j.util.EnglishEnums;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
+import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
-public class MonthlyReport extends Reports {
+public class MonthlyReport  {
 
 
+    @Id
+    @GeneratedValue
+    private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "MMM, d", locale = "en_US")
     private LocalDate date;
-    private Long averageDistance;
-    private Long averagePrice;
+    @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
+    @JsonSerialize(using=DistanceSerializer.class)
+    private Long averageDistance;
+    @JsonSerialize(using=PriceSerializer.class)
+    private Long averagePrice;
 
 
-    public MonthlyReport(LocalDate startDate, LocalDate endDate) {
-        super(startDate, endDate);
-    }
+//
+//    public MonthlyReport(LocalDate startDate, LocalDate endDate) {
+//        super(startDate, endDate);
+//    }
 
     public MonthlyReport() {
     }
@@ -31,14 +47,17 @@ public class MonthlyReport extends Reports {
         this.date = date;
     }
 
+
     public Long getAverageDistance() {
         return averageDistance;
     }
 
+    @JsonProperty("avg_distance")
     public void setAverageDistance(Long averageDistance) {
         this.averageDistance = averageDistance;
     }
 
+    @JsonProperty("avg_price")
     public Long getAveragePrice() {
         return averagePrice;
     }
@@ -47,13 +66,17 @@ public class MonthlyReport extends Reports {
         this.averagePrice = averagePrice;
     }
 
-    @Override
+    @JsonProperty("total_distance")
     public Long getTotalDistance() {
         return totalDistance;
     }
 
-    @Override
+
     public void setTotalDistance(Long totalDistance) {
         this.totalDistance = totalDistance;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
