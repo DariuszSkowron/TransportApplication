@@ -52,6 +52,9 @@ public class ApiTransitController {
         return transitService.findAll();
     }
 
+
+
+
     @PostMapping("/api/transit")
     public Transit createTransit(@RequestBody Transit transit){
         transitService.calculateDistance(transit);
@@ -113,18 +116,17 @@ public class ApiTransitController {
         return reports;
     }
 
-    @RequestMapping(path = "/api/reports/monthly", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-    public MonthlyReport getMonthlyReport1() {
-        MonthlyReport monthlyReport = new MonthlyReport();
-        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
-        monthlyReport.setStartDate(startDate);
-        LocalDate endDate = LocalDate.now();
-        monthlyReport.setEndDate(endDate);
-        monthlyReport.setTotalDistance(reportsService.calculateTotalDistance(startDate, endDate));
-        monthlyReport.setTotalPrice(reportsService.calculateTotalPrice(startDate, endDate));
-
-        return monthlyReport;
-    }
+//    @RequestMapping(path = "/api/reports/monthly", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+//    public MonthlyReport getMonthlyReport1() {
+//        MonthlyReport monthlyReport = new MonthlyReport();
+//        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
+//        LocalDate endDate = LocalDate.now();
+//        LocalDate.now().getDayOfMonth();
+//        monthlyReport.setTotalDistance(reportsService.calculateTotalDistance(startDate, endDate));
+//        monthlyReport.setTotalPrice(reportsService.calculateTotalPrice(startDate, endDate));
+//
+//        return monthlyReport;
+//    }
 
 
     @GetMapping(value = "/api/reports/{id}", produces = "application/json")
@@ -137,6 +139,12 @@ public class ApiTransitController {
         return reportsService.findAllReports();
     }
 
+    @GetMapping("/api/reports/monthly")
+
+    public Collection<MonthlyReport> getAllMonthlyeports(){
+        transitService.getTransitsFromCurrentMonth();
+        return reportsService.findAll();
+    }
 
 
 }
