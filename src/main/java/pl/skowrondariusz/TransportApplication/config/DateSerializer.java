@@ -14,7 +14,7 @@ import java.util.Locale;
 public class DateSerializer<T> extends StdSerializer<LocalDate> {
 
     private static DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("MMMM, d", Locale.getDefault());
+            DateTimeFormatter.ofPattern("MMMM, d", Locale.US);
 
     public DateSerializer(){
         this(null);
