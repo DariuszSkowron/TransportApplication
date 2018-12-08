@@ -140,10 +140,11 @@ public class ApiTransitController {
     }
 
     @GetMapping("/api/reports/monthly")
+
     public Collection<MonthlyReport> getAllMonthlyeports(){
+        transitService.getTransitsFromCurrentMonth();
         return reportsService.findAll();
     }
-
 
 
 }
