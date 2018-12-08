@@ -141,9 +141,9 @@ public class ApiTransitController {
 
     @GetMapping("/api/reports/monthly")
 
-    public Collection<MonthlyReport> getAllMonthlyeports(){
-        transitService.getTransitsFromCurrentMonth();
-        return reportsService.findAll();
+    public List<MonthlyReport> getAllMonthlyeports(){
+       return transitService.getTransitsFromCurrentMonth();
+//        return reportsService.findAll();
     }
 
 
