@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
+import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.MonthlyReportRepository;
 import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
@@ -89,20 +90,22 @@ public class TransitService {
         return transits;
     }
 
-    public void getTransitsFromCurrentMonth() {
-        for (int i = LocalDate.now().getDayOfMonth(); i > 1; i--){
+    public List<MonthlyReport> getTransitsFromCurrentMonth() {
+        List<MonthlyReport> monthlyReportList = new ArrayList<>();
+        for (int i = 1; i <= LocalDate.now().getDayOfMonth(); i++){
             MonthlyReport monthlyReport = new MonthlyReport();
             LocalDate date = LocalDate.now().withDayOfMonth(i);
-            Long numberOfTransits = Long.valueOf(0);
+            Long numberOfTransits;
             double totalDistance = 0.0;
             double totalPrice = 0.0;
-            double averageDistance = 0.0;
-            double averagePrice = 0.0;
+            double averageDistance;
+            double averagePrice;
             List<Transit> transits = transitRepository.findMonthly(date);
             numberOfTransits = Long.valueOf(transits.size());
             for (Transit transit : transits) {
                 if (transit.getDistance() !=null && transit.getPrice() != null){
                     totalDistance = totalDistance + transit.getDistance();
+                    totalPrice = totalPrice + transit.getPrice();
                 }
             }
             averageDistance = totalDistance/numberOfTransits;
@@ -111,11 +114,11 @@ public class TransitService {
             monthlyReport.setAverageDistance((long) averageDistance);
             monthlyReport.setAveragePrice((long) averagePrice);
             monthlyReport.setTotalDistance((long) totalDistance);
-            reportsService.addMonthlyReports(monthlyReport);
+//            reportsService.addMonthlyReports(monthlyReport);
+            monthlyReportList.add(monthlyReport);
 
         }
-
-
+        return monthlyReportList;
     }
 
 
