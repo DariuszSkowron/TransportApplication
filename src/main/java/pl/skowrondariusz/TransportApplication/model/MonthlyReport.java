@@ -41,10 +41,14 @@ public class MonthlyReport  {
     public MonthlyReport() {
     }
 
+    public MonthlyReport(LocalDate date) {
+        this.date = date;
+    }
+
     public LocalDate getDate() {
         return date;
     }
-
+//    @JsonSerialize(using=DateSerializer.class)
     public void setDate(LocalDate date) {
         this.date = date;
     }
