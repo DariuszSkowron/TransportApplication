@@ -3,8 +3,11 @@ package pl.skowrondariusz.TransportApplication.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Reports;
+import pl.skowrondariusz.TransportApplication.repository.ReportsRepository;
+import pl.skowrondariusz.TransportApplication.service.ReportsService;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.containsString;
@@ -12,6 +15,8 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -24,6 +29,8 @@ public class SerializersTest {
     public void SerializingDateWithCustomSerializer()
         throws JsonProcessingException{
 
+
+
         ObjectMapper mapper = new ObjectMapper();
 
         LocalDate date = LocalDate.of(2018,12,20);
@@ -31,15 +38,22 @@ public class SerializersTest {
         LocalDate date2 = LocalDate.of(2018,12,2);
         LocalDate date3 = LocalDate.of(2018,12,3);
 
-        MonthlyReport monthlyReport = new MonthlyReport(date);
-        MonthlyReport monthlyReport1 = new MonthlyReport(date1);
-        MonthlyReport monthlyReport2 = new MonthlyReport(date2);
-        MonthlyReport monthlyReport3 = new MonthlyReport(date3);
+        List<MonthlyReport> monthlyReportList = new ArrayList<MonthlyReport>();
+        monthlyReportList.add(new MonthlyReport(date));
+        monthlyReportList.add(new MonthlyReport(date1));
+        monthlyReportList.add(new MonthlyReport(date2));
+        monthlyReportList.add(new MonthlyReport(date3));
 
-        String result = mapper.writeValueAsString(monthlyReport);
-        String result1 = mapper.writeValueAsString(monthlyReport1);
-        String result2 = mapper.writeValueAsString(monthlyReport2);
-        String result3 = mapper.writeValueAsString(monthlyReport3);
+
+//        MonthlyReport monthlyReport = new MonthlyReport(date);
+//        MonthlyReport monthlyReport1 = new MonthlyReport(date1);
+//        MonthlyReport monthlyReport2 = new MonthlyReport(date2);
+//        MonthlyReport monthlyReport3 = new MonthlyReport(date3);
+
+        String result = mapper.writeValueAsString(monthlyReportList.get(0));
+        String result1 = mapper.writeValueAsString(monthlyReportList.get(1));
+        String result2 = mapper.writeValueAsString(monthlyReportList.get(2));
+        String result3 = mapper.writeValueAsString(monthlyReportList.get(3));
 
         assertThat(result, containsString("December, 20th"));
         assertThat(result1, containsString("December, 1st"));
