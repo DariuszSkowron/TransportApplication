@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import static org.junit.Assert.*;
 
-public class DateSerializerTest {
+public class SerializersTest {
 
 
 
@@ -31,5 +31,17 @@ public class DateSerializerTest {
         assertThat(result, containsString("December, 20th"));
     }
 
+
+    @Test
+    public void SerializePrice()
+        throws JsonProcessingException{
+
+        Long testingPrice = 120l;
+        Reports reports = new Reports(testingPrice);
+        ObjectMapper mapper = new ObjectMapper();
+        String result = mapper.writeValueAsString(reports);
+        assertThat(result, containsString("120 PLN"));
+
+    }
 
 }
