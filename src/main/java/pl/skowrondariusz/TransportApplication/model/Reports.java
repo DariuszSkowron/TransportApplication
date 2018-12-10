@@ -42,10 +42,6 @@ public class Reports {
 
     }
 
-    public Reports(Long totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     //    public Long getId() {
 //        return id;
 //    }

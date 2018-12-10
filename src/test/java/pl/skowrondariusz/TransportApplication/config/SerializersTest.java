@@ -37,11 +37,24 @@ public class SerializersTest {
         throws JsonProcessingException{
 
         Long testingPrice = 120l;
-        Reports reports = new Reports(testingPrice);
+        Reports reports = new Reports();
+        reports.setTotalPrice(testingPrice);
         ObjectMapper mapper = new ObjectMapper();
         String result = mapper.writeValueAsString(reports);
         assertThat(result, containsString("120 PLN"));
 
+    }
+
+    @Test
+    public void SerializeDistance()
+        throws JsonProcessingException{
+
+        Long testingDistance = 244l;
+        Reports reports = new Reports();
+        reports.setTotalDistance(testingDistance);
+        ObjectMapper mapper = new ObjectMapper();
+        String result = mapper.writeValueAsString(reports);
+        assertThat(result, containsString("244 km"));
     }
 
 }
