@@ -37,15 +37,15 @@ public class ApiTransitController {
         this.testService = testService;
     }
 
-//    @Autowired
-//    public void setTransitService(TransitService transitService){
-//        this.transitService = transitService;
-//    }
+    @Autowired
+    public void setTransitService(TransitService transitService){
+        this.transitService = transitService;
+    }
 
-//    @Autowired
-//    public void setReportsService(ReportsService reportsService){
-//        this.reportsService = reportsService;
-//    }
+    @Autowired
+    public void setReportsService(ReportsService reportsService){
+        this.reportsService = reportsService;
+    }
 
     @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id){
