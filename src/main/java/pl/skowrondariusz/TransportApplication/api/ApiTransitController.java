@@ -12,8 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Reports;
+import pl.skowrondariusz.TransportApplication.model.Test;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.service.ReportsService;
+import pl.skowrondariusz.TransportApplication.service.TestService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
 
 import java.time.LocalDate;
@@ -27,19 +29,23 @@ import java.util.Optional;
 public class ApiTransitController {
     private TransitService transitService;
     private ReportsService reportsService;
+    private TestService testService;
     private Logger logger;
 
-
-
     @Autowired
-    public void setTransitService(TransitService transitService){
-        this.transitService = transitService;
+    public void setTestService(TestService testService) {
+        this.testService = testService;
     }
 
-    @Autowired
-    public void setReportsService(ReportsService reportsService){
-        this.reportsService = reportsService;
-    }
+//    @Autowired
+//    public void setTransitService(TransitService transitService){
+//        this.transitService = transitService;
+//    }
+
+//    @Autowired
+//    public void setReportsService(ReportsService reportsService){
+//        this.reportsService = reportsService;
+//    }
 
     @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id){
@@ -146,6 +152,12 @@ public class ApiTransitController {
 //        return reportsService.findAll();
     }
 
+
+    @GetMapping(value = "/api/test", produces = "application/json")
+    public Test createTest(@RequestBody Test test) {
+        testService.addTest(test);
+        return test;
+    }
 
 }
 
