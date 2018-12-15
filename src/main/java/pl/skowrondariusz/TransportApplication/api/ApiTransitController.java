@@ -6,8 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
@@ -17,6 +19,7 @@ import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TestService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
+import sun.rmi.runtime.Log;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -31,6 +34,7 @@ public class ApiTransitController {
     private ReportsService reportsService;
     private TestService testService;
     private Logger logger;
+    private static final Logger LOG = LoggerFactory.getLogger(ApiTransitController.class);
 
     @Autowired
     public void setTestService(TestService testService) {
@@ -153,10 +157,18 @@ public class ApiTransitController {
     }
 
 
-    @GetMapping(value = "/api/test", produces = "application/json")
-    public Test createTest(@RequestBody Test test) {
+    @PostMapping("/api/test")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTest(@RequestBody Test test) {
+        LOG.info("Saving test={}", test);
         testService.addTest(test);
-        return test;
+//        return test;
+    }
+
+    @GetMapping("/api/test")
+    public Collection<Test> getAllTests(){
+        LOG.info("Getting allTests");
+        return testService.getTests();
     }
 
 }

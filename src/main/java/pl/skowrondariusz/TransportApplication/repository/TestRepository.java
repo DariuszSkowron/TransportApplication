@@ -6,5 +6,5 @@ import pl.skowrondariusz.TransportApplication.model.Test;
 import sun.rmi.runtime.Log;
 
 @Repository
-public interface TestRepository extends JpaRepository<Test, Log> {
+public interface TestRepository extends JpaRepository<Test, Long> {
 }

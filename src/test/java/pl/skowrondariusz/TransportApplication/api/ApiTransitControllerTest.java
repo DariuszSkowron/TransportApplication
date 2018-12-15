@@ -50,6 +50,14 @@ public class ApiTransitControllerTest {
     @MockBean
     private TestService testService;
 
+    @MockBean
+    private ReportsService reportsService;
+
+    @MockBean
+    private TransitService transitService;
+
+
+
     @Test
     public void shouldCreateTest() throws Exception{
 
@@ -59,6 +67,7 @@ public class ApiTransitControllerTest {
         String testJsonString = objectMapper.writeValueAsString(test);
 
         this.mockMvc.perform(post("/api/test")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(testJsonString))
                 .andExpect(status().isCreated());
 

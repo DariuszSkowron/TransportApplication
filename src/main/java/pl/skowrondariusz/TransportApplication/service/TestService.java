@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.skowrondariusz.TransportApplication.model.Test;
 import pl.skowrondariusz.TransportApplication.repository.TestRepository;
 
+import java.util.Collection;
+
 @Service
 public class TestService {
 
@@ -14,4 +16,10 @@ public class TestService {
     public void addTest(Test test){
         testRepository.save(test);
     }
+
+    public Collection<Test> getTests(){
+        return (Collection<Test>) testRepository.findAll();
+    }
+
+
 }
