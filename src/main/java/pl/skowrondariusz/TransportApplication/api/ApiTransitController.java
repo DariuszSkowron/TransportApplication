@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
@@ -67,6 +68,13 @@ public class ApiTransitController {
     @GetMapping("/api/transits/download")
     public ModelAndView getExcel(){
         return new ModelAndView(new ExcelReportView(), "transitList", transitService.findAll());
+    }
+
+    @GetMapping("/api/transits/downloadPDF")
+    public String download(Model model){
+
+        model.addAttribute("transits", transitService.findAll());
+        return "";
     }
 
 
