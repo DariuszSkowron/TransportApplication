@@ -66,32 +66,34 @@ public class ApiTransitController {
 
 
     @PostMapping("/api/transit")
-    public Transit createTransit(@RequestBody Transit transit){
-        transitService.calculateDistance(transit);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTransit(@RequestBody Transit transit){
+        LOG.info("Saving transit={}", transit);
+//        transitService.calculateDistance(transit);
         transitService.addTransit(transit);
-        return transit;
+//        return transit;
     }
 
 
-    @RequestMapping(path = "/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-    public String getDailyReport(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        double totalDistance = 0.0;
-        double totalPrice = 0.0;
-        List<Transit> transits = transitService.getTransits(startDate, endDate);
-        for (Transit transit : transits) {
-            if (transit.getDistance() != null && transit.getPrice() != null) {
-                try {
-                    totalDistance = totalDistance + transit.getDistance();
-                    totalPrice = totalPrice + transit.getPrice();
-
-                } catch (NullPointerException e) {
-                    logger.error("Nullpointer exception", e);
-                }
-            }
-        }
-        return "Total distance" + totalDistance + ", total price: " + totalPrice;
-//        JSONPObject myResponse = new JSONPObject("totalDistance");
-    }
+//    @RequestMapping(path = "/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+//    public String getDailyReport(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+//        double totalDistance = 0.0;
+//        double totalPrice = 0.0;
+//        List<Transit> transits = transitService.getTransits(startDate, endDate);
+//        for (Transit transit : transits) {
+//            if (transit.getDistance() != null && transit.getPrice() != null) {
+//                try {
+//                    totalDistance = totalDistance + transit.getDistance();
+//                    totalPrice = totalPrice + transit.getPrice();
+//
+//                } catch (NullPointerException e) {
+//                    logger.error("Nullpointer exception", e);
+//                }
+//            }
+//        }
+//        return "Total distance" + totalDistance + ", total price: " + totalPrice;
+////        JSONPObject myResponse = new JSONPObject("totalDistance");
+//    }
 
     @GetMapping("reports/monthly")
     public String getMonthlyReport() {
@@ -165,11 +167,11 @@ public class ApiTransitController {
 //        return test;
     }
 
-    @GetMapping("/api/test")
-    public Collection<Test> getAllTests(){
-        LOG.info("Getting allTests");
-        return testService.getTests();
-    }
+//    @GetMapping("/api/test")
+//    public Collection<Test> getAllTests(){
+//        LOG.info("Getting allTests");
+//        return testService.getTests();
+//    }
 
 }
 

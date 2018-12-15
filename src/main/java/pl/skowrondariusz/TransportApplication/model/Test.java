@@ -12,9 +12,9 @@ import java.util.Objects;
 @Entity
 public class Test {
 
-//    @Id
-//    @GeneratedValue
-//    private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //    private LocalDate date;
