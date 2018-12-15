@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import pl.skowrondariusz.TransportApplication.model.MonthlyReport;
 import pl.skowrondariusz.TransportApplication.model.Reports;
 import pl.skowrondariusz.TransportApplication.model.Test;
@@ -19,6 +20,7 @@ import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TestService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
+import pl.skowrondariusz.TransportApplication.view.ExcelReportView;
 import sun.rmi.runtime.Log;
 
 import java.time.LocalDate;
@@ -61,6 +63,12 @@ public class ApiTransitController {
     public Collection<Transit> getAllTransits(){
         return transitService.findAll();
     }
+
+    @GetMapping("/api/transits/download")
+    public ModelAndView getExcel(){
+        return new ModelAndView(new ExcelReportView(), "transitList", transitService.findAll());
+    }
+
 
 
 
