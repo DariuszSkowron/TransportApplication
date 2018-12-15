@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public interface TransitRepository extends JpaRepository<Transit, Long> {
 //crudrepository//
 
