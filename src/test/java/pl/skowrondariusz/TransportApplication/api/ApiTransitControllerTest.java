@@ -26,6 +26,7 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -126,6 +127,23 @@ public class ApiTransitControllerTest {
                 .andExpect(status().isCreated());
 
         verify(transitService).addTransit(eq(new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018,12,5))));
+    }
+
+
+    @Test
+    public void shouldGetTransitFromId() throws Exception {
+
+        List<Transit> transitList = Arrays.asList(
+                new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
+                new Transit("Warsaw", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
+                new Transit("Rzeszow", "Kraków", 12L, LocalDate.of(2018, 12, 5)));
+
+        when(transitService.getTransit(1L)).thenReturn(java.util.Optional.ofNullable(transitList.get(1)));
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/transits/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.sourceAdress", is("Warsaw")));
+
     }
 
 

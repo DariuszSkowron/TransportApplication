@@ -9,6 +9,8 @@ import pl.skowrondariusz.TransportApplication.model.Transit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +24,14 @@ public class PdfView extends AbstractPdfView {
         List<Transit> transits = (List<Transit>) model.get("transits");
         document.add(new Paragraph("Generated Transits " + LocalDate.now()));
 
-        PdfPTable table = new PdfPTable(transits.stream().findAny().get().getColumnCount());
+
+//        PdfPTable table = new PdfPTable(transits.stream().findAny().get().getColumnCount());
+        PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100.0f);
         table.setSpacingBefore(10);
+        Path path = Paths.get(ClassLoader.getSystemResource("Skowron.png").toURI());
+        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        img.scalePercent(100);
 
         // define font for table header row
         Font font = FontFactory.getFont(FontFactory.TIMES);
@@ -35,9 +42,15 @@ public class PdfView extends AbstractPdfView {
         cell.setBackgroundColor(BaseColor.DARK_GRAY);
         cell.setPadding(5);
 
+
         // write table header
+        PdfPCell imageCell = new PdfPCell(img);
+        document.add(img);
+
         cell.setPhrase(new Phrase("Transit Id", font));
         table.addCell(cell);
+
+
 
         cell.setPhrase(new Phrase("source adress", font));
         table.addCell(cell);
@@ -45,8 +58,8 @@ public class PdfView extends AbstractPdfView {
         cell.setPhrase(new Phrase("destination adress", font));
         table.addCell(cell);
 
-//        cell.setPhrase(new Phrase("Job Title", font));
-//        table.addCell(cell);
+        cell.setPhrase(new Phrase("Distance", font));
+        table.addCell(cell);
 //
 //        cell.setPhrase(new Phrase("Company", font));
 //        table.addCell(cell);
@@ -67,7 +80,7 @@ public class PdfView extends AbstractPdfView {
             table.addCell(transit.getId().toString());
             table.addCell(transit.getSourceAdress());
             table.addCell(transit.getDestinationAdress());
-//            table.addCell(user.getJobTitle());
+            table.addCell(transit.getDistance().toString());
 //            table.addCell(user.getCompany());
 //            table.addCell(user.getAddress());
 //            table.addCell(user.getCity());
