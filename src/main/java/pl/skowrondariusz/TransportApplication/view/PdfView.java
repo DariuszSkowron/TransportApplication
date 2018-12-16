@@ -9,6 +9,8 @@ import pl.skowrondariusz.TransportApplication.model.Transit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +24,14 @@ public class PdfView extends AbstractPdfView {
         List<Transit> transits = (List<Transit>) model.get("transits");
         document.add(new Paragraph("Generated Transits " + LocalDate.now()));
 
+
 //        PdfPTable table = new PdfPTable(transits.stream().findAny().get().getColumnCount());
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100.0f);
         table.setSpacingBefore(10);
+        Path path = Paths.get(ClassLoader.getSystemResource("Skowron.png").toURI());
+        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        img.scalePercent(100);
 
         // define font for table header row
         Font font = FontFactory.getFont(FontFactory.TIMES);
@@ -38,6 +44,9 @@ public class PdfView extends AbstractPdfView {
 
 
         // write table header
+        PdfPCell imageCell = new PdfPCell(img);
+        document.add(img);
+
         cell.setPhrase(new Phrase("Transit Id", font));
         table.addCell(cell);
 
