@@ -196,6 +196,12 @@ public class ApiTransitController {
 //        return testService.getTests();
 //    }
 
+
+    @RequestMapping(path = "/api/reports/dailySecond", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public Reports getDailyReport2(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return reportsService.addReportsModified(startDate, endDate);
+    }
+
 }
 
 

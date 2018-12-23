@@ -60,8 +60,14 @@ public class ReportsService {
         return (long) totalPrice;
     }
 
-    public void addReports1(Reports reports) {
+    public Reports addReportsModified(LocalDate startDate, LocalDate endDate) {
+        Reports reports = new Reports();
+        reports.setStartDate(startDate);
+        reports.setEndDate(endDate);
+        reports.setTotalDistance(calculateTotalDistance(startDate, endDate));
+        reports.setTotalPrice(calculateTotalPrice(startDate, endDate));
         reportsRepository.save(reports);
+        return reports;
     }
 
     public void addMonthlyReports(MonthlyReport monthlyReport) {
