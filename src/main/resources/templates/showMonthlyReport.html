@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Added Transit</title>
+</head>
+<body>
+Transit Reports from Current month :
+
+<!--<h1 th:text="${MonthlyReport.date}">Distance</h1>-->
+<!--<h1 th:text="${MonthlyReport.totalDistance}">Source Adress</h1>-->
+<!--<h1 th:text="${MonthlyReport.averageDistance}">Destination Adress</h1>-->
+<!--<h1 th:text="${MonthlyReport.averagePrice}">Date</h1>-->
+<!--<a href="#" th:href="@{/}">Go to homepage</a>-->
+
+
+
+<!--<form method="get" th:action="@{/reports/monthly}" th:object="${monthlyReport}">-->
+    <!--<input type="text" th:field="*{totalDistance}" />-->
+    <!--<input type="text" th:field="*{averageDistance}" />-->
+    <!--<input type="text" th:field="*{averagePrice}" />-->
+    <!--&lt;!&ndash;<input type="text" th:field="*{date}" />&ndash;&gt;-->
+<!--</form>-->
+<ul>
+    <li th:each="monthlyReport: ${reports}" th:text="|${monthlyReport.totalDistance} - ${monthlyReport.averagePrice}|"> Transits</li>
+    <ul/>
+
+    <h2>Monthly report table</h2>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Total Distance</th>
+            <th>Average Price</th>
+            <th>Average Distance</th>
+        </tr>
+
+        <tr th:each="monthlyReport: ${reports}" th:object="${monthlyReport}">
+            <td th:text="*{date}">Date</td>
+            <td th:text="*{averagePrice}">Average Price</td>
+            <td th:text="*{averageDistance}">Average Price</td>
+            <td th:text="*{totalDistance}">Total Distance</td>
+
+        </tr>
+
+    </table>
+</body>
+</html>
