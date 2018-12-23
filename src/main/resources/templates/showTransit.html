@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Added Transit</title>
+</head>
+<body>
+Added transit:
+
+<h1 th:text="${transit.distance}">Distance</h1>
+<h1 th:text="${transit.sourceAdress}">Source Adress</h1>
+<h1 th:text="${transit.destinationAdress}">Destination Adress</h1>
+<h1 th:text="${transit.date}">Date</h1>
+<h1 th:text="${transit.price}">Price</h1>
+<a href="#" th:href="@{/}">Go to homepage</a>
+
+</body>
+</html>

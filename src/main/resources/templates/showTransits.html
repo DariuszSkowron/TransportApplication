@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Transit Form</title>
+</head>
+<body>
+Show transit
+
+<a th:href="@{/transits}">Add transit</a>
+<a th:href="@{/api/transits/downloadPDF}">Export to PDF</a>
+<a th:href="@{/api/transits/download}">Exoport to XML (EXCEL)</a>
+
+
+<h2>Table</h2>
+<table border="1">
+    <tr>
+        <th>x</th>
+        <th>y</th>
+        <th>z</th>
+    </tr>
+
+    <tr th:each="transit: ${transits}" th:object="${transit}">
+        <td th:text="*{price}">totalPrice</td>
+        <td th:text="*{distance}">totalDistance</td>
+    </tr>
+
+</table>
+
+<ul>
+    <li th:each="transit: ${transits}" th:text="|${transit.distance} - ${transit.price}|"> Transits</li>
+    </ul>
+
+</body>
+</html>
