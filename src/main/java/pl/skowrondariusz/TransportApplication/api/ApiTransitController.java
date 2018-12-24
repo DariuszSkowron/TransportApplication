@@ -92,7 +92,7 @@ public class ApiTransitController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransit(@RequestBody Transit transit){
         LOG.info("Saving transit={}", transit);
-//        transitService.calculateDistance(transit);
+        transitService.calculateDistance(transit);
         transitService.addTransit(transit);
 //        return transit;
     }
