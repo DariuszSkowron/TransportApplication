@@ -1,5 +1,6 @@
 package pl.skowrondariusz.TransportApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -50,18 +51,20 @@ public class Reports {
 //        this.id = id;
 //    }
 //
-//    public LocalDate getStartDate() {
-//        return startDate;
-//    }
-//
+    @JsonIgnore
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-//
-//    public LocalDate getEndDate() {
-//        return endDate;
-//    }
-//
+
+    @JsonIgnore
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
