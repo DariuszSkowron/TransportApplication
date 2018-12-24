@@ -29,7 +29,7 @@ public class PdfView extends AbstractPdfView {
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100.0f);
         table.setSpacingBefore(10);
-        Path path = Paths.get(ClassLoader.getSystemResource("Skowron.png").toURI());
+        Path path = Paths.get(ClassLoader.getSystemResource("static/Skowron.png").toURI());
         Image img = Image.getInstance(path.toAbsolutePath().toString());
         img.scalePercent(100);
 
