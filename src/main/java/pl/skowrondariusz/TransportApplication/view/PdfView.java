@@ -21,7 +21,7 @@ public class PdfView extends AbstractPdfView {
         // change the file name
         response.setHeader("Content-Disposition", "attachment; filename=\"my-pdf-file.pdf\"");
 
-        List<Transit> transits = (List<Transit>) model.get("transits");
+        List<Transit> transits = (List<Transit>) model.get("transitList");
         document.add(new Paragraph("Generated Transits " + LocalDate.now()));
 
 
