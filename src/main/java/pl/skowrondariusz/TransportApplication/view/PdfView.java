@@ -21,7 +21,7 @@ public class PdfView extends AbstractPdfView {
         // change the file name
         response.setHeader("Content-Disposition", "attachment; filename=\"my-pdf-file.pdf\"");
 
-        List<Transit> transits = (List<Transit>) model.get("transits");
+        List<Transit> transits = (List<Transit>) model.get("transitList");
         document.add(new Paragraph("Generated Transits " + LocalDate.now()));
 
 
@@ -29,7 +29,7 @@ public class PdfView extends AbstractPdfView {
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100.0f);
         table.setSpacingBefore(10);
-        Path path = Paths.get(ClassLoader.getSystemResource("Skowron.png").toURI());
+        Path path = Paths.get(ClassLoader.getSystemResource("static/Skowron.png").toURI());
         Image img = Image.getInstance(path.toAbsolutePath().toString());
         img.scalePercent(100);
 

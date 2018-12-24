@@ -5,12 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-Add Transit
-<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
-    <input type="text" th:field="*{sourceAdress}" />
-    <input type="text" th:field="*{destinationAdress}" />
-    <input type="text" th:field="*{price}" />
-    <input type="text" th:field="*{date}" />
+<form method="post" th:action="@{/addDailyReport}" th:object="${dailyReport}">
+    <input type="text" th:field="*{startDate}" />
+    <input type="text" th:field="*{endDate}" />
+    <!--<input type="text" th:field="*{price}" />-->
+    <!--<input type="text" th:field="*{date}" />-->
     <!--<input type="text" th:field="${#dates.format(date, 'yyyy-MM-dd')}"/>-->
 
     <input type="submit" value="Send" />
