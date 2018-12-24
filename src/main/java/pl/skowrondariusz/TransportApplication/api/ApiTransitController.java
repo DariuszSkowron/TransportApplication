@@ -22,6 +22,7 @@ import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TestService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
 import pl.skowrondariusz.TransportApplication.view.ExcelReportView;
+import pl.skowrondariusz.TransportApplication.view.PdfView;
 import sun.rmi.runtime.Log;
 
 import java.time.LocalDate;
@@ -60,6 +61,7 @@ public class ApiTransitController {
     }
 
 
+
     @GetMapping("/api/transits")
     public Collection<Transit> getAllTransits(){
         return transitService.findAll();
@@ -71,11 +73,16 @@ public class ApiTransitController {
     }
 
     @GetMapping("/api/transits/downloadPDF")
-    public String download(Model model){
-
-        model.addAttribute("transits", transitService.findAll());
-        return "";
+    public ModelAndView getPdf(){
+        return new ModelAndView(new PdfView(), "transitList", transitService.findAll());
     }
+
+//    @GetMapping("/api/transits/downloadPDF")
+//    public String download(Model model){
+//
+//        model.addAttribute("transits", transitService.findAll());
+//        return "";
+//    }
 
 
 
@@ -85,7 +92,7 @@ public class ApiTransitController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransit(@RequestBody Transit transit){
         LOG.info("Saving transit={}", transit);
-        transitService.calculateDistance(transit);
+//        transitService.calculateDistance(transit);
         transitService.addTransit(transit);
 //        return transit;
     }
@@ -111,27 +118,27 @@ public class ApiTransitController {
 ////        JSONPObject myResponse = new JSONPObject("totalDistance");
 //    }
 
-    @GetMapping("reports/monthly")
-    public String getMonthlyReport() {
-
-        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
-        LocalDate currentDate = LocalDate.now();
-        List<Transit> transits = transitService.getTransits(startDate, currentDate);
-        long totalDistance = 0;
-        long totalPrice = 0;
-        for (Transit transit : transits) {
-            if (transit.getDistance() != null && transit.getPrice() != null) {
-                try {
-                    totalDistance = totalDistance + transit.getDistance();
-                    totalPrice = totalPrice + transit.getPrice();
-                } catch (NullPointerException e) {
-                    logger.error("Nullpointer exception", e);
-                }
-            }
-        }
-        return "Total distance " + totalDistance + ", total price: " + totalPrice;
-
-    }
+//    @GetMapping("reports/monthly")
+//    public String getMonthlyReport() {
+//
+//        LocalDate startDate = LocalDate.now().withDayOfMonth(1);
+//        LocalDate currentDate = LocalDate.now();
+//        List<Transit> transits = transitService.getTransits(startDate, currentDate);
+//        long totalDistance = 0;
+//        long totalPrice = 0;
+//        for (Transit transit : transits) {
+//            if (transit.getDistance() != null && transit.getPrice() != null) {
+//                try {
+//                    totalDistance = totalDistance + transit.getDistance();
+//                    totalPrice = totalPrice + transit.getPrice();
+//                } catch (NullPointerException e) {
+//                    logger.error("Nullpointer exception", e);
+//                }
+//            }
+//        }
+//        return "Total distance " + totalDistance + ", total price: " + totalPrice;
+//
+//    }
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public Reports getDailyReport1(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
@@ -168,9 +175,8 @@ public class ApiTransitController {
     }
 
     @GetMapping("/api/reports/monthly")
-
-    public List<MonthlyReport> getAllMonthlyeports(){
-       return transitService.getTransitsFromCurrentMonth();
+    public List<MonthlyReport> getAllMonthlyReports(){
+        return transitService.getTransitsFromCurrentMonth();
 //        return reportsService.findAll();
     }
 
@@ -189,6 +195,13 @@ public class ApiTransitController {
 //        return testService.getTests();
 //    }
 
+
+    @RequestMapping(path = "/api/reports/dailySecond", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public Reports getDailyReport2(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate  , @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return reportsService.addReportsModified(startDate, endDate);
+    }
+
 }
+
 
 
