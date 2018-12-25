@@ -8,6 +8,7 @@ import pl.skowrondariusz.TransportApplication.config.DateSerializerNumberTwo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -18,7 +19,9 @@ public class Transit {
     @Id
     @GeneratedValue
     private Long id;
+    @NotNull
     private String sourceAdress;
+    @NotNull
     private String destinationAdress;
     private Long price;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -51,6 +54,7 @@ public class Transit {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getSourceAdress() {
         return sourceAdress;
