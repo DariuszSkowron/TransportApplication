@@ -2,18 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Add transit</title>
 </head>
 <body>
-Add Transit
-<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
-    <input type="text" th:field="*{sourceAdress}" />
-    <input type="text" th:field="*{destinationAdress}" />
-    <input type="text" th:field="*{price}" />
-    <input type="text" th:field="*{date}" />
-    <!--<input type="text" th:field="${#dates.format(date, 'yyyy-MM-dd')}"/>-->
 
-    <input type="submit" value="Send" />
+<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
+
+    <fieldset>
+        <legend>Add new transit</legend>
+    <p>Source adress<input type="text" th:field="*{sourceAdress}" /></p>
+    <p>Destination adress<input type="text" th:field="*{destinationAdress}" /></p>
+    <p>Price<input type="text" th:field="*{price}" /></p>
+    <p>Date<input type="date" th:field="*{date}" /></p>
+    </fieldset>
+    <input type="submit" value="Add transit" />
 </form>
 </body>
 </html>

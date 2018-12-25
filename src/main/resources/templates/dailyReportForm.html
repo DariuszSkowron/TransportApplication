@@ -2,17 +2,22 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Daily Reports</title>
 </head>
 <body>
 <form method="post" th:action="@{/addDailyReport}" th:object="${dailyReport}">
-    <input type="text" th:field="*{startDate}" />
-    <input type="text" th:field="*{endDate}" />
-    <!--<input type="text" th:field="*{price}" />-->
-    <!--<input type="text" th:field="*{date}" />-->
-    <!--<input type="text" th:field="${#dates.format(date, 'yyyy-MM-dd')}"/>-->
 
-    <input type="submit" value="Send" />
+    <fieldset>
+        <legend>Define period for the raport</legend>
+    <div>
+        <label><span>Insert start date</span></label>
+        <input type="date" th:field="*{startDate}"/>
+    </div>
+        <div><label>Insert end date</label>
+            <input type="date" th:field="*{endDate}" /></div>
+
+    </fieldset>
+<input type="submit" value="Get the daily report" />
 </form>
 </body>
 </html>

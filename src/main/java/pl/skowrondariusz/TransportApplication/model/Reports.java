@@ -26,7 +26,7 @@ public class Reports {
     private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     @JsonSerialize(using=DistanceSerializer.class)
     private Long totalDistance;
