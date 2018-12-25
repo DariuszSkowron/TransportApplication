@@ -2,17 +2,32 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Daily Reports</title>
 </head>
+<style>
+    span.b {
+        width: 100px;
+        height: 20px;
+        display: inline-block;
+        padding: 5px;
+    }
+</style>
 <body>
 <form method="post" th:action="@{/addDailyReport}" th:object="${dailyReport}">
-    <input type="text" th:field="*{startDate}" />
-    <input type="text" th:field="*{endDate}" />
-    <!--<input type="text" th:field="*{price}" />-->
-    <!--<input type="text" th:field="*{date}" />-->
-    <!--<input type="text" th:field="${#dates.format(date, 'yyyy-MM-dd')}"/>-->
 
-    <input type="submit" value="Send" />
+    <fieldset>
+        <legend>Define period for the raport</legend>
+    <div>
+        <span class="b"><label>Insert start date</label></span>
+        <span class="b"><input type="date" th:field="*{startDate}"/></span>
+    </div>
+        <div>
+            <span class="b"><label>Insert end date</label></span>
+            <span class="b"><input type="date" th:field="*{endDate}" /></span>
+        </div>
+
+    </fieldset>
+<input type="submit" value="Get the daily report" />
 </form>
 </body>
 </html>

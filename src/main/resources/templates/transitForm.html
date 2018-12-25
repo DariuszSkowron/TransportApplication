@@ -2,18 +2,42 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Add transit</title>
 </head>
+<style>
+    span.b {
+        width: 120px;
+        height: 20px;
+        display: inline-block;
+        padding: 5px;
+    }
+</style>
 <body>
-Add Transit
-<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
-    <input type="text" th:field="*{sourceAdress}" />
-    <input type="text" th:field="*{destinationAdress}" />
-    <input type="text" th:field="*{price}" />
-    <input type="text" th:field="*{date}" />
-    <!--<input type="text" th:field="${#dates.format(date, 'yyyy-MM-dd')}"/>-->
 
-    <input type="submit" value="Send" />
+<form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
+
+    <fieldset>
+        <legend>Add new transit</legend>
+        <div>
+            <span class="b"> <label>Source adress</label></span>
+                 <span class="b"><input type="text" th:field="*{sourceAdress}" placeholder="e.g.: Willowa 7, Warsaw" required/></span>
+        </div>
+        <div>
+             <span class="b"><label>Destination adress</label></span>
+                <span class="b"> <input type="text" th:field="*{destinationAdress}" placeholder="e.g.: Grottgera 3, Cracow" required/></span>
+        </div>
+        <div>
+             <span class="b"><label>Price</label></span>
+                 <span class="b"><input type="text" th:field="*{price}" required/></span>
+        </div>
+        <div>
+            <span class="b"> <label>Date</label></span>
+                <span class="b"> <input type="text" th:field="*{date}" placeholder="YYYY-MM-DD" required
+                                        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                                        title="Enter a date in this format YYYY-MM-DD"/></span>
+        </div>
+    </fieldset>
+    <input type="submit" value="Add transit" />
 </form>
 </body>
 </html>
