@@ -4,17 +4,26 @@
     <meta charset="UTF-8" />
     <title>Daily Reports</title>
 </head>
+<style>
+    span.b {
+        width: 100px;
+        height: 30px;
+        display: inline-block;
+        padding: 5px;
+    }
+</style>
 <body>
 <form method="post" th:action="@{/addDailyReport}" th:object="${dailyReport}">
 
     <fieldset>
         <legend>Define period for the raport</legend>
     <div>
-        <label><span>Insert start date</span></label>
-        <input type="date" th:field="*{startDate}"/>
+        <span class="b"><label>Insert start date</label></span>
+        <span class="b"><input type="date" th:field="*{startDate}"/></span>
     </div>
-        <div><label>Insert end date</label>
-            <input type="date" th:field="*{endDate}" /></div>
+        <div>
+            <span class="b"><label>Insert end date</label></span>
+            <span class="b"><input type="date" th:field="*{endDate}" /></span></div>
 
     </fieldset>
 <input type="submit" value="Get the daily report" />

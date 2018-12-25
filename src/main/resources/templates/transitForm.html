@@ -10,10 +10,22 @@
 
     <fieldset>
         <legend>Add new transit</legend>
-    <p>Source adress<input type="text" th:field="*{sourceAdress}" /></p>
-    <p>Destination adress<input type="text" th:field="*{destinationAdress}" /></p>
-    <p>Price<input type="text" th:field="*{price}" /></p>
-    <p>Date<input type="date" th:field="*{date}" /></p>
+        <div>
+            <label>Source adress</label>
+                <input type="text" th:field="*{sourceAdress}" />
+        </div>
+        <div>
+            <label>Destination adress</label>
+                <input type="text" th:field="*{destinationAdress}" />
+        </div>
+        <div>
+            <label>Price</label>
+                <input type="text" th:field="*{price}" />
+        </div>
+        <div>
+            <label>Date</label>
+                <input type="date" th:field="*{date}" />
+        </div>
     </fieldset>
     <input type="submit" value="Add transit" />
 </form>
