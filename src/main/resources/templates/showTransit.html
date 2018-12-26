@@ -26,23 +26,23 @@
     <legend>Added transit</legend>
     <div>
         <span class="b"> <label>Source adress</label></span>
-        <span class="b"><input type="text" th:field="*{sourceAdress}"/></span>
+        <span class="b" th:text="*{sourceAdress}"/></span>
     </div>
     <div>
         <span class="b"><label>Destination adress</label></span>
-        <span class="b"> <input type="text" th:field="*{destinationAdress}"/></span>
+        <span class="b" th:text="*{destinationAdress}"/></span>
     </div>
     <div>
         <span class="b"><label>Price</label></span>
-        <span class="b"><input type="text" th:field="*{price}"/></span>
+        <span class="b" th:text="*{price}"/></span>
     </div>
     <div>
         <span class="b"> <label>Date</label></span>
-        <span class="b"> <input type="text" th:field="*{date}"/></span>
+        <span class="b" th:text="*{date}"/></span>
     </div>
     <div>
         <span class="b"><label>Distance</label></span>
-        <span class="b"><input type="text" th:field="*{distance}"/></span>
+        <span class="b" th:text="*{distance}"/></span>
     </div>
 </fieldset>
     <a th:href="@{/transit}">Add another transit</a>

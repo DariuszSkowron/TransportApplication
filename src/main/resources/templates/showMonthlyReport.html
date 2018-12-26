@@ -43,6 +43,30 @@ Transit Reports from Current month :
         </tr>
 
     </table>
+
+
+
+    <form method="get" th:each="monthlyReport: ${reports}" th:object="${monthlyReport}">
+        <fieldset>
+            <legend>Added transit</legend>
+            <div>
+                <span class="b"> <label>Date</label></span>
+                <span class="b" th:text="${monthlyReport.date}"/></h1></span>
+            </div>
+            <div>
+                <span class="b"><label>Average price</label></span>
+                <span class="b" th:text="*{averagePrice}"/></span>
+            </div>
+            <div>
+                <span class="b"><label>Average distance</label></span>
+                <span class="b" th:text="*{averageDistance}"/></span>
+            </div>
+            <div>
+                <span class="b"> <label>Total distance</label></span>
+                <span class="b" th:text="*{totalDistance}"/></span>
+            </div>
+        </fieldset>
+    <a th:href="@{/}">Return to homepage</a>
 </body>
 </html>
 
