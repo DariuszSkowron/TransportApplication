@@ -94,7 +94,7 @@ public class ApiTransitControllerTest {
     public void shouldAddTransitAndCalculateDistance() throws Exception {
 
         List<Transit> transitList = Arrays.asList(
-        new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018, 12, 5)));
+        new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5)));
 
         given(transitService.findAll()).willReturn(transitList);
 
@@ -115,7 +115,7 @@ public class ApiTransitControllerTest {
 //        LocalDate date3 = Calendar.getTime();
 
 
-        Transit transit = new Transit("Poznań", "Kraków", 12L,LocalDate.of(2018, 12, 5));
+        Transit transit = new Transit("Poznań", "Kraków", 12d,LocalDate.of(2018, 12, 5));
 
         ObjectMapper objectMapper = new ObjectMapper();
         String transitJsonString = objectMapper.writeValueAsString(transit);
@@ -126,7 +126,7 @@ public class ApiTransitControllerTest {
                 .content(transitJsonString))
                 .andExpect(status().isCreated());
 
-        verify(transitService).addTransit(eq(new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018,12,5))));
+        verify(transitService).addTransit(eq(new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018,12,5))));
     }
 
 
@@ -134,9 +134,9 @@ public class ApiTransitControllerTest {
     public void shouldGetTransitFromId() throws Exception {
 
         List<Transit> transitList = Arrays.asList(
-                new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
-                new Transit("Warsaw", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
-                new Transit("Rzeszow", "Kraków", 12L, LocalDate.of(2018, 12, 5)));
+                new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5)),
+                new Transit("Warsaw", "Kraków", 12d, LocalDate.of(2018, 12, 5)),
+                new Transit("Rzeszow", "Kraków", 12d, LocalDate.of(2018, 12, 5)));
 
         when(transitService.getTransit(1L)).thenReturn(java.util.Optional.ofNullable(transitList.get(1)));
 

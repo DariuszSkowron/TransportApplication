@@ -23,7 +23,7 @@ public class Transit {
     private String sourceAdress;
     @NotNull
     private String destinationAdress;
-    private Long price;
+    private Double price;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonSerialize(using=DateSerializerNumberTwo.class)
     private LocalDate date;
@@ -32,14 +32,14 @@ public class Transit {
     public Transit() {
     }
 
-    public Transit(String sourceAdress, String destinationAdress, Long price, LocalDate date) {
+    public Transit(String sourceAdress, String destinationAdress, Double price, LocalDate date) {
         this.sourceAdress = sourceAdress;
         this.destinationAdress = destinationAdress;
         this.price = price;
         this.date = date;
     }
 
-    public Transit(String sourceAdress, String destinationAdress, Long price, LocalDate date, Long distance) {
+    public Transit(String sourceAdress, String destinationAdress, double price, LocalDate date, Long distance) {
         this.sourceAdress = sourceAdress;
         this.destinationAdress = destinationAdress;
         this.price = price;
@@ -88,11 +88,11 @@ public class Transit {
         this.date = date;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -121,9 +121,9 @@ public class Transit {
                 "id=" + id +
                 ", sourceAdress='" + sourceAdress + '\'' +
                 ", destinationAdress='" + destinationAdress + '\'' +
-                ", distance=" + distance +
+                ", distance=" + distance + "km" +
                 ", date=" + date +
-                ", price=" + price +
+                ", price=" + price + "PLN" +
                 '}';
     }
 }
