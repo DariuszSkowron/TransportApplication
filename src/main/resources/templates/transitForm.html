@@ -3,32 +3,80 @@
 <head>
     <meta charset="UTF-8" />
     <title>Add transit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <style>
+    button {
+        /*!*!*background-color: #6495ED;*!*!*/
+        /*!*!*color: white;*!*!*/
+        /*padding: 16px 25px;*/
+        /*margin: 0 auto;*/
+        /*border: none;*/
+        /*!*!*!*cursor: pointer;*!*!*!*/
+        /*border-radius: 8px;*/
+        text-align: center;
+        margin: 0px auto;
+    }
+    span.a {
+        width: 200px;
+        height: 20px;
+        display: inline;
+        padding: 50px;
+        align-content: center;
+    }
+
+
+
     span.b {
-        width: 120px;
+        width: 200px;
         height: 20px;
         display: inline-block;
-        padding: 5px;
+        padding: 25px;
+
     }
+
+    h1 {
+         text-align: center;
+     }
+
+    fieldset {
+        /*border: 1px solid rgb(255,232,57);*/
+        width: 440px;
+        /*display: block;*/
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 50px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+
+
 </style>
 <body>
 
 <form method="post" th:action="@{/addtransit}" th:object="${transitAttribute}">
 
     <fieldset>
-        <legend>Add new transit</legend>
+        <legend><h1><b>Add new transit</b></h1></legend>
         <div>
             <span class="b"> <label>Source adress</label></span>
-                 <span class="b"><input type="text" th:field="*{sourceAdress}" placeholder="e.g.: Willowa 7, Warsaw" required/></span>
+                 <span class="b"><input type="text" th:field="*{sourceAdress}" placeholder="e.g.: Willowa 7, Warsaw" required title="Undefined street name allowed"/></span>
         </div>
         <div>
              <span class="b"><label>Destination adress</label></span>
-                <span class="b"> <input type="text" th:field="*{destinationAdress}" placeholder="e.g.: Grottgera 3, Cracow" required/></span>
+                <span class="b"> <input type="text" th:field="*{destinationAdress}" placeholder="e.g.: Grottgera 3, Cracow" required title="Undefined street name allowed"/></span>
         </div>
         <div>
              <span class="b"><label>Price</label></span>
-                 <span class="b"><input type="text" th:field="*{price}" required/></span>
+                 <span class="b"><input type="text" th:field="*{price}" placeholder="e.g.: 225.50"required title="No decimal places alllowed"/></span>
         </div>
         <div>
             <span class="b"> <label>Date</label></span>
@@ -36,8 +84,19 @@
                                         pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                         title="Enter a date in this format YYYY-MM-DD"/></span>
         </div>
+        <!--<span class="a"> <button input type="reset" class="btn btn-outline-warning">Clear data</button></span>-->
+        <!--<span class="a">  <button input type="submit" class="btn btn-outline-success">Submit Button</button><span>-->
     </fieldset>
-    <input type="submit" value="Add transit" />
+
+    <div class="wrapper">
+
+        <button input type="reset" class="btn btn-outline-warning">Clear data</button>
+        <button input type="submit" class="btn btn-outline-success">Submit Button</button>
+        <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+
+    </div>
+    <!--<button input type="reset" class="btn btn-outline-warning">Clear data</button>-->
+    <!--<button input type="submit" class="btn btn-outline-success">Submit Button</button>-->
 </form>
 </body>
 </html>

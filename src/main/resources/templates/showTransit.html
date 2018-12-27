@@ -4,15 +4,51 @@
     <meta charset="UTF-8"/>
     <title>Added Transit</title>
 </head>
+<style>
+    span.b {
+        width: 140px;
+        height: 20px;
+        display: inline-block;
+        padding: 5px;
+    }
+</style>
 <body>
-Added transit:
+<!--Added transit:-->
 
-<h1 th:text="${transit.distance}">Distance</h1>
-<h1 th:text="${transit.sourceAdress}">Source Adress</h1>
-<h1 th:text="${transit.destinationAdress}">Destination Adress</h1>
-<h1 th:text="${transit.date}">Date</h1>
-<h1 th:text="${transit.price}">Price</h1>
-<a href="#" th:href="@{/}">Go to homepage</a>
+<!--<h1 th:text="${transit.distance}">Distance</h1>-->
+<!--<h1 th:text="${transit.sourceAdress}">Source Adress</h1>-->
+<!--<h1 th:text="${transit.destinationAdress}">Destination Adress</h1>-->
+<!--<h1 th:text="${transit.date}">Date</h1>-->
+<!--<h1 th:text="${transit.price}">Price</h1>-->
+<!--<a href="#" th:href="@{/}">Go to homepage</a>-->
+<form method="get" th:object="${transit}">
+<fieldset disabled>
+    <legend>Added transit</legend>
+    <div>
+        <span class="b"> <label>Source adress:</label></span>
+        <b><span class="b" th:text="*{sourceAdress}"/></span></b>
+    </div>
+    <div>
+        <span class="b"><label>Destination adress:</label></span>
+        <b><span class="b" th:text="*{destinationAdress}"/></span></b>
+    </div>
+    <div>
+        <span class="b"><label>Price:</label></span>
+        <b><span class="b" th:text="*{price}"/></span></b>
+    </div>
+    <div>
+        <span class="b"> <label>Date:</label></span>
+        <b><span class="b" th:text="*{date}"/></span></b>
+    </div>
+    <div>
+        <span class="b"><label>Distance:</label></span>
+        <b><span class="b" th:text="*{distance}"/></span></b>
+    </div>
+</fieldset>
+    <a th:href="@{/transit}">Add another transit</a>
+    <a th:href="@{/}">Return to homepage</a>
+
+
 
 </body>
 </html>
