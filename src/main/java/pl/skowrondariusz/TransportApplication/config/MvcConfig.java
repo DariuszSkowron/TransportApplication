@@ -8,27 +8,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.accept.ContentNegotiationManager;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import pl.skowrondariusz.TransportApplication.viewResolver.PdfViewResolver;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @EnableWebMvc
-@EnableTransactionManagement
-@ComponentScan(basePackages = "pl.skowrondariusz.TransportApplication")
-public class AppConfig {
+//@EnableTransactionManagement
+//@ComponentScan(basePackages = "pl.skowrondariusz.TransportApplication")
+public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    @Primary
-    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        return builder.modulesToInstall(new JavaTimeModule());
-    }
+//    @Bean
+//    @Primary
+//    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+//        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+//        return builder.modulesToInstall(new JavaTimeModule());
+//    }
 
 
 //    @Bean
@@ -52,4 +45,23 @@ public class AppConfig {
 //        return new PdfViewResolver();
 //    }
 
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
+//        registry.addResourceHandler("/static/images/**").addResourceLocations("classpath:/images/");
+//        registry.addResourceHandler("/script/**").addResourceLocations("classpath:/script/");
+//    }
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler(
+            "webjars/**",
+            "images/**")
+            .addResourceLocations(
+                    "classpath:/META-INF/resources/webjars/",
+                    "classpath:/static/images/");
+
+
 }
+
+}
+

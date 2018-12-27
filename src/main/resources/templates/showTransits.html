@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
@@ -30,6 +30,14 @@ Show transit
 <ul>
     <li th:each="transit: ${transits}" th:text="|${transit.distance} - ${transit.price}|"> Transits</li>
 </ul>
+<div class="container">
+    <div class="jumbotron"></div>
+    <img src="../static/images/test.png" th:src="@{/images/test.png}"/>
 
+    <h1>Hello</h1>
+
+    <h2>Fellow Spring Framework Gurus!!!</h2>
+</div>
+</div>
 </body>
 </html>
