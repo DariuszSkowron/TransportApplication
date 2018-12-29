@@ -4,7 +4,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.apache.poi.ss.usermodel.Row;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 
 import javax.servlet.http.HttpServletRequest;
