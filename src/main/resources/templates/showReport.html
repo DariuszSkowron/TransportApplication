@@ -24,6 +24,14 @@
             <a class="nav-item nav-link" href="#" th:href="@{/transits}">Show All Transits</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/daily}">Daily Report</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/monthly}">Monthly Report</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{/api/transits/downloadPDF}">Export transits to PDF</a>
+                    <a class="dropdown-item" th:href="@{/api/transits/download}">Export transits to XML (EXCEL)</a>
+                </div>
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <a href="#" class="nav-link"><i class="fab fa-facebook"></i></a>
