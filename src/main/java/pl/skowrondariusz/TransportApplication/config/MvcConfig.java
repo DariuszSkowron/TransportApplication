@@ -1,20 +1,20 @@
-package pl.skowrondariusz.TransportApplication.config;
-
-
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.*;
-
-@Configuration
-@EnableWebMvc
-//@EnableTransactionManagement
-//@ComponentScan(basePackages = "pl.skowrondariusz.TransportApplication")
-public class MvcConfig extends WebMvcConfigurerAdapter {
+//package pl.skowrondariusz.TransportApplication.config;
+//
+//
+//import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.ComponentScan;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.Primary;
+//import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+//import org.springframework.transaction.annotation.EnableTransactionManagement;
+//import org.springframework.web.servlet.config.annotation.*;
+//
+//@Configuration
+//@EnableWebMvc
+////@EnableTransactionManagement
+////@ComponentScan(basePackages = "pl.skowrondariusz.TransportApplication")
+//public class MvcConfig extends WebMvcConfigurerAdapter {
 
 //    @Bean
 //    @Primary
@@ -51,17 +51,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 //        registry.addResourceHandler("/static/images/**").addResourceLocations("classpath:/images/");
 //        registry.addResourceHandler("/script/**").addResourceLocations("classpath:/script/");
 //    }
-@Override
-public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler(
-            "webjars/**",
-            "images/**")
-            .addResourceLocations(
-                    "classpath:/META-INF/resources/webjars/",
-                    "classpath:/static/images/");
-
-
-}
-
-}
+//@Override
+//public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//    registry.addResourceHandler(
+//            "webjars/**",
+//            "images/**")
+//            .addResourceLocations(
+//                    "classpath:/META-INF/resources/webjars/",
+//                    "classpath:/static/images/");
+//
+//
+//}
+//
+//}
 
