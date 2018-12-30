@@ -136,11 +136,13 @@ public class TransitService {
     }
 
     public Optional<Transit> getTransit(Long id){
+        calculateDistance(transitRepository.getOne(1L));
             return transitRepository.findById(id);
     }
 
 
     public void addTransit(Transit transit) {
+        calculateDistance(transit);
         transitRepository.save(transit);
     }
 

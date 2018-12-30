@@ -138,11 +138,23 @@ public class ApiTransitControllerTest {
                 new Transit("Warsaw", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
                 new Transit("Rzeszow", "Kraków", 12L, LocalDate.of(2018, 12, 5)));
 
-        when(transitService.getTransit(1L)).thenReturn(java.util.Optional.ofNullable(transitList.get(1)));
+//        when(transitService.getTransit(1L)).thenReturn(java.util.Optional.ofNullable(transitList.get(1)));
+        given(transitService.getTransit(1L)).willReturn(java.util.Optional.ofNullable(transitList.get(1)));
 
+//        transitService.addTransit(transitList.get(1));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/transits/{id}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.sourceAdress", is("Warsaw")));
+
+    }
+
+    @Test
+    public void shouldGetDailyReports() throws Exception {
+
+        List<Transit> transitList = Arrays.asList(
+                new Transit("Poznań", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
+                new Transit("Warsaw", "Kraków", 12L, LocalDate.of(2018, 12, 5)),
+                new Transit("Rzeszow", "Kraków", 12L, LocalDate.of(2018, 12, 5)));
 
     }
 
