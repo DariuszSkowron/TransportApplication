@@ -16,6 +16,28 @@
         display: inline-block;
         padding: 5px;
     }
+
+    fieldset {
+        /*border: 1px solid rgb(255,232,57);*/
+        width: 440px;
+        /*display: block;*/
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 50px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+    h1 {
+        text-align: center;
+    }
 </style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -61,7 +83,7 @@
 <!--<a href="#" th:href="@{/}">Go to homepage</a>-->
 <form method="get" th:object="${transit}">
 <fieldset disabled>
-    <legend>Added transit</legend>
+    <legend><h1>Added transit</h1></legend>
     <div>
         <span class="b"> <label>Source adress:</label></span>
         <b><span class="b" th:text="*{sourceAdress}"/></span></b>
@@ -83,10 +105,10 @@
         <b><span class="b" th:text="*{distance}"/></span></b>
     </div>
 </fieldset>
-    <a th:href="@{/transit}">Add another transit</a>
-    <a th:href="@{/}">Return to homepage</a>
 
-
-
+    <div class="wrapper">
+    <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+    <a  href="#" th:href="@{/transit}" class="btn btn-outline-secondary" role="button">Add another transit</a>
+    </div>
 </body>
 </html>
