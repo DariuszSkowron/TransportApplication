@@ -9,6 +9,39 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
+<style>
+    span.b {
+        width: 140px;
+        height: 20px;
+        display: inline-block;
+        padding: 5px;
+    }
+
+    fieldset {
+        /*border: 1px solid rgb(255,232,57);*/
+        width: 440px;
+        /*display: block;*/
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 50px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+    h1 {
+             text-align: center;
+         }
+    h2 {
+        text-align: center;
+    }
+</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#" th:href="@{/}">
@@ -43,25 +76,44 @@
         </ul>
     </div>
 </nav>
-<table border="1">
-    <tr>
-        <th>Total Price</th>
-        <th>Total Distance</th>
-        <!--<th>Average Price</th>-->
-        <!--<th>Average Distance</th>-->
-    </tr>
+<!--<table>-->
+    <!--<h1>Total distance for the period <b th:field="*{dailyReport.startDate}"></b> - <b th:field="*{dailyReport.endDate}"></b></h1>-->
+    <!--<tr>-->
+        <!--<th>Total Price</th>-->
+        <!--<th>Total Distance</th>-->
+        <!--&lt;!&ndash;<th>Average Price</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Average Distance</th>&ndash;&gt;-->
+    <!--</tr>-->
 
-    <tr th:each="Reports: ${dailyReport}" th:object="${Reports}">
-        <td th:text="*{totalPrice}">Total Price</td>
-        <td th:text="*{totalDistance}">Total Distance</td>
+    <!--<tr th:each="Reports: ${dailyReport}" th:object="${Reports}">-->
+        <!--<td th:text="*{totalPrice}">Total Price</td>-->
+        <!--<td th:text="*{totalDistance}">Total Distance</td>-->
 
-    </tr>
+    <!--</tr>-->
 
-</table>
-<a th:href="@{/dailyReportForm}">Get another daily report</a>
-<a th:href="@{/}">Return to homepage</a>
+<!--</table>-->
 
-<img src="/stat/Skowron.png" alt="HTML5 Icon" style="width:128px;height:128px;">
+<form method="get" th:object="${dailyReport}">
+    <fieldset disabled>
+
+        <legend><h1>Report for the period</h1> <h2><b th:text="*{startDate}"></b> - <b th:text="*{endDate}"></b></h2></legend>
+        <div>
+            <span class="b"> <label>Total price:</label></span>
+            <b><span class="b" th:text="*{totalPrice}"/></span></b>
+        </div>
+        <div>
+            <span class="b"><label>Total distance:</label></span>
+            <b><span class="b" th:text="*{totalDistance}"/></span></b>
+        </div>
+
+    </fieldset>
+
+    <div class="wrapper">
+
+        <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+        <a  href="#" th:href="@{/reports/daily}" class="btn btn-outline-secondary" role="button">Get another report</a>
+
+    </div>
 
 </body>
 </html>
