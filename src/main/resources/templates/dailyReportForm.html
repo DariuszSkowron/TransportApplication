@@ -10,11 +10,40 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <style>
-    span.b {
-        width: 100px;
-        height: 20px;
-        display: inline-block;
-        padding: 5px;
+
+     span.b {
+         width: 140px;
+         height: 20px;
+         display: inline-block;
+         padding: 5px;
+     }
+
+    fieldset {
+        /*border: 1px solid rgb(255,232,57);*/
+        width: 440px;
+        /*display: block;*/
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 20px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+    legend {
+        margin: auto;
+        font-size: 22px;
+        text-align: center;
+
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+    h1 {
+        text-align: center;
     }
 </style>
 <body>
@@ -32,6 +61,14 @@
             <a class="nav-item nav-link" href="#" th:href="@{/transits}">Show All Transits</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/daily}">Daily Report</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/monthly}">Monthly Report</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{/api/transits/downloadPDF}">Export transits to PDF</a>
+                    <a class="dropdown-item" th:href="@{/api/transits/download}">Export transits to XML (EXCEL)</a>
+                </div>
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <a href="#" class="nav-link"><i class="fab fa-facebook"></i></a>
@@ -46,7 +83,7 @@
 <form method="post" th:action="@{/addDailyReport}" th:object="${dailyReport}">
 
     <fieldset>
-        <legend>Define period for the raport</legend>
+        <legend><b>Define period to generate raport</b></legend>
     <div>
         <span class="b"><label>Insert start date</label></span>
         <span class="b"><input type="date" th:field="*{startDate}"/></span>
@@ -57,7 +94,9 @@
         </div>
 
     </fieldset>
-<input type="submit" value="Get the daily report" />
+    <div class="wrapper">
+    <button input type="submit" class="btn btn-outline-secondary">Get report</button>
+    </div>
 </form>
 </body>
 </html>

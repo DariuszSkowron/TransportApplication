@@ -16,6 +16,34 @@
         display: inline-block;
         padding: 5px;
     }
+
+    fieldset {
+        border: 1px solid dimgrey;
+        width: 440px;
+        display: block;
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 20px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+    legend {
+        margin: auto;
+        font-size: 22px;
+        text-align: center;
+
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+    h2 {
+        text-align: center;
+    }
 </style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,6 +60,14 @@
             <a class="nav-item nav-link" href="#" th:href="@{/transits}">Show All Transits</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/daily}">Daily Report</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/monthly}">Monthly Report</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{/api/transits/downloadPDF}">Export transits to PDF</a>
+                    <a class="dropdown-item" th:href="@{/api/transits/download}">Export transits to XML (EXCEL)</a>
+                </div>
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <a href="#" class="nav-link"><i class="fab fa-facebook"></i></a>
@@ -85,7 +121,7 @@
     <!--</table>-->
 
 
-    <h1>Transits from each day of the month (if the date doesnt occur in the list it means, there was no transits that day:</h1>
+    <h2>Transits from each day of the month (if the date doesnt occur in the list it means, there was no transits that day):</h2>
     <form method="get" th:each="monthlyReport: ${reports}" th:object="${monthlyReport}">
         <fieldset>
             <legend th:text="*{date}"></legend>
@@ -108,7 +144,9 @@
         </fieldset>
     </form>
 
-    <a th:href="@{/}">Return to homepage</a>
+<div class="wrapper">
+<a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+    </div>
 </body>
 </html>
 
