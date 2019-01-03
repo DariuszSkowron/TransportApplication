@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        http.formLogin().defaultSuccessUrl("/indexLog", true);
     }
 
     @Bean
