@@ -101,7 +101,8 @@
                                 Login via
                                 <div class="social-buttons">
                                     <a href="#" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>
-                                    <a href="#" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>
+                                    <a href="#" th:href="@{/oauth2/authorization/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>
+                                    <!--<a  href="#" th:href="@{/reports/daily}" class="btn btn-outline-secondary" role="button">Get another report</a>-->
                                 </div>
                         or
                         <form th:action="@{/login}" method="post">

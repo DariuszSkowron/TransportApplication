@@ -32,18 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.formLogin().defaultSuccessUrl("/indexLog", true);
 //    }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService(){
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
 
 //    @Configuration
 //    public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -51,9 +51,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
+                    .antMatchers("/images/**", "/", "/index").permitAll()
                     .anyRequest().authenticated()
                     .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/indexLog", true)
+                    .permitAll()
+                    .and()
                     .oauth2Login()
+                    .loginPage("/oauth_login")
                     .defaultSuccessUrl("/indexLog", true);
         }
     }
