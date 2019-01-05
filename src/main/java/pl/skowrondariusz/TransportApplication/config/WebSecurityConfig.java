@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.authorizeRequests()
                     .anyRequest().authenticated()
                     .and()
-                    .oauth2Login();
+                    .oauth2Login()
+                    .defaultSuccessUrl("/indexLog", true);
         }
     }
 
