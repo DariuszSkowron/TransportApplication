@@ -52,7 +52,7 @@ public class LoginController {
             return "oauth_login";
         }
 
-    @GetMapping("/loginSuccess")
+    @GetMapping("/indexLog")
     public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
 
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
@@ -75,7 +75,7 @@ public class LoginController {
             model.addAttribute("name", userAttributes.get("name"));
         }
 
-        return "loginSuccess";
+        return "indexLog";
     }
 
 }

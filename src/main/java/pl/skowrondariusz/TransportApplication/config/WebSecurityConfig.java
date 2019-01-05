@@ -3,12 +3,14 @@ package pl.skowrondariusz.TransportApplication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -39,17 +41,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.formLogin().defaultSuccessUrl("/indexLog", true);
 //    }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService(){
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
+//    @Bean
+//    @Override
+//    public UserDetailsService userDetailsService(){
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
 
-        return new InMemoryUserDetailsManager(user);
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("john")
+                .password(passwordEncoder().encode("123"))
+                .roles("USER");
     }
 
 //    @Configuration
@@ -57,32 +72,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-//            http.authorizeRequests()
-//                    .antMatchers("/images/**", "/", "/index", "/oauth_login").permitAll()
-//                    .anyRequest().authenticated()
-//                    .and()
-//                    .formLogin()
-//                    .loginPage("/login")
-//                    .defaultSuccessUrl("/indexLog", true)
-//                    .permitAll()
-//                    .and()
-//                    .oauth2Login()
-//                    .loginPage("/oauth_login")
-//                    .authorizationEndpoint()
-//                    .baseUri("/oauth2/authorize-client")
-//                    .authorizationRequestRepository(authorizationRequestRepository())
-//                    .and()
-//                    .tokenEndpoint()
-//                    .accessTokenResponseClient(accessTokenResponseClient())
-//                    .and()
-//                    .failureUrl("/loginFailure")
-//                    .defaultSuccessUrl("/indexLog", true);
-//        }
             http.authorizeRequests()
-                    .antMatchers("/oauth_login", "/loginFailure", "/")
+                    .antMatchers("/images/**", "/", "/index", "/oauth_login").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/indexLog", true)
                     .permitAll()
-                    .anyRequest()
-                    .authenticated()
                     .and()
                     .oauth2Login()
                     .loginPage("/oauth_login")
@@ -93,9 +90,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .tokenEndpoint()
                     .accessTokenResponseClient(accessTokenResponseClient())
                     .and()
-                    .defaultSuccessUrl("/loginSuccess")
-                    .failureUrl("/loginFailure");
+                    .failureUrl("/loginFailure")
+                    .defaultSuccessUrl("/indexLog", true);
         }
+//            http.authorizeRequests()
+//                    .antMatchers("/oauth_login", "/loginFailure", "/")
+//                    .permitAll()
+//                    .anyRequest()
+//                    .authenticated()
+//                    .and()
+//                    .oauth2Login()
+//                    .loginPage("/oauth_login")
+//                    .authorizationEndpoint()
+//                    .baseUri("/oauth2/authorization")
+//                    .authorizationRequestRepository(authorizationRequestRepository())
+//                    .and()
+//                    .tokenEndpoint()
+//                    .accessTokenResponseClient(accessTokenResponseClient())
+//                    .and()
+//                    .defaultSuccessUrl("/loginSuccess")
+//                    .failureUrl("/loginFailure");
+//        }
 
 
     @Bean
@@ -109,6 +124,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new NimbusAuthorizationCodeTokenResponseClient();
     }
+
+    
     }
 
 
