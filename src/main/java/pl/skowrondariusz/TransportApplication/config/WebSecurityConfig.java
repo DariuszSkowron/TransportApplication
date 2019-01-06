@@ -125,7 +125,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new NimbusAuthorizationCodeTokenResponseClient();
     }
 
-    
+
     }
 
 

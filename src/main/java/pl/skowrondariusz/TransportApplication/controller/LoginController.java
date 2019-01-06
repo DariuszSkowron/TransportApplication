@@ -11,13 +11,18 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -52,7 +57,7 @@ public class LoginController {
             return "oauth_login";
         }
 
-    @GetMapping("/indexLog")
+    @GetMapping("/loginSuccess")
     public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
 
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
@@ -72,10 +77,20 @@ public class LoginController {
 
             ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
             Map userAttributes = response.getBody();
-            model.addAttribute("name", userAttributes.get("name"));
-        }
+            model.addAttribute("username", userAttributes.get("name"));
 
-        return "indexLog";
+        }
+        return "loginSuccess";
     }
+
+
+//    @RequestMapping(value = "/username", method = RequestMethod.GET)
+//    public String currentUserName(@ModelAttribute Principal principal, ModelMap modelMap) {
+//        modelMap.addAttribute("user", principal.getName());
+//        return "indexLog";
+//
+//    }
+
+
 
 }
