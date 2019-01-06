@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -81,6 +82,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/indexLog", true)
                     .permitAll()
                     .and()
+                    .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll()
+                    .and()
                     .oauth2Login()
                     .loginPage("/oauth_login")
                     .authorizationEndpoint()
@@ -91,7 +99,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .accessTokenResponseClient(accessTokenResponseClient())
                     .and()
                     .failureUrl("/loginFailure")
-                    .defaultSuccessUrl("/indexLog", true);
+                    .defaultSuccessUrl("/indexLog", true)
+                    .and()
+                    .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll();
         }
 //            http.authorizeRequests()
 //                    .antMatchers("/oauth_login", "/loginFailure", "/")
