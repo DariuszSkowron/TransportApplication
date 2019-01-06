@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>Secured page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<style>
+    button {
+        /*!*!*background-color: #6495ED;*!*!*/
+        /*!*!*color: white;*!*!*/
+        /*padding: 16px 25px;*/
+        /*margin: 0 auto;*/
+        /*border: none;*/
+        /*!*!*!*cursor: pointer;*!*!*!*/
+        /*border-radius: 8px;*/
+        text-align: center;
+        margin: 0px auto;
+    }
+    span.a {
+        width: 200px;
+        height: 20px;
+        display: inline;
+        padding: 50px;
+        align-content: center;
+    }
+
+
+
+    span.b {
+        width: 200px;
+        height: 20px;
+        display: inline-block;
+        padding: 25px;
+
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    fieldset {
+        /*border: 1px solid rgb(255,232,57);*/
+        width: 440px;
+        /*display: block;*/
+        margin:auto;
+        /*!*margin-left: 2px;*!*/
+        /*!*margin-right: 2px;*!*/
+        /*padding-top: 0.35em;*/
+        padding-bottom: 50px;
+        /*padding-left: 0.75em;*/
+        /*padding-right: 0.75em;*/
+        /*border: 2px groove (internal value);*/
+        /*text-align: center;*/
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+</style>
+    <body>
+<div th:if="${param.error}">
+    Invalid username or password.
+    <div class="wrapper">
+        <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+        <a  href="#" th:href="@{/oauth_login}" class="btn btn-outline-secondary" role="button">Try again</a>
+    </div>
+</div>
+<div th:if="${param.logout}">
+    You have been sucessfull logged out
+    <div class="wrapper">
+        <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return to Main Page</a>
+    </div>
+</div>
+<!--<form th:action="@{/login}" method="post">-->
+    <!--<div><label> User Name : <input type="text" name="username"/> </label></div>-->
+    <!--<div><label> Password: <input type="password" name="password"/> </label></div>-->
+    <!--<div><input type="submit" value="Sign In"/></div>-->
+<!--</form>-->
+</body>
+</html>
