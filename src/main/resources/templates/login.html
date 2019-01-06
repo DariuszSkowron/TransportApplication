@@ -82,5 +82,119 @@
     <!--<div><label> Password: <input type="password" name="password"/> </label></div>-->
     <!--<div><input type="submit" value="Sign In"/></div>-->
 <!--</form>-->
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" th:href="@{/}">
+        <img src="../static/images/LOGO-NEW.png" th:src="@{/images/LOGO-NEW.png}" width="150" height="80" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav">
+            <a class="nav-item nav-link active" href="#" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#" th:href="@{/transit}">Add New Transit</a>
+            <a class="nav-item nav-link" href="#" th:href="@{/transits}">Show All Transits</a>
+            <a class="nav-item nav-link" href="#" th:href="@{/reports/daily}">Daily Report</a>
+            <a class="nav-item nav-link" href="#" th:href="@{/reports/monthly}">Monthly Report</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{/api/transits/downloadPDF}">Export transits to PDF</a>
+                    <a class="dropdown-item" th:href="@{/api/transits/download}">Export transits to XML (EXCEL)</a>
+                </div>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li>
+                <a href="#" class="nav-link"><i class="fab fa-facebook"></i></a>
+            </li>
+            <li>
+                <a href="#" class="nav-link"><i class="fab fa-linkedin-in"></i></a>
+            <li>
+                <a href="#" class="nav-link"><i class="fab fa-github"></i></a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <!--<ul class="nav navbar-nav flex-row justify-content-between ml-auto">-->
+            <li class="dropdown order-1">
+                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle"><span th:text="${username}">user</span> <span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right mt-2">
+                    <li class="px-3 py-2">
+                        <div class="form-group">
+                            <a  href="#" th:href="@{/}" class="btn btn-primary btn-block" role="button"> Logout</a>
+                            <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--Login via-->
+        <!--<div class="social-buttons">-->
+        <!--<a href="#" th:href="@{/oauth2/authorization/facebook}" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>-->
+        <!--<a href="#" th:href="@{/oauth2/authorization/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>-->
+        <!--&lt;!&ndash;<a  href="#" th:href="@{/reports/daily}" class="btn btn-outline-secondary" role="button">Get another report</a>&ndash;&gt;-->
+        <!--</div>-->
+        <!--or-->
+        <!--<form th:action="@{/login}" method="post">-->
+        <!--<div class="form-group">-->
+        <!--<input id="emailInput" placeholder="username" class="form-control form-control-sm" name="username" type="text" required="">-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<input id="passwordInput" placeholder="password" class="form-control form-control-sm" type="text" name="password" required="">-->
+        <!--</div>-->
+
+
+
+        <!--<a href="#loginModal" role="button" class="btn btn-outline-secondary" data-toggle="modal">Login</a>-->
+        <!--</ul>-->
+        <!--<ul>-->
+        <!--<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
+        <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+        <!--<div class="modal-header text-center">-->
+        <!--<h3>Login</h3>-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-12">-->
+        <!--Login via-->
+        <!--<div class="social-buttons">-->
+        <!--<a href="#" th:href="@{/oauth2/authorization/facebook}" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>-->
+        <!--<a href="#" th:href="@{/oauth2/authorization/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>-->
+        <!--</div>-->
+        <!--<div class="modal-body">-->
+        <!--<form th:action="@{/login}" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">-->
+        <!--<div class="form-group">-->
+        <!--<a href="" class="float-right">New user?</a>-->
+        <!--<label for="uname1">Username</label>-->
+        <!--<input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="">-->
+        <!--<div class="invalid-feedback">Oops, you missed this one.</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label>Password</label>-->
+        <!--<input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password">-->
+        <!--<div class="invalid-feedback">Enter your password too!</div>-->
+        <!--</div>-->
+        <!--<div class="custom-control custom-checkbox">-->
+        <!--<input type="checkbox" class="custom-control-input" id="rememberMe">-->
+        <!--<label class="custom-control-label" for="rememberMe">Remember me on this computer</label>-->
+        <!--</div>-->
+        <!--<div class="form-group py-4">-->
+        <!--<button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
+        <!--<button type="submit" th:action="@{/indexLog}"  class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</ul>-->
+    </div>
+</nav>
 </body>
 </html>
