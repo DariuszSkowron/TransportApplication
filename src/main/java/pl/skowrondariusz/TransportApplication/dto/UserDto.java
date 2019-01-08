@@ -1,13 +1,15 @@
-package pl.skowrondariusz.TransportApplication.model;
+package pl.skowrondariusz.TransportApplication.dto;
+
+import pl.skowrondariusz.TransportApplication.validation.PasswordMatches;
+import pl.skowrondariusz.TransportApplication.validation.ValidEmail;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@PasswordMatches
 public class UserDto {
 
-    @PasswordMatches
-    public class UserDto {
         @NotNull
         @Size(min = 1, message = "{Size.userDto.firstName}")
         private String firstName;
@@ -16,7 +18,6 @@ public class UserDto {
         @Size(min = 1, message = "{Size.userDto.lastName}")
         private String lastName;
 
-        @ValidPassword
         private String password;
 
         @NotNull
