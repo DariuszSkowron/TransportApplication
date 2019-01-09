@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.client.web.HttpSessionOAuth2Authoriza
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.skowrondariusz.TransportApplication.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -60,13 +62,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("john")
-                .password(passwordEncoder().encode("123"))
-                .roles("USER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("john")
+//                .password(passwordEncoder().encode("123"))
+//                .roles("USER");
+//    }
 
 //    @Configuration
 //    public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -140,7 +142,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new NimbusAuthorizationCodeTokenResponseClient();
     }
 
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
 
     }
 
