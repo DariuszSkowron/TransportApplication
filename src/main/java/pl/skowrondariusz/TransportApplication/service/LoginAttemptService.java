@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.service;
-
-public class LoginAttemptService {
-}
+//package pl.skowrondariusz.TransportApplication.service;
+//
+//public class LoginAttemptService {
+//}
