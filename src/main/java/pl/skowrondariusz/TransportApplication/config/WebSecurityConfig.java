@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,100 +20,78 @@ import org.springframework.security.oauth2.client.web.HttpSessionOAuth2Authoriza
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.social.security.SpringSocialConfigurer;
+import pl.skowrondariusz.TransportApplication.security.AppRole;
+//import pl.skowrondariusz.TransportApplication.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 //@PropertySource("application-oauth2.properties")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
+////    @Override
+////    protected void configure(HttpSecurity http) throws Exception {
+////        http
+////                .authorizeRequests()
+////
+////                .antMatchers("/images/**", "/", "/index").permitAll()
+////                .anyRequest().authenticated()
+////                .and()
+////                .formLogin()
+////                .loginPage("/login")
+////                .permitAll()
+////                .and()
+////                .logout()
+////                .permitAll();
+////        http.formLogin().defaultSuccessUrl("/indexLog", true);
+////    }
 //
-//                .antMatchers("/images/**", "/", "/index").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//        http.formLogin().defaultSuccessUrl("/indexLog", true);
-//    }
-
+////    @Bean
+////    @Override
+////    public UserDetailsService userDetailsService(){
+////        UserDetails user =
+////                User.withDefaultPasswordEncoder()
+////                .username("user")
+////                .password("password")
+////                .roles("USER")
+////                .build();
+////
+////        return new InMemoryUserDetailsManager(user);
+////    }
+//
 //    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user);
+//    public BCryptPasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
 //    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("john")
-                .password(passwordEncoder().encode("123"))
-                .roles("USER");
-    }
-
-//    @Configuration
-//    public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
-                    .antMatchers("/images/**", "/", "/index", "/oauth_login").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                    .formLogin()
-                    .loginPage("/login")
-//                    .defaultSuccessUrl("/indexLog", true)
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll()
-                    .and()
-                    .oauth2Login()
-                    .loginPage("/oauth_login")
-                    .authorizationEndpoint()
-                    .baseUri("/oauth2/authorization")
-                    .authorizationRequestRepository(authorizationRequestRepository())
-                    .and()
-                    .tokenEndpoint()
-                    .accessTokenResponseClient(accessTokenResponseClient())
-                    .and()
-                    .failureUrl("/loginFailure")
-//                    .defaultSuccessUrl("/indexLog", true)
-                    .and()
-                    .logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll();
-        }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("john")
+//                .password(passwordEncoder().encode("123"))
+//                .roles("USER");
+//    }
+//
+////    @Configuration
+////    public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
 //            http.authorizeRequests()
-//                    .antMatchers("/oauth_login", "/loginFailure", "/")
+//                    .antMatchers("/images/**", "/", "/index", "/oauth_login", "/h2/**").permitAll()
+//                    .anyRequest().authenticated()
+//                    .and()
+//                    .formLogin()
+//                    .loginPage("/login")
+////                    .defaultSuccessUrl("/indexLog", true)
 //                    .permitAll()
-//                    .anyRequest()
-//                    .authenticated()
+//                    .and()
+//                    .logout()
+//                    .invalidateHttpSession(true)
+//                    .clearAuthentication(true)
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                    .logoutSuccessUrl("/login?logout")
+//                    .permitAll()
 //                    .and()
 //                    .oauth2Login()
 //                    .loginPage("/oauth_login")
@@ -123,24 +102,87 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .tokenEndpoint()
 //                    .accessTokenResponseClient(accessTokenResponseClient())
 //                    .and()
-//                    .defaultSuccessUrl("/loginSuccess")
-//                    .failureUrl("/loginFailure");
+//                    .failureUrl("/loginFailure")
+////                    .defaultSuccessUrl("/indexLog", true)
+//                    .and()
+//                    .logout()
+//                    .invalidateHttpSession(true)
+//                    .clearAuthentication(true)
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                    .logoutSuccessUrl("/login?logout")
+//                    .permitAll();
 //        }
+////            http.authorizeRequests()
+////                    .antMatchers("/oauth_login", "/loginFailure", "/")
+////                    .permitAll()
+////                    .anyRequest()
+////                    .authenticated()
+////                    .and()
+////                    .oauth2Login()
+////                    .loginPage("/oauth_login")
+////                    .authorizationEndpoint()
+////                    .baseUri("/oauth2/authorization")
+////                    .authorizationRequestRepository(authorizationRequestRepository())
+////                    .and()
+////                    .tokenEndpoint()
+////                    .accessTokenResponseClient(accessTokenResponseClient())
+////                    .and()
+////                    .defaultSuccessUrl("/loginSuccess")
+////                    .failureUrl("/loginFailure");
+////        }
+//
+//
+//    @Bean
+//    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
+//        return new HttpSessionOAuth2AuthorizationRequestRepository();
+//    }
+//
+//    @Bean
+//    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>
+//    accessTokenResponseClient() {
+//
+//        return new NimbusAuthorizationCodeTokenResponseClient();
+//    }
+//
+////    @Autowired
+////    private MyUserDetailsService userDetailsService;
+////
+////    @Override
+////    protected void configure(AuthenticationManagerBuilder auth)
+////            throws Exception {
+////        auth.userDetailsService(userDetailsService);
+////    }
 
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    @Bean
-    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
-        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
-    @Bean
-    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>
-    accessTokenResponseClient() {
-
-        return new NimbusAuthorizationCodeTokenResponseClient();
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+        http.authorizeRequests().antMatchers("/", "/signup", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/userInfo").access("hasRole('" + AppRole.ROLE_USER + "')");
+        http.authorizeRequests().antMatchers("/admin").access("hasRole('" + AppRole.ROLE_ADMIN + "')");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        http.authorizeRequests().and().formLogin()
+                .loginProcessingUrl("/j_spring_security_check")
+                .loginPage("/login")
+                .defaultSuccessUrl("/userInfo")
+                .failureUrl("/login?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password");
+        http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+        http.apply(new SpringSocialConfigurer()).signupUrl("/signup");
     }
 
-
+    @Override
+    public UserDetailsService userDetailsService() {
+        return userDetailsService;
+    }
     }
 
 
