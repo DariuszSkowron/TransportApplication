@@ -10,4 +10,8 @@ public interface UserService extends UserDetailsService {
     User save(UserRegistrationDto registration);
 
     void updatePassword(String password, Long userId);
+
+
+
+
 }

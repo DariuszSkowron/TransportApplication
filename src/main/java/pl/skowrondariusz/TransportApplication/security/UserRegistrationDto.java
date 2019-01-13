@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 
 @FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-        @FieldMatch(first = "templates/email", second = "confirmEmail", message = "The email fields must match")
+        @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
 })
 public class UserRegistrationDto {
 
@@ -32,6 +32,16 @@ public class UserRegistrationDto {
 
     @AssertTrue
     private Boolean terms;
+
+    private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getFirstName() {
         return firstName;

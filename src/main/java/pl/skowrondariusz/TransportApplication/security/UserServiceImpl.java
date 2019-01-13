@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        user.setEnabled(false);
         return userRepository.save(user);
     }
 
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(String password, Long userId) {
         userRepository.updatePassword(password, userId);
     }
+
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
         return roles.stream()

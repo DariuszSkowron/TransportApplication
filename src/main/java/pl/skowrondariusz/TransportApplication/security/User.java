@@ -25,7 +25,19 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public User() {
+
     }
 
     public User(String firstName, String lastName, String email, String password) {
@@ -41,6 +53,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.enabled = enabled;
     }
 
     public Long getId() {

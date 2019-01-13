@@ -3,6 +3,7 @@ package pl.skowrondariusz.TransportApplication.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
@@ -19,6 +20,7 @@ public class EmailService {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+    @Async
     public void sendEmail(Mail mail) {
         try {
             MimeMessage message = emailSender.createMimeMessage();

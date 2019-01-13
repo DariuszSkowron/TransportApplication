@@ -21,12 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(
-                        "/registration**" , "/forgot-password**", "/reset-password**",
+                        "/registration**" , "/forgot-password**", "/reset-password**", "/email/email-template",
                         "/js/**",
                         "/css/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/admin", "/h2/**").hasRole("ADMIN").anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -38,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+        http.exceptionHandling().accessDeniedPage("/403");
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
@@ -53,9 +57,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return auth;
     }
 
-    @Override
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(authenticationProvider());
+//    }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password("password").
+//                .roles("ADMIN")
+//                .and()
+//                .withUser("manager")
+//                .password("password")
+//                .credentialsExpired(true)
+//                .accountExpired(true)
+//                .accountLocked(true)
+//                .authorities("WRITE_PRIVILEGES", "READ_PRIVILEGES")
+//                .roles("MANAGER");
+//    }
+
+        @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+            auth.inMemoryAuthentication()
+                    .withUser("john")
+                    .password(passwordEncoder().encode("123"))
+                    .roles("ADMIN");
+        }
+
 
 }
