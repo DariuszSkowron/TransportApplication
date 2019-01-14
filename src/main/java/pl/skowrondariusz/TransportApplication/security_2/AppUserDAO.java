@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security;
+package pl.skowrondariusz.TransportApplication.security_2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,17 @@ public class AppUserDAO {
 
     @Autowired
     private AppRoleDAO appRoleDAO;
+
+    public AppUser findAppUserByConfirmationToken(String confirmationToken) {
+        try {
+            String sql = "select e from " + AppUser.class.getName() + " e where e.confirmationToken = :confirmationToken ";
+            Query query = entityManager.createQuery(sql, AppUser.class);
+            query.setParameter("confirmationToken", confirmationToken);
+            return (AppUser) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
     public AppUser findAppUserByUserId(Long userId) {
         try {
@@ -55,7 +66,7 @@ public class AppUserDAO {
             String sql = "select e from " + AppUser.class.getName() + " e "
                     + " where e.email = :email ";
             Query query = entityManager.createQuery(sql, AppUser.class);
-            query.setParameter("email", email);
+            query.setParameter("templates/email", email);
             return (AppUser) query.getSingleResult();
         } catch (NoResultException e) {
             return null;

@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security;
+package pl.skowrondariusz.TransportApplication.security_2;
 
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;

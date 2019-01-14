@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security;
+package pl.skowrondariusz.TransportApplication.security_2;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +33,17 @@ public class AppUser {
 
     @Column(name = "Enabled", length = 1, nullable = false)
     private boolean enabled;
+
+    @Column(name = "Confirmation_token")
+    private String confirmationToken;
+
+    public String getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
 
     public Long getUserId() {
         return userId;

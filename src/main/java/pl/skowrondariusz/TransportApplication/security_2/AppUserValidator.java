@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security;
+package pl.skowrondariusz.TransportApplication.security_2;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.validation.Validator;
 
             AppUserForm form = (AppUserForm) target;
 
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "", "Email is required");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "templates/email", "", "Email is required");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "", "User name is required");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "", "First name is required");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "", "Last name is required");
@@ -38,7 +38,7 @@ import org.springframework.validation.Validator;
 
             if (!emailValidator.isValid(form.getEmail())) {
 
-                errors.rejectValue("email", "", "Email is not valid");
+                errors.rejectValue("templates/email", "", "Email is not valid");
                 return;
             }
 
@@ -56,10 +56,10 @@ import org.springframework.validation.Validator;
             userAccount = appUserDAO.findByEmail(form.getEmail());
             if (userAccount != null) {
                 if (form.getUserId() == null) {
-                    errors.rejectValue("email", "", "Email is not available");
+                    errors.rejectValue("templates/email", "", "Email is not available");
                     return;
                 } else if (!form.getUserId().equals(userAccount.getUserId())) {
-                    errors.rejectValue("email", "", "Email is not available");
+                    errors.rejectValue("templates/email", "", "Email is not available");
                     return;
                 }
             }
