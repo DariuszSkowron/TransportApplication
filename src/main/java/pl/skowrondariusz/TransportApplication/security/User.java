@@ -26,17 +26,12 @@ public class User {
     private Collection<Role> roles;
 
     @Column(name = "enabled")
-    private Boolean enabled;
+    private boolean enabled;
 
-    public Boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public User() {
+        super();
+        this.enabled=false;
 
     }
 
@@ -55,14 +50,6 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection<Role> roles, boolean enabled) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-        this.enabled = enabled;
-    }
 
     public Long getId() {
         return id;
@@ -102,6 +89,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Collection<Role> getRoles() {

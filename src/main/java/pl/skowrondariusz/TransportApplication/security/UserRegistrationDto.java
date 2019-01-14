@@ -33,15 +33,6 @@ public class UserRegistrationDto {
     @AssertTrue
     private Boolean terms;
 
-    private Boolean enabled;
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getFirstName() {
         return firstName;

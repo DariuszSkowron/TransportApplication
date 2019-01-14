@@ -24,13 +24,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+            try {
+                User user = userRepository.findByEmail(email);
+                if (user == null) {
+                    throw new UsernameNotFoundException("Invalid username or password.");
+                }
+                return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                        user.getPassword(),
+                        user.isEnabled(),
+                        true,
+                        true,
+                        true,
+                        mapRolesToAuthorities(user.getRoles()));
+            }catch (Exception e) {
+                throw new RuntimeException(e);
+            }
     }
 
     public User findByEmail(String email){
@@ -44,7 +52,6 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        user.setEnabled(false);
         return userRepository.save(user);
     }
 
@@ -59,4 +66,11 @@ public class UserServiceImpl implements UserService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
+    }
+
+
 }

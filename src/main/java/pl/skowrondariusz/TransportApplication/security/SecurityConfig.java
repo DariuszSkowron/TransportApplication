@@ -57,10 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return auth;
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(authenticationProvider());
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -78,13 +78,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .roles("MANAGER");
 //    }
 
-        @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("john")
-                    .password(passwordEncoder().encode("123"))
-                    .roles("ADMIN");
-        }
+//        @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//            auth.inMemoryAuthentication()
+//                    .withUser("john")
+//                    .password(passwordEncoder().encode("123"))
+//                    .roles("ADMIN");
+//        }
 
 
 }
