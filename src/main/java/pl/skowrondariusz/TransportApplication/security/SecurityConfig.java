@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(
-                        "/registration**" , "/forgot-password**", "/reset-password**", "/email/email-template", "/registrationConfirm**",
+                        "/registration**" , "/forgot-password**", "/reset-password**", "/email/email-template", "/registrationConfirm**", "/resendToken**",
                         "/js/**",
                         "/css/**",
                         "/img/**",
