@@ -10,48 +10,118 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
+
 public class UserActivationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailService emailService;
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
-    @Autowired
-    private PasswordResetTokenRepository tokenRepository;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    @ModelAttribute("resendRegistrationTokenForm")
+    public VerificationTokenResendDto verificationTokenResendDto() {
+        return new VerificationTokenResendDto();
+    }
 
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
 
-
-
-    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public String confirmRegistration
-            (WebRequest request, Model model, @RequestParam("token") String token) {
-
-        Locale locale = request.getLocale();
+    @RequestMapping( value ="/registrationConfirm", method = RequestMethod.GET)
+    public String displayConfirmRegistrationPage(@RequestParam(required = false) String token,
+                                           Model model) {
 
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
-        if (verificationToken == null) {
-
-            model.addAttribute("error","Could not find password reset token." );
-            return "redirect:/badUser.html?lang=" + locale.getLanguage();
-        }
-        else if (verificationToken.isExpired()){
+        if (verificationToken == null){
+            model.addAttribute("error", "Could not find password reset token.");
+        } else if (verificationToken.isExpired()){
             model.addAttribute("error", "Token has expired, please request a new password reset.");
-
+        } else {
+            model.addAttribute("token", verificationToken.getToken());
         }
         final User user = verificationToken.getUser();
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
-        return "redirect:/login.html";
+
+        return "registrationConfirm";
     }
+
+    @RequestMapping(value = "/resendToken", method = RequestMethod.GET)
+    public String displayForgotPasswordPage() {
+        return "resendToken";
+    }
+
+
+    @RequestMapping(value = "/resendToken", method = RequestMethod.POST)
+    public String resendRegistrationToken(@ModelAttribute("resendRegistrationTokenForm") @Valid VerificationTokenResendDto form,
+                                            BindingResult result,
+                                            HttpServletRequest request) {
+
+        if (result.hasErrors()){
+            return "resendToken";
+        }
+
+        User user = userService.findByEmail(form.getEmail());
+        if (user == null){
+            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
+            return "resendToken";
+        }
+
+        VerificationToken token = new VerificationToken();
+        token.setToken(UUID.randomUUID().toString());
+        token.setUser(user);
+        token.setExpiryDate(30);
+        verificationTokenRepository.save(token);
+
+        Mail mail = new Mail();
+        mail.setFrom("no-reply@skowrondariusz.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Verification token resend");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", user);
+        model.put("signature", "https://skowrondariusz.com");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        mail.setModel(model);
+        emailService.sendEmail(mail);
+
+        return "redirect:/resendToken?success";
+
+    }
+//    forgot-password
+
+
+
+//    @GetMapping
+//    public String confirmRegistration
+//            (WebRequest request, Model model, @RequestParam(required = false) String token) {
+//
+//        Locale locale = request.getLocale();
+//
+//        VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+//        if (verificationToken == null) {
+//
+//            model.addAttribute("error","Could not find password reset token." );
+//            return "redirect:/badUser.html?lang=" + locale.getLanguage();
+//        }
+//        else if (verificationToken.isExpired()){
+//            model.addAttribute("error", "Token has expired, please request a new password reset.");
+//
+//        }
+//        final User user = verificationToken.getUser();
+//        user.setEnabled(true);
+//        userService.saveRegisteredUser(user);
+//        return "registrationConfirm";
+//    }
 
 
 
