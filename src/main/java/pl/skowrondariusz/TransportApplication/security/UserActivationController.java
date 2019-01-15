@@ -14,44 +14,58 @@ import javax.validation.Valid;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/registrationConfirm")
 public class UserActivationController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
-    @Autowired
-    private PasswordResetTokenRepository tokenRepository;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
 
-
-
-    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public String confirmRegistration
-            (WebRequest request, Model model, @RequestParam("token") String token) {
-
-        Locale locale = request.getLocale();
+    @GetMapping
+    public String displayConfirmRegistrationPage(@RequestParam(required = false) String token,
+                                           Model model) {
 
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
-        if (verificationToken == null) {
-
-            model.addAttribute("error","Could not find password reset token." );
-            return "redirect:/badUser.html?lang=" + locale.getLanguage();
-        }
-        else if (verificationToken.isExpired()){
+        if (verificationToken == null){
+            model.addAttribute("error", "Could not find password reset token.");
+        } else if (verificationToken.isExpired()){
             model.addAttribute("error", "Token has expired, please request a new password reset.");
-
+        } else {
+            model.addAttribute("token", verificationToken.getToken());
         }
         final User user = verificationToken.getUser();
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
-        return "redirect:/login.html";
+
+        return "registrationConfirm";
     }
+
+
+
+//    @GetMapping
+//    public String confirmRegistration
+//            (WebRequest request, Model model, @RequestParam(required = false) String token) {
+//
+//        Locale locale = request.getLocale();
+//
+//        VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+//        if (verificationToken == null) {
+//
+//            model.addAttribute("error","Could not find password reset token." );
+//            return "redirect:/badUser.html?lang=" + locale.getLanguage();
+//        }
+//        else if (verificationToken.isExpired()){
+//            model.addAttribute("error", "Token has expired, please request a new password reset.");
+//
+//        }
+//        final User user = verificationToken.getUser();
+//        user.setEnabled(true);
+//        userService.saveRegisteredUser(user);
+//        return "registrationConfirm";
+//    }
 
 
 
