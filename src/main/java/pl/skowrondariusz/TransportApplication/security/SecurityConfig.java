@@ -38,13 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and()
-                .rememberMe()
-                .key("unique-and-secret")
-                .rememberMeCookieName("remember-me-cookie-name")
-                .tokenValiditySeconds(24 * 60 * 60)
-        .userDetailsService(userService);
+                .permitAll();
+//                .and()
+//                .logout().deleteCookies("JSESSIONID")
+//                .and()
+//                .rememberMe()
+//                .key("unique-and-secret")
+//                .rememberMeCookieName("remember-me-cookie-name")
+//                .tokenValiditySeconds(24 * 60 * 60)
+//        .userDetailsService(userService);
         http.exceptionHandling().accessDeniedPage("/403");
         http.csrf().disable();
         http.headers().frameOptions().disable();
