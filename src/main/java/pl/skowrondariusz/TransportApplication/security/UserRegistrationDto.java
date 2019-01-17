@@ -18,6 +18,7 @@ public class UserRegistrationDto {
     private String lastName;
 
     @NotEmpty
+    @ValidPassword
     private String password;
 
     @NotEmpty
