@@ -18,7 +18,7 @@
             <h1>Login page</h1>
                 <div th:if="${param.error}">
                     <div class="alert alert-danger">
-                        Invalid username or password.
+                        Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
                     </div>
                 </div>
                 <div th:if="${param.logout}">
