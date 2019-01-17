@@ -8,6 +8,18 @@ public class PasswordForgotDto {
     @NotEmpty
     private String email;
 
+    @NotEmpty
+    @ValidReCaptcha
+    private String reCaptchaResponse;
+
+    public String getReCaptchaResponse() {
+        return reCaptchaResponse;
+    }
+
+    public void setReCaptchaResponse(String reCaptchaResponse) {
+        this.reCaptchaResponse = reCaptchaResponse;
+    }
+
     public String getEmail() {
         return email;
     }

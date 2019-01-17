@@ -39,6 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+//                .and()
+//                .logout().deleteCookies("JSESSIONID")
+//                .and()
+//                .rememberMe()
+//                .key("unique-and-secret")
+//                .rememberMeCookieName("remember-me-cookie-name")
+//                .tokenValiditySeconds(24 * 60 * 60)
+//        .userDetailsService(userService);
         http.exceptionHandling().accessDeniedPage("/403");
         http.csrf().disable();
         http.headers().frameOptions().disable();
@@ -54,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
+
         return auth;
     }
 

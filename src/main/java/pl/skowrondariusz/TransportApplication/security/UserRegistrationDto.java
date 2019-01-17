@@ -3,6 +3,7 @@ package pl.skowrondariusz.TransportApplication.security;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 @FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
@@ -17,6 +18,7 @@ public class UserRegistrationDto {
     private String lastName;
 
     @NotEmpty
+    @ValidPassword
     private String password;
 
     @NotEmpty
@@ -90,4 +92,37 @@ public class UserRegistrationDto {
         this.terms = terms;
     }
 
+
+    @Override
+    public String toString() {
+        return "UserRegistrationDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", confirmEmail='" + confirmEmail + '\'' +
+                ", terms=" + terms +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRegistrationDto that = (UserRegistrationDto) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(confirmPassword, that.confirmPassword) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(confirmEmail, that.confirmEmail) &&
+                Objects.equals(terms, that.terms);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(firstName, lastName, password, confirmPassword, email, confirmEmail, terms);
+    }
 }

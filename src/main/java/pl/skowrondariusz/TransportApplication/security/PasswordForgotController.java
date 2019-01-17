@@ -48,7 +48,7 @@ public class PasswordForgotController {
 
         User user = userService.findByEmail(form.getEmail());
         if (user == null){
-            result.rejectValue("templates/email", null, "We could not find an account for that e-mail address.");
+            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
             return "forgot-password";
         }
 
