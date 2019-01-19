@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.skowrondariusz.TransportApplication.api.ApiTransitController;
 
 import javax.validation.Valid;
 
@@ -26,8 +25,8 @@ public class PasswordResetController {
     @Autowired private BCryptPasswordEncoder passwordEncoder;
 
     @ModelAttribute("passwordResetForm")
-    public PasswordResetDto passwordReset() {
-        return new PasswordResetDto();
+    public PasswordResetForm passwordReset() {
+        return new PasswordResetForm();
     }
 
     @GetMapping
@@ -48,7 +47,7 @@ public class PasswordResetController {
 
     @PostMapping
     @Transactional
-    public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
+    public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetForm form,
                                       BindingResult result,
                                       RedirectAttributes redirectAttributes) {
 

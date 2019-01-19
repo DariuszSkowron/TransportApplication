@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.skowrondariusz.TransportApplication.api.ApiTransitController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,8 +27,8 @@ public class PasswordForgotController {
     @Autowired private EmailService emailService;
 
     @ModelAttribute("forgotPasswordForm")
-    public PasswordForgotDto forgotPasswordDto() {
-        return new PasswordForgotDto();
+    public PasswordForgotForm forgotPasswordDto() {
+        return new PasswordForgotForm();
     }
 
     @GetMapping
@@ -38,7 +37,7 @@ public class PasswordForgotController {
     }
 
     @PostMapping
-    public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotDto form,
+    public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotForm form,
                                             BindingResult result,
                                             HttpServletRequest request) {
 

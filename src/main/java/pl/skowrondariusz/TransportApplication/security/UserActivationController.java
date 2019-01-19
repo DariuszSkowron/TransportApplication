@@ -1,19 +1,14 @@
 package pl.skowrondariusz.TransportApplication.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,8 +22,8 @@ public class UserActivationController {
     private EmailService emailService;
 
     @ModelAttribute("resendRegistrationTokenForm")
-    public VerificationTokenResendDto verificationTokenResendDto() {
-        return new VerificationTokenResendDto();
+    public VerificationTokenResendForm verificationTokenResendDto() {
+        return new VerificationTokenResendForm();
     }
 
     @Autowired
@@ -60,7 +55,7 @@ public class UserActivationController {
 
 
     @RequestMapping(value = "/resendToken", method = RequestMethod.POST)
-    public String resendRegistrationToken(@ModelAttribute("resendRegistrationTokenForm") @Valid VerificationTokenResendDto form,
+    public String resendRegistrationToken(@ModelAttribute("resendRegistrationTokenForm") @Valid VerificationTokenResendForm form,
                                             BindingResult result,
                                             HttpServletRequest request) {
 
@@ -145,7 +140,7 @@ public class UserActivationController {
 //
 //    @PostMapping
 //    @Transactional
-//    public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
+//    public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetForm form,
 //                                      BindingResult result,
 //                                      RedirectAttributes redirectAttributes) {
 //

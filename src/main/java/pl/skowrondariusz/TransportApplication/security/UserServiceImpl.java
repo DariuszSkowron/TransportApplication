@@ -6,10 +6,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionKey;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User save(UserRegistrationDto registration){
+    public User save(UserRegistrationForm registration){
         User user = new User();
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
@@ -72,5 +74,31 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
+
+
+    public User createAppUser(Connection<?> connection) {
+        ConnectionKey key = connection.getKey();
+        System.out.println("key= (" + key.getProviderId() + "," + key.getProviderUserId() + ")");
+        UserProfile userProfile = connection.fetchUserProfile();
+        String email = userProfile.getEmail();
+        User appUser = this.findByEmail(email);
+        if (appUser != null) {
+            return appUser;
+        }
+        String userName_prefix = userProfile.getFirstName().trim().toLowerCase()
+                + "_" + userProfile.getLastName().trim().toLowerCase();
+
+        String randomPassword = UUID.randomUUID().toString().substring(0, 5);
+        String password = passwordEncoder.encode(randomPassword);
+        appUser = new User();
+        appUser.setEnabled(true);
+        appUser.setEmail(email);
+        appUser.setFirstName(userProfile.getFirstName());
+        appUser.setLastName(userProfile.getLastName());
+        appUser.setPassword(passwordEncoder.encode(password));
+        appUser.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        return userRepository.save(appUser);
+    }
 
 }
