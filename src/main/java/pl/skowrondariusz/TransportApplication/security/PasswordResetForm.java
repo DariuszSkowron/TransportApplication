@@ -3,7 +3,7 @@ package pl.skowrondariusz.TransportApplication.security;
 import javax.validation.constraints.NotEmpty;
 
 @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
-public class PasswordResetDto {
+public class PasswordResetForm {
 
     @NotEmpty
     private String password;

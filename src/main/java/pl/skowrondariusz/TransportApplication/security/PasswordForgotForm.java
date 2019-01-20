@@ -3,7 +3,7 @@ package pl.skowrondariusz.TransportApplication.security;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-public class PasswordForgotDto {
+public class PasswordForgotForm {
     @Email
     @NotEmpty
     private String email;
