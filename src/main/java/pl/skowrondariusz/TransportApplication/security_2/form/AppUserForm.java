@@ -8,26 +8,26 @@ import javax.validation.constraints.AssertTrue;
 
 public class AppUserForm {
 
-private Long userId;
-private String email;
-private String userName;
+    private Long userId;
+    private String email;
+    private String userName;
 
-private String firstName;
-private String lastName;
-private String password;
-private String role;
-private String signInProvider;
-private String providerUserId;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String role;
+    private String signInProvider;
+    private String providerUserId;
 
-        @AssertTrue
-        private Boolean terms;
+    @AssertTrue
+    private Boolean terms;
 
 
-public AppUserForm() {
+    public AppUserForm() {
 
-        }
+    }
 
-public AppUserForm(Connection<?> connection) {
+    public AppUserForm(Connection<?> connection) {
         UserProfile socialUserProfile = connection.fetchUserProfile();
         this.userId = null;
         this.email = socialUserProfile.getEmail();
@@ -38,79 +38,79 @@ public AppUserForm(Connection<?> connection) {
         ConnectionKey key = connection.getKey();
         this.signInProvider = key.getProviderId();
         this.providerUserId = key.getProviderUserId();
-        }
+    }
 
-public Long getUserId() {
+    public Long getUserId() {
         return userId;
-        }
+    }
 
-public void setUserId(Long id) {
+    public void setUserId(Long id) {
         this.userId = id;
-        }
+    }
 
-public String getEmail() {
+    public String getEmail() {
         return email;
-        }
+    }
 
-public void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        }
+    }
 
-public String getUserName() {
+    public String getUserName() {
         return userName;
-        }
+    }
 
-public void setUserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
-        }
+    }
 
-public String getFirstName() {
+    public String getFirstName() {
         return firstName;
-        }
+    }
 
-public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        }
+    }
 
-public String getLastName() {
+    public String getLastName() {
         return lastName;
-        }
+    }
 
-public void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        }
+    }
 
-public String getPassword() {
+    public String getPassword() {
         return password;
-        }
+    }
 
-public void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        }
+    }
 
-public String getRole() {
+    public String getRole() {
         return role;
-        }
+    }
 
-public void setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
-        }
+    }
 
-public String getSignInProvider() {
+    public String getSignInProvider() {
         return signInProvider;
-        }
+    }
 
-public void setSignInProvider(String signInProvider) {
+    public void setSignInProvider(String signInProvider) {
         this.signInProvider = signInProvider;
-        }
+    }
 
-public String getProviderUserId() {
+    public String getProviderUserId() {
         return providerUserId;
-        }
+    }
 
-public void setProviderUserId(String providerUserId) {
+    public void setProviderUserId(String providerUserId) {
         this.providerUserId = providerUserId;
-        }
+    }
 
     public Boolean getTerms() {
         return terms;
@@ -120,4 +120,5 @@ public void setProviderUserId(String providerUserId) {
         this.terms = terms;
     }
 
-        }
+}
+Ł
