@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.social;
+package pl.skowrondariusz.TransportApplication.security_2.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +21,8 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
+import pl.skowrondariusz.TransportApplication.security_2.dao.AppUserDAO;
+import pl.skowrondariusz.TransportApplication.security_2.service.ConnectionSignUpImpl;
 
 import javax.sql.DataSource;
 
@@ -81,7 +83,7 @@ public class SocialConfig implements SocialConfigurer {
     }
 
     @Bean
-    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
+    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator,  ConnectionRepository connectionRepository) {
         return new ConnectController(connectionFactoryLocator, connectionRepository);
     }
 
