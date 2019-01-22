@@ -16,87 +16,65 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h1>Login page</h1>
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
-                    </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
                 </div>
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">
-                        You have been logged out.
-                    </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">
+                    You have been logged out.
+
                 </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-3">
-                        <div style="padding-top:12px;">
-                            <a class="btn btn-block btn-social btn-facebook customBtn" th:href="@{/auth/facebook}">
-                                <span class="fa fa-facebook width42px"></span> Sign in with Facebook
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-google customBtn" th:href="@{/auth/google}">
-                                <span class="fa fa-google width42px"></span> Sign in with Google
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-twitter customBtn" th:href="@{/auth/twitter}">
-                                <span class="fa fa-twitter width42px"></span> Sign in with Twitter
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-linkedin customBtn" th:href="@{/auth/linkedin}">
-                                <span class="fa fa-linkedin width42px"></span> Sign in with LinkedIn
-                            </a>
-
                         </div>
-                <form th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <label for="username">Username</label>:
-                    <input type="text"
-                           id="username"
-                           name="username"
-                           class="form-control"
-                           autofocus="autofocus"
-                           placeholder="Username"/>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>:
-                    <input type="password"
-                           id="password"
-                           name="password"
-                           class="form-control"
-                           placeholder="Password"/>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input id="remember-me"
-                               name="remember-me"
-                               type="checkbox"/> Remember me
-                    </label>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit"
-                                   name="login-submit"
-                                   id="login-submit"
-                                   class="form-control btn btn-info"
-                                   value="Log In"/>
-                        </div>
+                        <form th:action="@{/login}" method="post">
+                            <div class="form-group">
+                                <label for="username">Username</label>:
+                                <input type="text"
+                                       id="username"
+                                       name="username"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>:
+                                <input type="password"
+                                       id="password"
+                                       name="password"
+                                       class="form-control"
+                                       placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input id="remember-me"
+                                           name="remember-me"
+                                           type="checkbox"/> Remember me
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit"
+                                               name="login-submit"
+                                               id="login-submit"
+                                               class="form-control btn btn-info"
+                                               value="Log In"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
-</div>
+            </div>
 
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+            <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+            <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

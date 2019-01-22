@@ -3,11 +3,14 @@ package pl.skowrondariusz.TransportApplication.security;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService extends UserDetailsService {
+public interface UserService extends UserDetailsService{
 
     User findByEmail(String email);
 
-    User save(UserRegistrationForm registration);
+Registration-6
+
+    User save(UserRegistrationDto registration);
+
 
     void updatePassword(String password, Long userId);
 

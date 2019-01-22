@@ -26,21 +26,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-            try {
-                User user = userRepository.findByEmail(email);
-                if (user == null) {
-                    throw new UsernameNotFoundException("Invalid username or password.");
-                }
-                return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                        user.getPassword(),
-                        user.isEnabled(),
-                        true,
-                        true,
-                        true,
-                        mapRolesToAuthorities(user.getRoles()));
-            }catch (Exception e) {
-                throw new RuntimeException(e);
+        try {
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                throw new UsernameNotFoundException("Invalid username or password.");
             }
+            return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                    user.getPassword(),
+                    user.isEnabled(),
+                    true,
+                    true,
+                    true,
+                    mapRolesToAuthorities(user.getRoles()));
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public User findByEmail(String email){
@@ -73,32 +73,8 @@ public class UserServiceImpl implements UserService {
     public void saveRegisteredUser(User user) {
         userRepository.save(user);
     }
-
-
-
-
-    public User createAppUser(Connection<?> connection) {
-        ConnectionKey key = connection.getKey();
-        System.out.println("key= (" + key.getProviderId() + "," + key.getProviderUserId() + ")");
-        UserProfile userProfile = connection.fetchUserProfile();
-        String email = userProfile.getEmail();
-        User appUser = this.findByEmail(email);
-        if (appUser != null) {
-            return appUser;
-        }
-        String userName_prefix = userProfile.getFirstName().trim().toLowerCase()
-                + "_" + userProfile.getLastName().trim().toLowerCase();
-
-        String randomPassword = UUID.randomUUID().toString().substring(0, 5);
-        String password = passwordEncoder.encode(randomPassword);
-        appUser = new User();
-        appUser.setEnabled(true);
-        appUser.setEmail(email);
-        appUser.setFirstName(userProfile.getFirstName());
-        appUser.setLastName(userProfile.getLastName());
-        appUser.setPassword(passwordEncoder.encode(password));
-        appUser.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        return userRepository.save(appUser);
-    }
-
+  
 }
+
+
+
