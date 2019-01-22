@@ -92,17 +92,17 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.springframework.security_2.oauth.boot</groupId>-->
-            <!--<artifactId>spring-security_2-oauth2-autoconfigure</artifactId>-->
-            <!--<version>2.1.1.RELEASE</version>-->
+        <!--<groupId>org.springframework.security_2.oauth.boot</groupId>-->
+        <!--<artifactId>spring-security_2-oauth2-autoconfigure</artifactId>-->
+        <!--<version>2.1.1.RELEASE</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.security_2</groupId>-->
-            <!--<artifactId>spring-security_2-oauth2-client</artifactId>-->
+        <!--<groupId>org.springframework.security_2</groupId>-->
+        <!--<artifactId>spring-security_2-oauth2-client</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.security_2</groupId>-->
-            <!--<artifactId>spring-security_2-oauth2-jose</artifactId>-->
+        <!--<groupId>org.springframework.security_2</groupId>-->
+        <!--<artifactId>spring-security_2-oauth2-jose</artifactId>-->
         <!--</dependency>-->
 
         <dependency>
@@ -112,22 +112,22 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.jboss.aerogear</groupId>-->
-            <!--<artifactId>aerogear-otp-java</artifactId>-->
-            <!--<version>1.0.0</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>org.jboss.aerogear</groupId>-->
+        <!--<artifactId>aerogear-otp-java</artifactId>-->
+        <!--<version>1.0.0</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>javax.servlet</groupId>-->
-            <!--<artifactId>jstl</artifactId>-->
-            <!--<scope>runtime</scope>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>jstl</artifactId>-->
+        <!--<scope>runtime</scope>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>javax.el</groupId>-->
-            <!--<artifactId>el-api</artifactId>-->
-            <!--<version>2.2</version>-->
+        <!--<groupId>javax.el</groupId>-->
+        <!--<artifactId>el-api</artifactId>-->
+        <!--<version>2.2</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -161,9 +161,9 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.springframework.social</groupId>-->
-            <!--<artifactId>spring-social-google</artifactId>-->
-            <!--<version>1.0.0.RELEASE</version>-->
+        <!--<groupId>org.springframework.social</groupId>-->
+        <!--<artifactId>spring-social-google</artifactId>-->
+        <!--<version>1.0.0.RELEASE</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -196,8 +196,8 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>commons-beanutils</groupId>-->
-            <!--<artifactId>commons-beanutils</artifactId>-->
+        <!--<groupId>commons-beanutils</groupId>-->
+        <!--<artifactId>commons-beanutils</artifactId>-->
         <!--</dependency>-->
 
         <dependency>
@@ -219,9 +219,9 @@
 
 
         <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpclient</artifactId>-->
-            <!--<version>4.5.6</version>-->
+        <!--<groupId>org.apache.httpcomponents</groupId>-->
+        <!--<artifactId>httpclient</artifactId>-->
+        <!--<version>4.5.6</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -258,6 +258,9 @@
             <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
+
+
+
 
 
 </project>
