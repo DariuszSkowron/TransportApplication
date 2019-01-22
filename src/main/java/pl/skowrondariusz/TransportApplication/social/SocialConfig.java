@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security_2;
+package pl.skowrondariusz.TransportApplication.social;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -81,7 +81,7 @@ public class SocialConfig implements SocialConfigurer {
     }
 
     @Bean
-    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator,  ConnectionRepository connectionRepository) {
+    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
         return new ConnectController(connectionFactoryLocator, connectionRepository);
     }
 

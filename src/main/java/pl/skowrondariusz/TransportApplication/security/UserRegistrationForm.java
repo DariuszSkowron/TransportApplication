@@ -9,7 +9,7 @@ import java.util.Objects;
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
         @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
 })
-public class UserRegistrationDto {
+public class UserRegistrationForm {
 
     @NotEmpty
     private String firstName;
@@ -95,7 +95,7 @@ public class UserRegistrationDto {
 
     @Override
     public String toString() {
-        return "UserRegistrationDto{" +
+        return "UserRegistrationForm{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
@@ -110,7 +110,7 @@ public class UserRegistrationDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserRegistrationDto that = (UserRegistrationDto) o;
+        UserRegistrationForm that = (UserRegistrationForm) o;
         return Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
                 Objects.equals(password, that.password) &&

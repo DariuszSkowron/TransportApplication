@@ -7,8 +7,10 @@ public interface UserService extends UserDetailsService{
 
     User findByEmail(String email);
 
+Registration-6
 
     User save(UserRegistrationDto registration);
+
 
     void updatePassword(String password, Long userId);
 

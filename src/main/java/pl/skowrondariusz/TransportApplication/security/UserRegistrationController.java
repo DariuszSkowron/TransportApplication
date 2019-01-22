@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import pl.skowrondariusz.TransportApplication.api.ApiTransitController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,8 +26,8 @@ public class UserRegistrationController {
 
 
     @ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public UserRegistrationForm userRegistrationDto() {
+        return new UserRegistrationForm();
     }
 
     @GetMapping
@@ -40,7 +38,7 @@ public class UserRegistrationController {
 
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationForm userDto,
                                       BindingResult result, HttpServletRequest request){
 
 
