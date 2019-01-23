@@ -107,7 +107,7 @@ public class AppUserDAO {
         String randomPassword = UUID.randomUUID().toString().substring(0, 5);
         String encrytedPassword = EncrytedPasswordUtils.encrytePassword(randomPassword);
         appUser = new AppUser();
-        appUser.setEnabled(true);
+        appUser.setEnabled(false);
         appUser.setEncrytedPassword("{bcrypt}" + encrytedPassword);
         appUser.setUserName(userName);
         appUser.setEmail(email);
@@ -128,7 +128,7 @@ public class AppUserDAO {
         appUser.setEmail(appUserForm.getEmail());
         appUser.setFirstName(appUserForm.getFirstName());
         appUser.setLastName(appUserForm.getLastName());
-        appUser.setEnabled(true);
+        appUser.setEnabled(false);
         String encrytedPassword = EncrytedPasswordUtils.encrytePassword(appUserForm.getPassword());
         appUser.setEncrytedPassword("{bcrypt}" + encrytedPassword);
         this.entityManager.persist(appUser);
@@ -137,6 +137,10 @@ public class AppUserDAO {
         this.appRoleDAO.createRoleFor(appUser, roleNames);
 
         return appUser;
+    }
+
+    public void saveRegisteredUser(AppUser appUser){
+        appUser.setEnabled(true);
     }
 
 }

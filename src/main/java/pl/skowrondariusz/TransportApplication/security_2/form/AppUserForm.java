@@ -35,6 +35,7 @@ public class AppUserForm {
         this.firstName = socialUserProfile.getFirstName();
         this.lastName = socialUserProfile.getLastName();
 
+
         ConnectionKey key = connection.getKey();
         this.signInProvider = key.getProviderId();
         this.providerUserId = key.getProviderUserId();
@@ -121,4 +122,3 @@ public class AppUserForm {
     }
 
 }
-Ł

@@ -62,7 +62,7 @@ public class SocialUserDetailsImpl implements SocialUserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.appUser.isEnabled();
     }
 
 }
