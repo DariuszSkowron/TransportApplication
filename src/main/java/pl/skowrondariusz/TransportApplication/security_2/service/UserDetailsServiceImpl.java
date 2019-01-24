@@ -13,6 +13,7 @@ import pl.skowrondariusz.TransportApplication.security_2.entity.AppUser;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -47,9 +48,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
 
+
+
         SocialUserDetailsImpl userDetails = new SocialUserDetailsImpl(appUser, roleNames);
 
         return userDetails;
     }
 
 }
+

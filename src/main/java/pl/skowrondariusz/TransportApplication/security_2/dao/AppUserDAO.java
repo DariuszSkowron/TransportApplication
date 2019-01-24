@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.security_2.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
@@ -107,7 +108,7 @@ public class AppUserDAO {
         String randomPassword = UUID.randomUUID().toString().substring(0, 5);
         String encrytedPassword = EncrytedPasswordUtils.encrytePassword(randomPassword);
         appUser = new AppUser();
-        appUser.setEnabled(true);
+        appUser.setEnabled(false);
         appUser.setEncrytedPassword("{bcrypt}" + encrytedPassword);
         appUser.setUserName(userName);
         appUser.setEmail(email);
@@ -128,7 +129,7 @@ public class AppUserDAO {
         appUser.setEmail(appUserForm.getEmail());
         appUser.setFirstName(appUserForm.getFirstName());
         appUser.setLastName(appUserForm.getLastName());
-        appUser.setEnabled(true);
+        appUser.setEnabled(false);
         String encrytedPassword = EncrytedPasswordUtils.encrytePassword(appUserForm.getPassword());
         appUser.setEncrytedPassword("{bcrypt}" + encrytedPassword);
         this.entityManager.persist(appUser);
@@ -139,4 +140,15 @@ public class AppUserDAO {
         return appUser;
     }
 
-}
+    public void saveRegisteredUser(AppUser appUser){
+        appUser.setEnabled(true);
+    }
+
+
+    public void changePassword(String updatedPassword, AppUser appUser) {
+        appUser.setEncrytedPassword("{bcrypt}" + updatedPassword);
+    }
+
+
+
+    }

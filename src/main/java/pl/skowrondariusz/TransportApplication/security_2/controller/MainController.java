@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.skowrondariusz.TransportApplication.security.EmailService;
+import pl.skowrondariusz.TransportApplication.security.Mail;
+import pl.skowrondariusz.TransportApplication.security.VerificationToken;
+import pl.skowrondariusz.TransportApplication.security.VerificationTokenRepository;
 import pl.skowrondariusz.TransportApplication.security_2.dao.AppUserDAO;
 import pl.skowrondariusz.TransportApplication.security_2.entity.AppRole;
 import pl.skowrondariusz.TransportApplication.security_2.entity.AppUser;
@@ -25,11 +29,12 @@ import pl.skowrondariusz.TransportApplication.security_2.form.AppUserForm;
 import pl.skowrondariusz.TransportApplication.security_2.utils.SecurityUtil;
 import pl.skowrondariusz.TransportApplication.security_2.utils.WebUtils;
 import pl.skowrondariusz.TransportApplication.security_2.validator.AppUserValidator;
+import javax.servlet.http.HttpServletRequest;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @Transactional
@@ -46,6 +51,10 @@ public class MainController {
 
     @Autowired
     private AppUserValidator appUserValidator;
+
+        @Autowired private VerificationTokenRepository verificationTokenRepository;
+    @Autowired private EmailService emailService;
+
 
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) {
@@ -142,9 +151,9 @@ public class MainController {
     @RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
     public String signupSave(WebRequest request, //
                              Model model, //
-                             @ModelAttribute("myForm") @Validated AppUserForm appUserForm, //
+                             @ModelAttribute("myForm") @Valid AppUserForm appUserForm, //
                              BindingResult result, //
-                             final RedirectAttributes redirectAttributes) {
+                             final RedirectAttributes redirectAttributes, HttpServletRequest httpRequest) {
 
         // Validation error.
         if (result.hasErrors()) {
@@ -169,6 +178,26 @@ public class MainController {
                     = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
             providerSignInUtils.doPostSignUp(registered.getUserName(), request);
         }
+
+        VerificationToken token = new VerificationToken();
+        token.setToken(UUID.randomUUID().toString());
+        token.setUser(registered);
+        token.setExpiryDate(30);
+        verificationTokenRepository.save(token);
+
+        Mail mail = new Mail();
+        mail.setFrom("no-reply@skowrondariusz.com");
+        mail.setTo(registered.getEmail());
+        mail.setSubject("Password reset request");
+
+        Map<String, Object> messageModel = new HashMap<>();
+        messageModel.put("token", token);
+        messageModel.put("user", registered);
+        messageModel.put("signature", "https://skowrondariusz.com");
+        String url = httpRequest.getScheme() + "://" + httpRequest.getServerName() + ":" + httpRequest.getServerPort();
+        messageModel.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
+        mail.setModel(messageModel);
+        emailService.sendEmail(mail);
 
         SecurityUtil.logInUser(registered, roleNames);
 

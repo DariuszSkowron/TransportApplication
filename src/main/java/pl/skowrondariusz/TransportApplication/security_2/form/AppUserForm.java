@@ -3,6 +3,7 @@ package pl.skowrondariusz.TransportApplication.security_2.form;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
+import pl.skowrondariusz.TransportApplication.security.ValidPassword;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -14,12 +15,14 @@ public class AppUserForm {
 
     private String firstName;
     private String lastName;
+
+    @ValidPassword
     private String password;
     private String role;
     private String signInProvider;
     private String providerUserId;
 
-    @AssertTrue
+
     private Boolean terms;
 
 
@@ -34,6 +37,7 @@ public class AppUserForm {
         this.userName = socialUserProfile.getUsername();
         this.firstName = socialUserProfile.getFirstName();
         this.lastName = socialUserProfile.getLastName();
+
 
         ConnectionKey key = connection.getKey();
         this.signInProvider = key.getProviderId();
@@ -121,4 +125,3 @@ public class AppUserForm {
     }
 
 }
-Ł
