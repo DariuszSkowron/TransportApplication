@@ -32,6 +32,7 @@ import pl.skowrondariusz.TransportApplication.security_2.validator.AppUserValida
 import javax.servlet.http.HttpServletRequest;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 
@@ -150,7 +151,7 @@ public class MainController {
     @RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
     public String signupSave(WebRequest request, //
                              Model model, //
-                             @ModelAttribute("myForm") @Validated AppUserForm appUserForm, //
+                             @ModelAttribute("myForm") @Valid AppUserForm appUserForm, //
                              BindingResult result, //
                              final RedirectAttributes redirectAttributes, HttpServletRequest httpRequest) {
 

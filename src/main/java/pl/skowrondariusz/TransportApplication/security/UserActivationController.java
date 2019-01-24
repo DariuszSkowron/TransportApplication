@@ -86,7 +86,7 @@ public class UserActivationController {
         model.put("user", user);
         model.put("signature", "https://skowrondariusz.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
         mail.setModel(model);
         emailService.sendEmail(mail);
 

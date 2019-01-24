@@ -51,7 +51,7 @@
             <div style="padding-top:15px;">
                 <!-- /login?error=true -->
                 <div class="alert alert-danger" th:if="${#request.getParameter('error') == 'true'}">
-                    Invalid Username/Password
+                    Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}"> here</a>
                 </div>
                 <form th:action="@{/j_spring_security_check}" method='POST'>
                     <div class="form-group">

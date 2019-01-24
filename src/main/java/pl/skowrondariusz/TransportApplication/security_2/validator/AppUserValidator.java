@@ -34,6 +34,7 @@ import pl.skowrondariusz.TransportApplication.security_2.form.AppUserForm;
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "", "First name is required");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "", "Last name is required");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "Password is required");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "terms", "", "You have to accept terms and conditions to register account");
 
             if (errors.hasErrors()) {
                 return;

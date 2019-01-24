@@ -1,6 +1,7 @@
 package pl.skowrondariusz.TransportApplication.security_2.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
@@ -143,4 +144,11 @@ public class AppUserDAO {
         appUser.setEnabled(true);
     }
 
-}
+
+    public void changePassword(String updatedPassword, AppUser appUser) {
+        appUser.setEncrytedPassword("{bcrypt}" + updatedPassword);
+    }
+
+
+
+    }
