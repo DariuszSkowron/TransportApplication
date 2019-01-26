@@ -1,13 +1,8 @@
 package pl.skowrondariusz.TransportApplication.security_2.form;
 
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionKey;
-import org.springframework.social.connect.UserProfile;
 import pl.skowrondariusz.TransportApplication.security.ValidPassword;
 
-import javax.validation.constraints.AssertTrue;
-
-public class AppUserForm {
+public class AppUserSocialForm {
 
     private Long userId;
     private String email;
@@ -26,34 +21,34 @@ public class AppUserForm {
     private Boolean terms;
 
 
-    public AppUserForm() {
-
-    }
-
-    public AppUserForm(Connection<?> connection) {
-        UserProfile socialUserProfile = connection.fetchUserProfile();
-        this.userId = null;
-        this.email = socialUserProfile.getEmail();
-        this.userName = socialUserProfile.getUsername();
-        this.firstName = socialUserProfile.getFirstName();
-        this.lastName = socialUserProfile.getLastName();
-
-
-        ConnectionKey key = connection.getKey();
-        this.signInProvider = key.getProviderId();
-        this.providerUserId = key.getProviderUserId();
-    }
-
-
-    public AppUserForm(String email, String userName, String firstName, String lastName, String password, String role, Boolean terms) {
-        this.email = email;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.role = role;
-        this.terms = terms;
-    }
+//    public AppUserForm() {
+//
+//    }
+//
+//    public AppUserForm(Connection<?> connection) {
+//        UserProfile socialUserProfile = connection.fetchUserProfile();
+//        this.userId = null;
+//        this.email = socialUserProfile.getEmail();
+//        this.userName = socialUserProfile.getUsername();
+//        this.firstName = socialUserProfile.getFirstName();
+//        this.lastName = socialUserProfile.getLastName();
+//
+//
+//        ConnectionKey key = connection.getKey();
+//        this.signInProvider = key.getProviderId();
+//        this.providerUserId = key.getProviderUserId();
+//    }
+//
+//
+//    public AppUserForm(String email, String userName, String firstName, String lastName, String password, String role, Boolean terms) {
+//        this.email = email;
+//        this.userName = userName;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.password = password;
+//        this.role = role;
+//        this.terms = terms;
+//    }
 
     public Long getUserId() {
         return userId;

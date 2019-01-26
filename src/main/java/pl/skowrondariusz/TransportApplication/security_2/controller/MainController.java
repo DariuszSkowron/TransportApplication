@@ -29,6 +29,7 @@ import pl.skowrondariusz.TransportApplication.security_2.form.AppUserForm;
 import pl.skowrondariusz.TransportApplication.security_2.utils.SecurityUtil;
 import pl.skowrondariusz.TransportApplication.security_2.utils.WebUtils;
 import pl.skowrondariusz.TransportApplication.security_2.validator.AppUserValidator;
+//import pl.skowrondariusz.TransportApplication.security_2.validator.AppUserValidator;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.transaction.Transactional;
@@ -154,6 +155,11 @@ public class MainController {
                              @ModelAttribute("myForm") @Valid AppUserForm appUserForm, //
                              BindingResult result, //
                              final RedirectAttributes redirectAttributes, HttpServletRequest httpRequest) {
+
+//        AppUser existing = appUserDAO.findByEmail(appUserForm.getEmail());
+//        if (existing != null){
+//            result.reject("email", null, "There is already an account registered with that email");
+//        }
 
         // Validation error.
         if (result.hasErrors()) {
