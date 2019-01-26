@@ -46,6 +46,10 @@ import pl.skowrondariusz.TransportApplication.security_2.form.AppUserForm;
                 return;
             }
 
+            if (!Boolean.TRUE.equals(form.getTerms())){
+                errors.rejectValue("terms", "", "You have to accept terms and conditions to register account");
+            }
+
             AppUser userAccount = appUserDAO.findAppUserByUserName(form.getUserName());
             if (userAccount != null) {
                 if (form.getUserId() == null) {
