@@ -111,11 +111,13 @@
                     <div class="col-md-12">
                         Login via
                         <div class="social-buttons">
-                            <a href="#" th:href="@{/oauth2/authorization/facebook}" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" th:href="@{/oauth2/authorization/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>
+                            <a href="#" th:href="@{/auth/facebook}" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>
+                            <a href="#" th:href="@{/auth/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>
+                            <a href="#" th:href="@{/auth/twitter}" class="btn btn-tw"><i class="fab fa-twitter"></i> Google</a>
+                            <a href="#" th:href="@{/auth/linkedin}" class="btn btn-tw"><i class="fab fa-linkedin"></i> Google</a>
                         </div>
                     <div class="modal-body">
-                        <form th:action="@{/login}" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                        <form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                             <div class="form-group">
                                 <a href="" th:href="@{/registration}" class="float-right">New user?</a>
                                 <label for="uname1">Username</label>
