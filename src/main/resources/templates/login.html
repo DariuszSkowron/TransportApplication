@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -28,28 +28,60 @@
                 <a href="#" th:href="@{/auth/linkedin}" class="btn btn-tw"><i class="fab fa-linkedin"></i> Google</a>
             </div>
             <div class="modal-body">
-                <form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
+                <div class="col-sm-1">
+                    <hr>
+                </div>
+                <div class="col-sm-5">
+                    <div style="padding-top:15px;">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
+                            </div>
                         </div>
-                    </div>
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-info">
-                            You have been logged out.
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out.
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <a href="" th:href="@{/registration}" class="float-right">New user?</a>
-                        <label for="uname1">Username</label>
-                        <input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="">
-                        <div class="invalid-feedback">Oops, you missed this one.</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password">
-                        <div class="invalid-feedback">Enter your password too!</div>
-                    </div>
+                <!--<form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">-->
+                    <form th:action="@{/j_spring_security_check}" th:object="${loginForm}" method="post">
+
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('userName')}? 'has-error':''">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-user color-blue"></i>
+                                        </span>
+                                <input id="userName"
+                                       class="form-control"
+                                       placeholder="User Name"
+                                       th:field="*{userName}"/>
+                            </div>
+                            <p class="error-message"
+                               th:each="error: ${#fields.errors('userName')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-lock"></i>
+                                        </span>
+                                <input id="password"
+                                       class="form-control"
+                                       placeholder="password"
+                                       type="password"
+                                       th:field="*{password}"/>
+                            </div>
+                            <ul class="text-left"
+                                th:each="error: ${#fields.errors('password')}">
+                                <li th:each="message : ${error.split(',')}">
+                                    <p class="error-message"
+                                       th:text="${message}"></p>
+                                </li>
+                            </ul>
+                        </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="rememberMe">
                         <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>

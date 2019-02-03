@@ -20,13 +20,13 @@ public class UserRegistrationForm {
     private Long userId;
 
 
-    @NotEmpty
+    @NotEmpty(message = "Please provide your first name")
     private String firstName;
 
-    @NotEmpty
+    @NotEmpty(message = "Please provide your last name")
     private String lastName;
 
-    @NotEmpty
+    @NotEmpty(message = "Please provide your unique  username")
     private String userName;
 
     @NotEmpty
