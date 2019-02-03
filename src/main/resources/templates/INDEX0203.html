@@ -74,8 +74,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
             <a class="nav-item nav-link active" href="#" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-            <!--<a action="/transit" class="nav-item nav-link" href="#loginModal" data-toggle="modal">Add New Transit</a>-->
-            <a action="/transit" class="nav-item nav-link" href="#/login" data-toggle="modal">Add New Transit</a>
+            <a action="/transit" class="nav-item nav-link" href="#loginModal" data-toggle="modal">Add New Transit</a>
             <a class="nav-item nav-link" href="#" th:href="@{/transits}">Show All Transits</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/daily}">Daily Report</a>
             <a class="nav-item nav-link" href="#" th:href="@{/reports/monthly}">Monthly Report</a>
@@ -120,16 +119,6 @@
                         </div>
                     <div class="modal-body">
                         <form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
-                            <div th:if="${param.error}">
-                                <div class="alert alert-danger">
-                                    Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
-                                </div>
-                            </div>
-                            <div th:if="${param.logout}">
-                                <div class="alert alert-info">
-                                    You have been logged out.
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <a href="" th:href="@{/registration}" class="float-right">New user?</a>
                                 <label for="uname1">Username</label>

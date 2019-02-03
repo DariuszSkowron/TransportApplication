@@ -1,120 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/custom.css">
-    <title>Login Page</title>
+
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#" th:href="@{/}">
-        <img src="../static/images/LOGO-NEW.png" th:src="@{/images/LOGO-NEW.png}" width="150" height="80" alt="">
-    </a>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Login page</h1>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header text-center">
+            <h3>Login</h3>
         </div>
-    </div>
-</div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-3">
-                        <div style="padding-top:12px;">
-                            <a class="btn btn-block btn-social btn-facebook customBtn" th:href="@{/auth/facebook}">
-                                <span class="fa fa-facebook width42px"></span> Sign in with Facebook
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-google customBtn" th:href="@{/auth/google}">
-                                <span class="fa fa-google width42px"></span> Sign in with Google
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-twitter customBtn" th:href="@{/auth/twitter}">
-                                <span class="fa fa-twitter width42px"></span> Sign in with Twitter
-                            </a>
-
-                            <a class="btn btn-block btn-social btn-linkedin customBtn" th:href="@{/auth/linkedin}">
-                                <span class="fa fa-linkedin width42px"></span> Sign in with LinkedIn
-                            </a>
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-1">
-                        <hr>
-                    </div>
-                    <div class="col-sm-5">
-                        <div style="padding-top:15px;">
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
-                        </div>
-                    </div>
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-info">
-                            You have been logged out.
-                        </div>
-                    </div>
-                    <form th:action="@{/j_spring_security_check}" method="post">
-                        <div class="form-group">
-                            <label for="username">Username</label>:
-                            <input type="text"
-                                   id="username"
-                                   name="username"
-                                   class="form-control"
-                                   autofocus="autofocus"
-                                   placeholder="Username"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>:
-                            <input type="password"
-                                   id="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="Password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input id="remember-me"
-                                       name="remember-me"
-                                       type="checkbox"/> Remember me
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <input type="submit"
-                                           name="login-submit"
-                                           id="login-submit"
-                                           class="form-control btn btn-info"
-                                           value="Log In"/>
-                                </div>
+        <div class="col-md-12">
+            Login via
+            <div class="social-buttons">
+                <a href="#" th:href="@{/auth/facebook}" class="btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>
+                <a href="#" th:href="@{/auth/google}" class="btn btn-tw"><i class="fab fa-google"></i> Google</a>
+                <a href="#" th:href="@{/auth/twitter}" class="btn btn-tw"><i class="fab fa-twitter"></i> Google</a>
+                <a href="#" th:href="@{/auth/linkedin}" class="btn btn-tw"><i class="fab fa-linkedin"></i> Google</a>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-1">
+                    <hr>
+                </div>
+                <div class="col-sm-5">
+                    <div style="padding-top:15px;">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username or password, if you already registred you can try to resend validation token <a href="/resendToken" th:href="@{/resendToken}">here</a>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out.
+                            </div>
                         </div>
-                    </form>
-                        </div>
-                        <div class="col-sm-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!--<form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">-->
+                    <form th:action="@{/j_spring_security_check}" th:object="${loginForm}" method="post">
 
-        <!--<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>-->
-        <!--<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>-->
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('userName')}? 'has-error':''">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-user color-blue"></i>
+                                        </span>
+                                <input id="userName"
+                                       class="form-control"
+                                       placeholder="User Name"
+                                       th:field="*{userName}"/>
+                            </div>
+                            <p class="error-message"
+                               th:each="error: ${#fields.errors('userName')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-lock"></i>
+                                        </span>
+                                <input id="password"
+                                       class="form-control"
+                                       placeholder="password"
+                                       type="password"
+                                       th:field="*{password}"/>
+                            </div>
+                            <ul class="text-left"
+                                th:each="error: ${#fields.errors('password')}">
+                                <li th:each="message : ${error.split(',')}">
+                                    <p class="error-message"
+                                       th:text="${message}"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberMe">
+                        <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
+                    </div>
+                    <div class="form-group py-4">
+                        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        <button type="submit" th:action="@{/indexLog}"  class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                    </div>
+                </form>
 </body>
 </html>

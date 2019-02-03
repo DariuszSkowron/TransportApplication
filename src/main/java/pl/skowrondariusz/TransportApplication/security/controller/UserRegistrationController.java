@@ -52,19 +52,19 @@ public class UserRegistrationController {
     @Autowired
     private AppUserValidator appUserValidator;
 
-        @InitBinder
-    protected void initBinder(WebDataBinder dataBinder) {
-
-        Object target = dataBinder.getTarget();
-        if (target == null) {
-            return;
-        }
-        System.out.println("Target=" + target);
-
-        if (target.getClass() == UserRegistrationForm.class) {
-            dataBinder.setValidator(appUserValidator);
-        }
-    }
+//        @InitBinder
+//    protected void initBinder(WebDataBinder dataBinder) {
+//
+//        Object target = dataBinder.getTarget();
+//        if (target == null) {
+//            return;
+//        }
+//        System.out.println("Target=" + target);
+//
+//        if (target.getClass() == UserRegistrationForm.class) {
+//            dataBinder.setValidator(appUserValidator);
+//        }
+//    }
 
     @ModelAttribute("user")
     public UserRegistrationForm userRegistrationForm() {
