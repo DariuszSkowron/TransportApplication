@@ -10,8 +10,10 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import pl.skowrondariusz.TransportApplication.security.AppUserValidator;
 import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
 import pl.skowrondariusz.TransportApplication.security.model.Mail;
 import pl.skowrondariusz.TransportApplication.security.model.Role;
@@ -46,6 +48,23 @@ public class UserRegistrationController {
     @Autowired private VerificationTokenRepository verificationTokenRepository;
     @Autowired private EmailService emailService;
 
+
+    @Autowired
+    private AppUserValidator appUserValidator;
+
+        @InitBinder
+    protected void initBinder(WebDataBinder dataBinder) {
+
+        Object target = dataBinder.getTarget();
+        if (target == null) {
+            return;
+        }
+        System.out.println("Target=" + target);
+
+        if (target.getClass() == UserRegistrationForm.class) {
+            dataBinder.setValidator(appUserValidator);
+        }
+    }
 
     @ModelAttribute("user")
     public UserRegistrationForm userRegistrationForm() {

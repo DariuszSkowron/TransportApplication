@@ -32,5 +32,7 @@ public interface UserService extends UserDetailsService {
 
     User findByUserId(Long userId);
 
+    User findByUserName(String email);
+
 }
 
