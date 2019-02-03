@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import pl.skowrondariusz.TransportApplication.security.constraint.PasswordConstraintValidator;
 import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.repository.UserRepository;
@@ -19,8 +20,11 @@ import pl.skowrondariusz.TransportApplication.security.service.UserServiceImpl;
 
         private EmailValidator emailValidator = EmailValidator.getInstance();
 
+
+
         @Autowired
         private UserService userService;
+
 
         @Override
         public boolean supports(Class<?> clazz) {
@@ -74,6 +78,8 @@ import pl.skowrondariusz.TransportApplication.security.service.UserServiceImpl;
                     return;
                 }
             }
+
+
         }
 
     }

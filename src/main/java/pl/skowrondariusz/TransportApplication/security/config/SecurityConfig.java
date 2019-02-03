@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(
-                        "/registration**" , "/forgot-password**", "/reset-password**", "/email/email-template", "/registrationConfirm**", "/resendToken**",
+                        "/registration**" , "/forgot-password**", "/reset-password**", "/email/email-template", "/registrationConfirm**", "/resendToken**", "/static/**",
                         "/js/**",
                         "/css/**",
                         "/img/**",
@@ -85,7 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password");
         http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
-        http.apply(new SpringSocialConfigurer()).signupUrl("/registration");
+        http.apply(new SpringSocialConfigurer()).signupUrl("/registration")
+                .and()
+                .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe()
+                .key("unique-and-secret")
+                .rememberMeCookieName("remember-me-cookie-name")
+                .tokenValiditySeconds(24 * 60 * 60);
     }
 
 //    @Bean
