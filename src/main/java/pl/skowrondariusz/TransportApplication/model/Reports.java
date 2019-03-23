@@ -2,10 +2,9 @@ package pl.skowrondariusz.TransportApplication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
 import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
 
@@ -19,7 +18,6 @@ import java.time.LocalDate;
 public class Reports {
 
 
-
     @Column(name = "id")
     @Id
     @GeneratedValue
@@ -28,9 +26,9 @@ public class Reports {
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    @JsonSerialize(using=DistanceSerializer.class)
+    @JsonSerialize(using = DistanceSerializer.class)
     private Long totalDistance;
-    @JsonSerialize(using=PriceSerializer.class)
+    @JsonSerialize(using = PriceSerializer.class)
     private Long totalPrice;
 
 

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class DateSerializerNumberTwo extends StdSerializer<LocalDate> {
 
@@ -15,10 +14,11 @@ public class DateSerializerNumberTwo extends StdSerializer<LocalDate> {
     private static DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public DateSerializerNumberTwo(){
+    public DateSerializerNumberTwo() {
         this(null);
     }
-    protected DateSerializerNumberTwo(Class<LocalDate> t){
+
+    protected DateSerializerNumberTwo(Class<LocalDate> t) {
         super(t);
     }
 
