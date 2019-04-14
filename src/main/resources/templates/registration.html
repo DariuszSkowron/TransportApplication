@@ -29,10 +29,10 @@
 
                             <form th:action="@{/registration}" th:object="${user}" method="post">
 
-                                <p class="error-message"
-                                   th:if="${#fields.hasGlobalErrors()}"
-                                   th:each="error : ${#fields.errors('global')}"
-                                   th:text="${error}">Validation error</p>
+<!--                                <p class="error-message"-->
+<!--                                   th:if="${#fields.hasGlobalErrors()}"-->
+<!--                                   th:each="error : ${#fields.errors('global')}"-->
+<!--                                   th:text="${error}">Validation error</p>-->
 
                                 <input type="hidden" th:field="*{userId}"  />
                                 <input type="hidden" th:field="*{signInProvider}" />
