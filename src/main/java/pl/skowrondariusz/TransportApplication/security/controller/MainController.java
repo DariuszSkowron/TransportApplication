@@ -22,15 +22,15 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(Model model,  @ModelAttribute("loginForm") @Valid LoginForm loginForm) {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String login(Model model) {
+//        return "login";
+//    }
+//
+//    @PostMapping("/login")
+//    public String login(Model model,  @ModelAttribute("loginForm") @Valid LoginForm loginForm) {
+//        return "login";
+//    }
 
     @GetMapping("/user")
     public String userIndex() {

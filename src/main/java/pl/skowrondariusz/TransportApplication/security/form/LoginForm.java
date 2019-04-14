@@ -10,6 +10,14 @@ public class LoginForm {
     @NotEmpty
     String password;
 
+    public LoginForm() {
+    }
+
+    public LoginForm(@NotEmpty String userName, @NotEmpty String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public String getUserName() {
         return userName;
     }
