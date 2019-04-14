@@ -1,5 +1,6 @@
 package pl.skowrondariusz.TransportApplication.security.form;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
@@ -48,7 +49,7 @@ public class UserRegistrationForm {
     private String providerUserId;
 
 
-    @AssertTrue
+    @AssertTrue (message = "You have to accept terms and conditions to register account")
     private Boolean terms;
 
 

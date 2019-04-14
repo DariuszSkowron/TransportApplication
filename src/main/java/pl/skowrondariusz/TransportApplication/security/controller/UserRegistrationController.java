@@ -91,13 +91,22 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(WebRequest request, Model model, @ModelAttribute("user") @Valid UserRegistrationForm userDto,
-                                      BindingResult result, HttpServletRequest httpRequest){
+                                      BindingResult result, HttpServletRequest httpRequest) {
 
 
-//        User existing = userService.findByEmail(userDto.getEmail());
-//        if (existing != null){
-//            result.rejectValue("email", null, "There is already an account registered with that email");
-//        }
+        User existing = userService.findByEmail(userDto.getEmail());
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        User existing2 = userService.findByUserName(userDto.getUserName());
+        if (existing2 != null) {
+            result.rejectValue("userName", null, "The username is already taken");
+        }
 
         if (result.hasErrors()){
             return "registration";
@@ -146,7 +155,7 @@ public class UserRegistrationController {
 
         SecurityUtil.logInUser(registered, roleNames);
 
-        return "redirect:/userInfo";
+        return "redirect:/registration?success";
     }
 
 

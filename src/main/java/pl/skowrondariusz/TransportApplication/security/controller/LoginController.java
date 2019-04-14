@@ -28,6 +28,8 @@ public class LoginController {
 
     @PostMapping
     public String login(Model model,  @ModelAttribute("loginForm") @Valid LoginForm loginForm) {
+
+
         return "login";
     }
 }
