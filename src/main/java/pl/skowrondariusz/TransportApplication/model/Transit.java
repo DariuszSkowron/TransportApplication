@@ -2,7 +2,7 @@ package pl.skowrondariusz.TransportApplication.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.skowrondariusz.TransportApplication.config.DateSerializer;
+
 import pl.skowrondariusz.TransportApplication.config.DateSerializerNumberTwo;
 
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class Transit {
     private String destinationAdress;
     private Double price;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonSerialize(using=DateSerializerNumberTwo.class)
+    @JsonSerialize(using = DateSerializerNumberTwo.class)
     private LocalDate date;
     private Long distance;
 

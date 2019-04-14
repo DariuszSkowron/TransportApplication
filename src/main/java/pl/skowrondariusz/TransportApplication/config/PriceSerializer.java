@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class PriceSerializer<T> extends StdSerializer {
 
-    public PriceSerializer(){
+    public PriceSerializer() {
         this(null);
     }
 
@@ -20,6 +20,6 @@ public class PriceSerializer<T> extends StdSerializer {
     @Override
     public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
-    jsonGenerator.writeString(o + " " +  "PLN");
+        jsonGenerator.writeString(o + " " + "PLN");
     }
 }

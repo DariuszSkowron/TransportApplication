@@ -1,10 +1,9 @@
 package pl.skowrondariusz.TransportApplication.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.logging.log4j.util.EnglishEnums;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.skowrondariusz.TransportApplication.config.DateSerializer;
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
 import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
@@ -15,28 +14,23 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
-public class MonthlyReport  {
+public class MonthlyReport {
 
     //    @JsonFormat(pattern = "MMMM, d", locale = "en_US")
     @Id
     @GeneratedValue
     private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonSerialize(using=DateSerializer.class)
+    @JsonSerialize(using = DateSerializer.class)
 //    @JsonFormat(pattern = "MMMM, d", locale = "en_US")
     private LocalDate date;
-    @JsonSerialize(using=DistanceSerializer.class)
+    @JsonSerialize(using = DistanceSerializer.class)
     private Long totalDistance;
-    @JsonSerialize(using=DistanceSerializer.class)
+    @JsonSerialize(using = DistanceSerializer.class)
     private Long averageDistance;
-    @JsonSerialize(using=PriceSerializer.class)
+    @JsonSerialize(using = PriceSerializer.class)
     private Long averagePrice;
 
-
-//
-//    public MonthlyReport(LocalDate startDate, LocalDate endDate) {
-//        super(startDate, endDate);
-//    }
 
     public MonthlyReport() {
     }
@@ -48,7 +42,8 @@ public class MonthlyReport  {
     public LocalDate getDate() {
         return date;
     }
-//    @JsonSerialize(using=DateSerializer.class)
+
+    //    @JsonSerialize(using=DateSerializer.class)
     public void setDate(LocalDate date) {
         this.date = date;
     }
