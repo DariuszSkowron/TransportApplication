@@ -31,7 +31,7 @@ public class UserRegistrationForm {
     private String userName;
 
     @NotEmpty
-//    @ValidPassword
+    @ValidPassword
     private String password;
 
     @NotEmpty
