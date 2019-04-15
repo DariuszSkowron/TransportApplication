@@ -27,7 +27,7 @@
                 <a href="#" th:href="@{/auth/twitter}" class="btn btn-tw"><i class="fab fa-twitter"></i> Google</a>
                 <a href="#" th:href="@{/auth/linkedin}" class="btn btn-tw"><i class="fab fa-linkedin"></i> Google</a>
             </div>
-                  <div class="col-sm-5">
+                  <div class="col-sm-15 text-center">
                     <div style="padding-top:15px;">
                         <div th:if="${param.error}">
                             <div class="alert alert-danger">
@@ -40,16 +40,16 @@
                             </div>
                         </div>
                     </div>
-
+                  </div>
                     <div class="card-body">
                 <!--<form th:action="@{/j_spring_security_check}" class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">-->
                     <form class="form" th:action="@{/j_spring_security_check}" th:object="${loginForm}" method="POST">
 
                         <div class="form-group"
-                                  th:classappend="${#fields.hasErrors('userName')}? 'has-error':''">
-                            <label for="userName">Username</label>
-                            <div class="input-group">
-                                     <input id="userName"
+                             th:classappend="${#fields.hasErrors('userName')}? 'has-error':''">
+                            <label>Username</label>
+                            <div class ="input-group">
+                                <input id="userName"
                                        class="form-control"
                                        placeholder="User Name"
                                        th:field="*{userName}"/>
@@ -58,38 +58,39 @@
                                th:each="error: ${#fields.errors('userName')}"
                                th:text="${error}">Validation error</p>
                         </div>
+
+
                         <div class="form-group"
                              th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
                             <label>Password</label>
+                            <div class ="input-group">
                             <input id="password"
                                    class="form-control"
                                    placeholder="password"
                                    type="password"
                                    th:field="*{password}"/>
                         </div>
-                        <ul class="text-left"
-                            th:each="error: ${#fields.errors('password')}">
-                            <li th:each="message : ${error.split(',')}">
-                                <p class="error-message"
-                                   th:text="${message}"></p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                            <p class="error-message"
+                               th:each="error: ${#fields.errors('password')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="rememberMe">
                         <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
-                    </div>
-                    </div>
-
-
                         <div class="form-group py-4">
                             <button type="submit" th:action="@{/indexLog}" class="btn btn-outline-success">Login</button>
                             <a  href="#" th:href="@{/}" class="btn btn-outline-secondary" role="button">Return</a>
+                                              <input type="submit"
+                                               name="login-submit"
+                                               id="login-submit"
+                                               class="form-control btn btn-info"
+                                               value="Log In"/>
+                                    </div>
                         </div>
-                        </form>
 
+
+                    </form>
 
                         <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
                         <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>

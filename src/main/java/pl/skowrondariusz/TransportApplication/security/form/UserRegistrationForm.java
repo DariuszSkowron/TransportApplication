@@ -1,10 +1,11 @@
 package pl.skowrondariusz.TransportApplication.security.form;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
 import pl.skowrondariusz.TransportApplication.security.constraint.FieldMatch;
-//import pl.skowrondariusz.TransportApplication.security.constraint.ValidPassword;
+import pl.skowrondariusz.TransportApplication.security.constraint.ValidPassword;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
@@ -30,7 +31,7 @@ public class UserRegistrationForm {
     private String userName;
 
     @NotEmpty
-//    @ValidPassword
+    @ValidPassword
     private String password;
 
     @NotEmpty
@@ -48,7 +49,7 @@ public class UserRegistrationForm {
     private String providerUserId;
 
 
-    @AssertTrue
+    @AssertTrue (message = "You have to accept terms and conditions to register account")
     private Boolean terms;
 
 
