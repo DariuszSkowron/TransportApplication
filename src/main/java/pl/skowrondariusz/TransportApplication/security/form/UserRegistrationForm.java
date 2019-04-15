@@ -5,7 +5,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
 import pl.skowrondariusz.TransportApplication.security.constraint.FieldMatch;
-//import pl.skowrondariusz.TransportApplication.security.constraint.ValidPassword;
+import pl.skowrondariusz.TransportApplication.security.constraint.ValidPassword;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
