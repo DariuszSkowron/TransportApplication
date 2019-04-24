@@ -7,6 +7,7 @@ import org.passay.dictionary.sort.ArraysSort;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,8 +33,8 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
                             // Dictionaries must be sorted
                             new ArraysSort()
                     )));
-        } catch (IOException e) {
-            throw new RuntimeException("could not load word list", e);
+        } catch (IOException e){
+            dictionaryRule = null;
         }
     }
 
