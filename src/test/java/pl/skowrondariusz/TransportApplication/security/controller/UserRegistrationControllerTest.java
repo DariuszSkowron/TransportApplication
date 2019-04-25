@@ -10,8 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,5 +39,42 @@ public class UserRegistrationControllerTest {
                 .andExpect(model().attributeHasFieldErrors("user", "password", "confirmPassword"))
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    public void submitRegistrationPasswordNotMatching() throws Exception {
+        this.mockMvc
+                .perform(
+                        post("/registration")
+                                .param("firstName", "Dariusz")
+                                .param("lastName", "Scovron")
+                                .param("email", "test@gmail.com")
+                                .param("confirmEmail", "test@gmail.com")
+                                .param("password", "Testing132!")
+                                .param("confirmPassword", "Testing131!")
+                                .param("terms", "on")
+                )
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeHasErrors("user"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void submitRegistrationSuccess() throws Exception {
+        this.mockMvc
+                .perform(
+                        post("/registration")
+                                .param("firstName", "Dariusz")
+                                .param("lastName", "Scovron")
+                                .param("userName", "Scovron")
+                                .param("email", "test@gmail.com")
+                                .param("confirmEmail", "test@gmail.com")
+                                .param("password", "Testing132!")
+                                .param("confirmPassword", "Testing132!")
+                                .param("terms", "on")
+                )
+                .andExpect(model().hasNoErrors())
+                .andExpect(redirectedUrl("/registration?success"))
+                .andExpect(status().is3xxRedirection());
     }
 }
