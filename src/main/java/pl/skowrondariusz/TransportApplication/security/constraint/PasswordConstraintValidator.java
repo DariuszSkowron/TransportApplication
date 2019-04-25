@@ -7,7 +7,6 @@ import org.passay.dictionary.sort.ArraysSort;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,16 +23,13 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
             String invalidPasswordList = this.getClass().getResource("/static/invalid-password-list.txt").getFile();
             dictionaryRule = new DictionaryRule(
                     new WordListDictionary(WordLists.createFromReader(
-                            // Reader around the word list file
-                            new FileReader[] {
+                            new FileReader[]{
                                     new FileReader(invalidPasswordList)
                             },
-                            // True for case sensitivity, false otherwise
                             false,
-                            // Dictionaries must be sorted
                             new ArraysSort()
                     )));
-        } catch (IOException e){
+        } catch (IOException e) {
             dictionaryRule = null;
         }
     }
@@ -42,24 +38,12 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     public boolean isValid(String password, ConstraintValidatorContext context) {
         PasswordValidator validator = new PasswordValidator(Arrays.asList(
 
-                // at least 8 characters
                 new LengthRule(8, 30),
-
-                // at least one upper-case character
                 new CharacterRule(EnglishCharacterData.UpperCase, 1),
-
-                // at least one lower-case character
                 new CharacterRule(EnglishCharacterData.LowerCase, 1),
-
-                // at least one digit character
                 new CharacterRule(EnglishCharacterData.Digit, 1),
-
-                // at least one symbol (special character)
                 new CharacterRule(EnglishCharacterData.Special, 1),
-
-                // no whitespace
                 new WhitespaceRule(),
-
                 dictionaryRule
         ));
 

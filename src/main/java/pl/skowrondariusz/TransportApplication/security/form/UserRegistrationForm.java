@@ -35,6 +35,7 @@ public class UserRegistrationForm {
     private String password;
 
     @NotEmpty
+    @ValidPassword
     private String confirmPassword;
 
     @Email
