@@ -7,10 +7,14 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
+import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
 import pl.skowrondariusz.TransportApplication.security.model.Mail;
+import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmailService {
@@ -44,4 +48,19 @@ public class EmailService {
         }
     }
 
+
+
+    public Mail accountActivationEmail(Mail mail, VerificationToken token, UserRegistrationForm user){
+        mail.setFrom("no-reply@skowrondariusz.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Verification token resend");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", user);
+        model.put("signature", "https://skowrondariusz.com");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        mail.setModel(model);
+    }
 }
