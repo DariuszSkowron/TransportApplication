@@ -48,19 +48,41 @@ public class EmailService {
         }
     }
 
-
-
-    public Mail accountActivationEmail(Mail mail, VerificationToken token, UserRegistrationForm user){
-        mail.setFrom("no-reply@skowrondariusz.com");
-        mail.setTo(user.getEmail());
-        mail.setSubject("Verification token resend");
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("token", token);
-        model.put("user", user);
-        model.put("signature", "https://skowrondariusz.com");
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
-        mail.setModel(model);
-    }
+//    @Async
+//    public void sendEmail(Mail mail) {
+//        try {
+//            MimeMessage message = emailSender.createMimeMessage();
+//            MimeMessageHelper helper = new MimeMessageHelper(message,
+//                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+//                    StandardCharsets.UTF_8.name());
+//
+//            Context context = new Context();
+//            context.setVariables(mail.getModel());
+//            String html = templateEngine.process("email/email-template", context);
+//
+//            helper.setTo(mail.getTo());
+//            helper.setText(html, true);
+//            helper.setSubject(mail.getSubject());
+//            helper.setFrom(mail.getFrom());
+//
+//            emailSender.send(message);
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//
+//    public Mail accountActivationEmail(Mail mail, VerificationToken token, UserRegistrationForm user){
+//        mail.setFrom("no-reply@skowrondariusz.com");
+//        mail.setTo(user.getEmail());
+//        mail.setSubject("Verification token resend");
+//
+//        Map<String, Object> model = new HashMap<>();
+//        model.put("token", token);
+//        model.put("user", user);
+//        model.put("signature", "https://skowrondariusz.com");
+//        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+//        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+//        mail.setModel(model);
+//    }
 }
