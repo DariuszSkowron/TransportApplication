@@ -6,10 +6,19 @@ public class Mail {
     private String from;
     private String to;
     private String subject;
+    private String emailTemplate;
     private Map<String, Object> model;
 
     public Mail() {
 
+    }
+
+    public String getEmailTemplate() {
+        return emailTemplate;
+    }
+
+    public void setEmailTemplate(String emailTemplate) {
+        this.emailTemplate = emailTemplate;
     }
 
     public String getFrom() {
