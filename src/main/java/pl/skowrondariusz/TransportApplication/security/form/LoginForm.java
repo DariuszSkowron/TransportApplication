@@ -5,15 +5,15 @@ import javax.validation.constraints.NotEmpty;
 public class LoginForm {
 
     @NotEmpty
-    String userName;
+    private String userName;
 
     @NotEmpty
-    String password;
+    private String password;
 
     public LoginForm() {
     }
 
-    public LoginForm(@NotEmpty String userName, @NotEmpty String password) {
+    public LoginForm(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
