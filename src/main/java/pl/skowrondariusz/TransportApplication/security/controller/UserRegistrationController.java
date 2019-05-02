@@ -97,9 +97,7 @@ public class UserRegistrationController {
 
 
 
-        if (result.hasErrors()) {
-            return "registration";
-        }
+
 
         User existingEmailUser = userService.findByEmail(userDto.getEmail());
         if (existingEmailUser != null) {
@@ -109,6 +107,10 @@ public class UserRegistrationController {
         User existingUserNameUser = userService.findByUserName(userDto.getUserName());
         if (existingUserNameUser != null) {
             result.rejectValue("userName", null, "The username is already taken");
+        }
+        
+        if (result.hasErrors()) {
+            return "registration";
         }
 
 
