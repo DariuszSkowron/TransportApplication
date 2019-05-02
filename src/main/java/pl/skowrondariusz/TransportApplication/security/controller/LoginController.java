@@ -33,8 +33,8 @@ public class LoginController {
 
     @PostMapping
     public String login(Model model,  @ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult result) {
-        User existing = userService.findByUserName(loginForm.getUserName());
-        if (existing == null) result.rejectValue("userName", null, "There is no registered user with this username");
+        User existing = userService.findByUserName(loginForm.getUsername());
+        if (existing == null) result.rejectValue("username", null, "There is no registered user with this username");
 
         if (result.hasErrors()){
             return "login";

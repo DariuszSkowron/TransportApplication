@@ -14,6 +14,7 @@ import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class EmailService {
 //    }
 
 
-    public void accountResetEmail(VerificationToken token, User user, String request){
+    public void accountResetEmail(VerificationToken token, User user, HttpServletRequest request){
         Mail mail = new Mail();
         mail.setFrom("no-reply@skowrondariusz.com");
         mail.setTo(user.getEmail());
@@ -101,7 +102,7 @@ public class EmailService {
         model.put("token", token);
         model.put("user", user);
         model.put("signature", "https://skowrondariusz.com");
-        String url = request;
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
         mail.setModel(model);
         sendEmail(mail);

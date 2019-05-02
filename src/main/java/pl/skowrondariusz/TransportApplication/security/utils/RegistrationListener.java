@@ -34,6 +34,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         token.setUser(user);
         token.setExpiryDate(30);
         verificationTokenRepository.save(token);
-       emailService.accountResetEmail(token, user, event.getAppUrl());
+       emailService.accountResetEmail(token, user, event.getRequest());
     }
 }

@@ -120,7 +120,7 @@ public class UserRegistrationController {
         try{
             registered = userService.registerNewUserAccount(userDto);
             String appUrl = request.getContextPath();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(),appUrl));
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(),appUrl, httpRequest));
         } catch (Exception ex) {
             ex.printStackTrace();
             model.addAttribute("errorMessage", "Error " + ex.getMessage());
