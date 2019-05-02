@@ -108,7 +108,7 @@ public class UserRegistrationController {
         if (existingUserNameUser != null) {
             result.rejectValue("userName", null, "The username is already taken");
         }
-        
+
         if (result.hasErrors()) {
             return "registration";
         }
