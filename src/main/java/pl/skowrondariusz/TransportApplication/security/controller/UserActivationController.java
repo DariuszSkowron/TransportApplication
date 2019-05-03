@@ -83,8 +83,8 @@ public class UserActivationController {
 
 //        VerificationToken token = new VerificationToken();
 //        token.setToken(UUID.randomUUID().toString());
-//        token.setUser(user);
-//        token.setExpiryDate(30);
+////        token.setUser(user);
+////        token.setExpiryDate(30);
 //        verificationTokenRepository.save(token);
 //
 //        Mail mail = new Mail();
