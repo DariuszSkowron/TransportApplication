@@ -1,8 +1,14 @@
 package pl.skowrondariusz.TransportApplication.security.form;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
 import javax.validation.constraints.NotEmpty;
 
 public class LoginForm {
+
+    @Autowired
+    private MessageSource messages;
 
     @NotEmpty
     private String username;
