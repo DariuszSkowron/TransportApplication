@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import pl.skowrondariusz.TransportApplication.security.form.VerificationTokenResendForm;
 import pl.skowrondariusz.TransportApplication.security.model.Mail;
 import pl.skowrondariusz.TransportApplication.security.model.User;
@@ -17,6 +18,7 @@ import pl.skowrondariusz.TransportApplication.security.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -38,8 +40,10 @@ public class UserActivationController {
     private VerificationTokenRepository verificationTokenRepository;
 
     @RequestMapping( value ="/registrationConfirm", method = RequestMethod.GET)
-    public String displayConfirmRegistrationPage(@RequestParam(required = false) String token,
+    public String displayConfirmRegistrationPage(WebRequest request, @RequestParam(required = false) String token,
                                                  Model model) {
+
+//        Locale locale = request.getLocale();
 
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null){
@@ -65,7 +69,7 @@ public class UserActivationController {
     @RequestMapping(value = "/resendToken", method = RequestMethod.POST)
     public String resendRegistrationToken(@ModelAttribute("resendRegistrationTokenForm") @Valid VerificationTokenResendForm form,
                                           BindingResult result,
-                                          HttpServletRequest request) {
+                                          HttpServletRequest reasaasdquest) {
 
         if (result.hasErrors()){
             return "resendToken";
@@ -77,25 +81,25 @@ public class UserActivationController {
             return "resendToken";
         }
 
-        VerificationToken token = new VerificationToken();
-        token.setToken(UUID.randomUUID().toString());
-        token.setUser(user);
-        token.setExpiryDate(30);
-        verificationTokenRepository.save(token);
-
-        Mail mail = new Mail();
-        mail.setFrom("no-reply@skowrondariusz.com");
-        mail.setTo(user.getEmail());
-        mail.setSubject("Verification token resend");
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("token", token);
-        model.put("user", user);
-        model.put("signature", "https://skowrondariusz.com");
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
-        mail.setModel(model);
-        emailService.sendEmail(mail);
+//        VerificationToken token = new VerificationToken();
+//        token.setToken(UUID.randomUUID().toString());
+//        token.setUser(user);
+//        token.setExpiryDate(30);
+//        verificationTokenRepository.save(token);
+//
+//        Mail mail = new Mail();
+//        mail.setFrom("no-reply@skowrondariusz.com");
+//        mail.setTo(user.getEmail());
+//        mail.setSubject("Verification token resend");
+//
+//        Map<String, Object> model = new HashMap<>();
+//        model.put("token", token);
+//        model.put("user", user);
+//        model.put("signature", "https://skowrondariusz.com");
+//        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+//        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+//        mail.setModel(model);
+//        emailService.sendEmail(mail);
 
         return "redirect:/resendToken?success";
 

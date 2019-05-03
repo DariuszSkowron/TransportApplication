@@ -2,12 +2,16 @@ package pl.skowrondariusz.TransportApplication.security;
 
 import com.itextpdf.text.log.Logger;
 import com.itextpdf.text.log.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skowrondariusz.TransportApplication.security.form.LoginForm;
+import pl.skowrondariusz.TransportApplication.security.model.User;
+import pl.skowrondariusz.TransportApplication.security.service.UserService;
 import pl.skowrondariusz.TransportApplication.security.utils.WebUtils;
 
 import javax.validation.Valid;
@@ -15,6 +19,10 @@ import java.security.Principal;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private UserService userService;
+
     private Logger logger;
     private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
     @GetMapping("/")
@@ -22,15 +30,28 @@ public class MainController {
         return "index";
     }
 
+//        @ModelAttribute("loginForm")
+//    public LoginForm loginForm(){
+//        return new LoginForm();
+//    }
+//
 //    @GetMapping("/login")
 //    public String login(Model model) {
 //        return "login";
 //    }
 //
-//    @PostMapping("/login")
-//    public String login(Model model,  @ModelAttribute("loginForm") @Valid LoginForm loginForm) {
+//    @PostMapping("/j_spring_security_check")
+//    public String login(Model model, @ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult result) {
+//        User existing = userService.findByUserName(loginForm.getUsername());
+//        if (existing == null) result.rejectValue("username", null, "There is no registered user with this username");
+//
+//        if (result.hasErrors()){
+//            return "login";
+//        }
+//
 //        return "login";
 //    }
+
 
     @GetMapping("/user")
     public String userIndex() {

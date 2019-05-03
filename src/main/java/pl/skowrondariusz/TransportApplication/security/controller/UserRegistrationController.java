@@ -3,6 +3,7 @@ package pl.skowrondariusz.TransportApplication.security.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import pl.skowrondariusz.TransportApplication.security.AppUserValidator;
 import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
-import pl.skowrondariusz.TransportApplication.security.model.Mail;
-import pl.skowrondariusz.TransportApplication.security.model.Role;
-import pl.skowrondariusz.TransportApplication.security.model.User;
-import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
+import pl.skowrondariusz.TransportApplication.security.model.*;
 import pl.skowrondariusz.TransportApplication.security.repository.VerificationTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.service.EmailService;
 import pl.skowrondariusz.TransportApplication.security.service.UserService;
@@ -35,6 +33,9 @@ import java.util.*;
 public class UserRegistrationController {
     private Logger logger;
     private static final Logger LOG = LoggerFactory.getLogger(UserRegistrationController.class);
+
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
 
     @Autowired
     private UserService userService;
@@ -94,23 +95,24 @@ public class UserRegistrationController {
                                       BindingResult result, HttpServletRequest httpRequest) {
 
 
-        User existing = userService.findByEmail(userDto.getEmail());
-        if (existing != null) {
+
+
+
+
+        User existingEmailUser = userService.findByEmail(userDto.getEmail());
+        if (existingEmailUser != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        User existingUserNameUser = userService.findByUserName(userDto.getUserName());
+        if (existingUserNameUser != null) {
+            result.rejectValue("userName", null, "The username is already taken");
         }
 
         if (result.hasErrors()) {
             return "registration";
         }
 
-        User existing2 = userService.findByUserName(userDto.getUserName());
-        if (existing2 != null) {
-            result.rejectValue("userName", null, "The username is already taken");
-        }
-
-        if (result.hasErrors()){
-            return "registration";
-        }
 
         List<String> roleNames = new ArrayList<String>();
         roleNames.add(Role.ROLE_USER);
@@ -119,6 +121,8 @@ public class UserRegistrationController {
 
         try{
             registered = userService.registerNewUserAccount(userDto);
+            String appUrl = request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(),appUrl, httpRequest));
         } catch (Exception ex) {
             ex.printStackTrace();
             model.addAttribute("errorMessage", "Error " + ex.getMessage());
@@ -133,25 +137,25 @@ public class UserRegistrationController {
 
 //        User registred = userService.save(userDto);
 
-        VerificationToken token = new VerificationToken();
-        token.setToken(UUID.randomUUID().toString());
-        token.setUser(registered);
-        token.setExpiryDate(30);
-        verificationTokenRepository.save(token);
-
-        Mail mail = new Mail();
-        mail.setFrom("no-reply@skowrondariusz.com");
-        mail.setTo(registered.getEmail());
-        mail.setSubject("Password reset request");
-
-        Map<String, Object> modelEmail = new HashMap<>();
-        modelEmail.put("token", token);
-        modelEmail.put("user", registered);
-        modelEmail.put("signature", "https://skowrondariusz.com");
-        String url = httpRequest.getScheme() + "://" + httpRequest.getServerName() + ":" + httpRequest.getServerPort();
-        modelEmail.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
-        mail.setModel(modelEmail);
-        emailService.sendEmail(mail);
+//        VerificationToken token = new VerificationToken();
+//        token.setToken(UUID.randomUUID().toString());
+//        token.setUser(registered);
+//        token.setExpiryDate(30);
+//        verificationTokenRepository.save(token);
+//
+//        Mail mail = new Mail();
+//        mail.setFrom("no-reply@skowrondariusz.com");
+//        mail.setTo(registered.getEmail());
+//        mail.setSubject("Password reset request");
+//
+//        Map<String, Object> modelEmail = new HashMap<>();
+//        modelEmail.put("token", token);
+//        modelEmail.put("user", registered);
+//        modelEmail.put("signature", "https://skowrondariusz.com");
+//        String url = httpRequest.getScheme() + "://" + httpRequest.getServerName() + ":" + httpRequest.getServerPort();
+//        modelEmail.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
+//        mail.setModel(modelEmail);
+//        emailService.sendEmail(mail);
 
         SecurityUtil.logInUser(registered, roleNames);
 

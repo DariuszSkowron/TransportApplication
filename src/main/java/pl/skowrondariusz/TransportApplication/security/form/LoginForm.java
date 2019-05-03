@@ -1,29 +1,35 @@
 package pl.skowrondariusz.TransportApplication.security.form;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
 import javax.validation.constraints.NotEmpty;
 
 public class LoginForm {
 
-    @NotEmpty
-    String userName;
+    @Autowired
+    private MessageSource messages;
 
     @NotEmpty
-    String password;
+    private String username;
+
+    @NotEmpty
+    private String password;
 
     public LoginForm() {
     }
 
-    public LoginForm(@NotEmpty String userName, @NotEmpty String password) {
-        this.userName = userName;
+    public LoginForm(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
