@@ -28,6 +28,9 @@ public class EmailService {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Async
     public void sendEmail(Mail mail) {
         try {
@@ -96,23 +99,23 @@ public class EmailService {
     }
 
 
-//    public void passwordResetEmail(VerificationToken token, User user, HttpServletRequest request){
-//        tokenService.createVerificationToken(event.getUser());
-//        Mail passResetMail = new Mail();
-//        passResetMail.setFrom("no-reply@skowrondariusz.com");
-//        passResetMail.setTo(user.getEmail());
-//        passResetMail.setSubject("Password reset request");
-//        passResetMail.setEmailTemplate("email/email-template");
-//
-//        Map<String, Object> model1 = new HashMap<>();
-//        model1.put("token", token);
-//        model1.put("user", user);
-//        model1.put("signature", "https://skowrondariusz.com");
-//        model1 url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-//        model1.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
-//        model1.setModel(model1);
-//        sendEmail(mail);
-//    }
+    public void sendPasswordResetEmail(User user, HttpServletRequest request){
+        tokenService.createPasswordResetToken(user);
+        Mail mail = new Mail();
+        mail.setFrom("no-reply@skowrondariusz.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Password reset request");
+        mail.setEmailTemplate("email/email-template");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", tokenService.getPasswordResetToken(user));
+        model.put("user", user);
+        model.put("signature", "https://skowrondariusz.com");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/registrationConfirm?token=" + tokenService.getPasswordResetToken(user));
+        mail.setModel(model);
+        sendEmail(mail);
+    }
 
 
 
