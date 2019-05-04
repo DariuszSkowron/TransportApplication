@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import pl.skowrondariusz.TransportApplication.security.form.VerificationTokenResendForm;
-import pl.skowrondariusz.TransportApplication.security.model.Mail;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 import pl.skowrondariusz.TransportApplication.security.repository.VerificationTokenRepository;
@@ -43,8 +42,6 @@ public class UserActivationController {
     public String displayConfirmRegistrationPage(WebRequest request, @RequestParam(required = false) String token,
                                                  Model model) {
 
-//        Locale locale = request.getLocale();
-
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null){
             model.addAttribute("error", "Could not find password reset token.");
@@ -69,7 +66,7 @@ public class UserActivationController {
     @RequestMapping(value = "/resendToken", method = RequestMethod.POST)
     public String resendRegistrationToken(@ModelAttribute("resendRegistrationTokenForm") @Valid VerificationTokenResendForm form,
                                           BindingResult result,
-                                          HttpServletRequest reasaasdquest) {
+                                          HttpServletRequest request) {
 
         if (result.hasErrors()){
             return "resendToken";
