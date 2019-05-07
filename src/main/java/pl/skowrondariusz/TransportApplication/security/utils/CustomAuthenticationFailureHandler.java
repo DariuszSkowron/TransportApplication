@@ -1,4 +1,4 @@
-package pl.skowrondariusz.TransportApplication.security;
+package pl.skowrondariusz.TransportApplication.security.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

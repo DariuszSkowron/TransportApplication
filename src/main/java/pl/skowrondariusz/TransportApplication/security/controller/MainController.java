@@ -7,24 +7,22 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import pl.skowrondariusz.TransportApplication.security.form.LoginForm;
-import pl.skowrondariusz.TransportApplication.security.model.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pl.skowrondariusz.TransportApplication.security.service.UserService;
 import pl.skowrondariusz.TransportApplication.security.utils.WebUtils;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 public class MainController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
     @Autowired
     private UserService userService;
-
     private Logger logger;
-    private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
+
     @GetMapping("/")
     public String root() {
         return "index";
@@ -76,7 +74,6 @@ public class MainController {
 
         return "403Page";
     }
-
 
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
     public String userInfo(Model model, Principal principal) {

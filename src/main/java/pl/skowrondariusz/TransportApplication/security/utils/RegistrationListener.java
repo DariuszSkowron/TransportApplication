@@ -1,16 +1,16 @@
 package pl.skowrondariusz.TransportApplication.security.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationListener;
+
 import org.springframework.stereotype.Component;
+
 import pl.skowrondariusz.TransportApplication.security.model.OnRegistrationCompleteEvent;
 import pl.skowrondariusz.TransportApplication.security.model.User;
-import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 import pl.skowrondariusz.TransportApplication.security.repository.VerificationTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.service.EmailService;
-
-import javax.validation.constraints.Email;
-import java.util.UUID;
+import pl.skowrondariusz.TransportApplication.security.service.TokenService;
 
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
@@ -22,6 +22,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
@@ -29,11 +32,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
-        VerificationToken token = new VerificationToken();
-        token.setToken(UUID.randomUUID().toString());
-        token.setUser(user);
-        token.setExpiryDate(30);
-        verificationTokenRepository.save(token);
-       emailService.accountResetEmail(token, user, event.getRequest());
+       tokenService.createVerificationToken(event.getUser());
+       emailService.accountActivationEmail(tokenService.getVerificationToken(user), user, event.getRequest());
     }
 }

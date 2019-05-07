@@ -28,6 +28,9 @@ public class EmailService {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Async
     public void sendEmail(Mail mail) {
         try {
@@ -75,27 +78,14 @@ public class EmailService {
 //    }
 //
 //
-//    public void accountActivationEmail(Mail mail, VerificationToken token, UserRegistrationForm user){
-//        mail.setFrom("no-reply@skowrondariusz.com");
-//        mail.setTo(user.getEmail());
-//        mail.setSubject("Verification token resend");
-//
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("token", token);
-//        model.put("user", user);
-//        model.put("signature", "https://skowrondariusz.com");
-//        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-//        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
-//        mail.setModel(model);
-//        sendEmail(mail);
-//    }
 
 
-    public void accountResetEmail(VerificationToken token, User user, HttpServletRequest request){
+
+    public void accountActivationEmail(VerificationToken token, User user, HttpServletRequest request){
         Mail mail = new Mail();
         mail.setFrom("no-reply@skowrondariusz.com");
         mail.setTo(user.getEmail());
-        mail.setSubject("Account reset");
+        mail.setSubject("Account activation");
         mail.setEmailTemplate("email/email-template");
 
         Map<String, Object> model = new HashMap<>();
@@ -104,6 +94,25 @@ public class EmailService {
         model.put("signature", "https://skowrondariusz.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/registrationConfirm?token=" + token.getToken());
+        mail.setModel(model);
+        sendEmail(mail);
+    }
+
+
+    public void sendPasswordResetEmail(User user, HttpServletRequest request){
+        tokenService.createPasswordResetToken(user);
+        Mail mail = new Mail();
+        mail.setFrom("no-reply@skowrondariusz.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Password reset request");
+        mail.setEmailTemplate("email/email-template");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", tokenService.getPasswordResetToken(user));
+        model.put("user", user);
+        model.put("signature", "https://skowrondariusz.com");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/registrationConfirm?token=" + tokenService.getPasswordResetToken(user));
         mail.setModel(model);
         sendEmail(mail);
     }

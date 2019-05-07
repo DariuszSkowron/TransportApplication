@@ -58,6 +58,9 @@ public class PasswordForgotController {
             return "forgot-password";
         }
 
+
+        emailService.sendPasswordResetEmail(user, request);
+
 //        PasswordResetToken token = new PasswordResetToken();
 ////        token.setToken(UUID.randomUUID().toString());
 ////        token.setUser(user);

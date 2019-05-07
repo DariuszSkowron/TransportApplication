@@ -9,13 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.skowrondariusz.TransportApplication.security.form.PasswordForgotForm;
 import pl.skowrondariusz.TransportApplication.security.form.PasswordResetForm;
 import pl.skowrondariusz.TransportApplication.security.model.PasswordResetToken;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.repository.PasswordResetTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.service.UserService;
-import pl.skowrondariusz.TransportApplication.security.utils.EncrytedPasswordUtils;
+import pl.skowrondariusz.TransportApplication.security.utils.EncryptedPasswordUtils;
 
 import javax.validation.Valid;
 
@@ -65,7 +64,7 @@ public class PasswordResetController {
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         User user = token.getUser();
-        String encrytedPassword = EncrytedPasswordUtils.encrytePassword(form.getPassword());
+        String encrytedPassword = EncryptedPasswordUtils.encryptPassword(form.getPassword());
         String updatedPassword = ("{bcrypt}" +encrytedPassword);
         userService.updatePassword(updatedPassword, user.getUserId());
         tokenRepository.delete(token);
