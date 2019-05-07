@@ -13,7 +13,7 @@ import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm
 import pl.skowrondariusz.TransportApplication.security.model.Role;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.repository.UserRepository;
-import pl.skowrondariusz.TransportApplication.security.utils.EncrytedPasswordUtils;
+import pl.skowrondariusz.TransportApplication.security.utils.EncryptedPasswordUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,9 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-
-
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -46,8 +43,6 @@ public class UserServiceImpl implements UserService {
         List<String> roleNames =  user.getRoles().stream()
                 .map(Role::getName)
                 .collect(Collectors.toList());
-
-
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
@@ -75,22 +70,16 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
         user.setEmail(registration.getEmail());
-        String encrytedPassword = EncrytedPasswordUtils.encrytePassword(registration.getPassword());
+        String encrytedPassword = EncryptedPasswordUtils.encryptPassword(registration.getPassword());
         user.setPassword("{bcrypt}" +encrytedPassword);
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-//        List<String> roleNames = new ArrayList<String>();
-//        roleNames.add(AppRole.ROLE_USER);
-//        this.appRoleDAO.createRoleFor(appUser, roleNames);
         return userRepository.save(user);
     }
-
-//     public List<String> roleNames = Arrays.asList("ROLE_USER", "ROLE_ADMIN");
 
     @Override
     public void updatePassword(String password, Long userId) {
         userRepository.updatePassword(password, userId);
     }
-
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
         return roles.stream()
@@ -98,14 +87,10 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-
-
     @Override
     public void saveRegisteredUser(User user) {
         userRepository.save(user);
     }
-
-
 
     public User registerNewUserAccount(UserRegistrationForm registration) {
         User user = new User();
@@ -113,15 +98,11 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
-        String encrytedPassword = EncrytedPasswordUtils.encrytePassword(registration.getPassword());
+        String encrytedPassword = EncryptedPasswordUtils.encryptPassword(registration.getPassword());
         user.setPassword("{bcrypt}" + encrytedPassword);
-//        List<String> roleNames = new ArrayList<String>();
-//        roleNames.add(AppRole.ROLE_USER);
-//        this.appRoleDAO.createRoleFor(appUser, roleNames);
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
-
 
     public User createAppUser(Connection<?> connection){
         ConnectionKey key = connection.getKey();
@@ -134,10 +115,9 @@ public class UserServiceImpl implements UserService {
         }
         String userName_prefix = userProfile.getFirstName().trim().toLowerCase()
                 + "_" + userProfile.getLastName().trim().toLowerCase();
-
         String userName = this.findAvailableUserName(userName_prefix);
         String randomPassword = UUID.randomUUID().toString().substring(0, 5);
-        String encrytedPassword = EncrytedPasswordUtils.encrytePassword(randomPassword);
+        String encrytedPassword = EncryptedPasswordUtils.encryptPassword(randomPassword);
         user = new User();
         user.setEnabled(false);
         user.setPassword("{bcrypt}" + encrytedPassword);
@@ -145,13 +125,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setFirstName(userProfile.getFirstName());
         user.setLastName(userProfile.getLastName());
-//        this.entityManager.persist(appUser);
-        // Create default Role
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-//        List<String> roleNames = new ArrayList<String>();
-//        roleNames.add(AppRole.ROLE_USER);
-//        this.appRoleDAO.createRoleFor(appUser, roleNames);
-
         return userRepository.save(user);
     }
 
@@ -175,21 +149,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserId(userId);
     }
 
-
-
-//  public List<String> roleNamesToList(Long userId){
-//        List list = new ArrayList(findByUserId(userId).getRoles());
-//        Collections.sort(list);
-//        return list;
-//   }
-//
-//    List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-//		if (roleNames != null) {
-//        for (String role : roleNames) {
-//            GrantedAuthority authority = new SimpleGrantedAuthority(role);
-//            grantList.add(authority);
-//        }
-//    }
 }
 
 

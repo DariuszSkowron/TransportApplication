@@ -3,7 +3,9 @@ package pl.skowrondariusz.TransportApplication.security.utils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.social.security.SocialUserDetails;
+
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.service.SocialUserDetailsImpl;
 

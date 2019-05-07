@@ -1,8 +1,11 @@
 package pl.skowrondariusz.TransportApplication.security.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationListener;
+
 import org.springframework.stereotype.Component;
+
 import pl.skowrondariusz.TransportApplication.security.model.OnRegistrationCompleteEvent;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.repository.VerificationTokenRepository;
