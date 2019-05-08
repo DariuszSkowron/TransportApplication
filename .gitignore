@@ -25,5 +25,9 @@
 /.nb-gradle/
 
 
-### Build Artifacts ###
-.mvn
+
+
+/.mvn/
+/mvnw
+/mvnw.cmd
+
