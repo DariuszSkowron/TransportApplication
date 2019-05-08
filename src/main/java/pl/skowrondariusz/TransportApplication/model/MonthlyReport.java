@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Entity
 public class MonthlyReport {
 
-    //    @JsonFormat(pattern = "MMMM, d", locale = "en_US")
     @Id
     @GeneratedValue
     private Long id;
@@ -48,7 +47,6 @@ public class MonthlyReport {
         this.date = date;
     }
 
-
     public Long getAverageDistance() {
         return averageDistance;
     }
@@ -71,7 +69,6 @@ public class MonthlyReport {
     public Long getTotalDistance() {
         return totalDistance;
     }
-
 
     public void setTotalDistance(Long totalDistance) {
         this.totalDistance = totalDistance;

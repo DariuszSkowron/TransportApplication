@@ -41,14 +41,6 @@ public class Reports {
 
     }
 
-    //    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
     @JsonIgnore
     public LocalDate getStartDate() {
         return startDate;
