@@ -2,6 +2,7 @@ package pl.skowrondariusz.TransportApplication.view;
 
 
 import org.apache.poi.ss.usermodel.Row;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 
@@ -16,15 +17,17 @@ import java.util.Map;
 
 public class ExcelReportView extends AbstractXlsView {
 
-    private LocalDateTime date = LocalDateTime.now();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private String formattedDate = date.format(formatter);
-    private String fileName = "Transits-" + formattedDate + ".xls";
+
+
+    @Autowired
+    ExportedFilesNameGenerator exportedFilesNameGenerator;
+
+
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, org.apache.poi.ss.usermodel.Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        response.setHeader("Content-Disposition", "attachment; filename=" + fileName );
+        String fileFormat = "xls";
+        response.setHeader("Content-Disposition", "attachment; filename=" + exportedFilesNameGenerator.exportedFileName(fileFormat) );
         List<Transit> transitList = (List<Transit>) model.get("transitList");
         org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Transit Data");
         Row header = sheet.createRow(0);

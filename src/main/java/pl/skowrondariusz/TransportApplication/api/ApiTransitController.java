@@ -64,7 +64,6 @@ public class ApiTransitController {
         LOG.info("Saving transit={}", transit);
         transitService.calculateDistance(transit);
         transitService.addTransit(transit);
-//        return transit;
     }
 
     @RequestMapping(path = "/api/reports/daily", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
@@ -91,9 +90,7 @@ public class ApiTransitController {
     @GetMapping("/api/reports/monthly")
     public List<MonthlyReport> getAllMonthlyReports() {
         return transitService.getTransitsFromCurrentMonth();
-//        return reportsService.findAll();
     }
-
 
     @RequestMapping(path = "/api/reports/dailySecond", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public Reports getDailyReport2(@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {

@@ -5,6 +5,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 public abstract class AbstractPdfView extends AbstractView {
+
+    @Autowired
+    ExportedFilesNameGenerator exportedFilesNameGenerator;
 
     public AbstractPdfView(){
         super();
@@ -24,9 +28,10 @@ public abstract class AbstractPdfView extends AbstractView {
         return true;
     }
 
+
     @Override
     protected final void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception  {
-
+        String fileFormat = "pdf";
         ByteArrayOutputStream baos = createTemporaryOutputStream();
 
         Document document = new Document(PageSize.A4.rotate(), 36, 36, 54, 36);
@@ -40,7 +45,7 @@ public abstract class AbstractPdfView extends AbstractView {
         document.close();
 
         // Flush to HTTP response.
-        response.setHeader("Content-Disposition", "attachment");    // make browser to ask for download/display
+        response.setHeader("Content-Disposition", "attachment; filename=" + exportedFilesNameGenerator.exportedFileName(fileFormat) );    // make browser to ask for download/display
         writeToResponse(response, baos);
     }
 
