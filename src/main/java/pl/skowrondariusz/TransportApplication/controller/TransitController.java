@@ -13,14 +13,13 @@ import pl.skowrondariusz.TransportApplication.service.TransitService;
 @Controller
 public class TransitController {
 
+    @Autowired
     TransitService transitService;
 
     @Autowired
     public TransitController(TransitService transitService) {
         this.transitService = transitService;
     }
-
-    ;
 
     @GetMapping("/transit")
     public String showFormTransit(ModelMap modelMap) {
@@ -37,13 +36,11 @@ public class TransitController {
 
     @PostMapping("/addtransit")
     public String addTransit(@ModelAttribute Transit transitAttribute, ModelMap modelMap) {
-
         transitService.save(transitAttribute);
         transitService.calculateDistance(transitAttribute);
         transitService.save(transitAttribute);
         modelMap.addAttribute("transitsAttribute", transitService.findAll());
         return "showTransit";
-
     }
 
 

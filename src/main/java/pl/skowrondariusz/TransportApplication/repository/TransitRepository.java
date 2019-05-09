@@ -21,11 +21,10 @@ import java.util.List;
 
 @Repository
 public interface TransitRepository extends JpaRepository<Transit, Long> {
-//crudrepository//
 
     @Query("SELECT r FROM Transit r WHERE r.date between :start_date and :end_date")
     List<Transit> find(@Param("start_date") LocalDate startDate, @Param("end_date") LocalDate endDate);
-//
+
     @Query("SELECT r FROM Transit r WHERE r.date = :date")
     List<Transit> findMonthly(@Param("date") LocalDate date);
 

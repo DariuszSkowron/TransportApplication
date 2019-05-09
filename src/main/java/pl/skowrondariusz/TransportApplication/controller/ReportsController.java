@@ -30,31 +30,18 @@ public class ReportsController {
         return "showMonthlyReport";
     }
 
-//    @PostMapping("/reports/daily")
-//    public String addDailyReport(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate, ModelMap modelMap){
-//        modelMap.addAttribute("dailyReport",  reportsService.addReportsModified(startDate, endDate));
-//        return "showReports";
-//    }
-//
     @GetMapping("/reports/daily")
     public String addDailyReport(ModelMap modelMap) {
         Reports reportsAttr = new Reports();
         modelMap.addAttribute("dailyReport", reportsAttr);
-//        return new ModelAndView("dailyReportForm", modelMap);
         return "dailyReportForm";
-
     }
 
     @PostMapping("/addDailyReport")
     public String addDailyReport1(@RequestParam String startDate, @RequestParam String endDate, ModelMap modelMap){
        LocalDate newStartDate =  LocalDate.parse(startDate);
        LocalDate newEndDate = LocalDate.parse(endDate);
-//       Reports reports = new Reports();
-//        reports.setTotalDistance(100L);
-//        reports.setTotalPrice(200L);
-//       reportsService.addReportsModified(newStartDate, newEndDate);
      modelMap.addAttribute("dailyReport", reportsService.addReportsModified(newStartDate, newEndDate));
      return "showReport";
     }
 }
-//
