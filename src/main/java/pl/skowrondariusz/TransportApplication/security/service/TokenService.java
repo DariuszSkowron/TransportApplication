@@ -8,7 +8,6 @@ import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 import pl.skowrondariusz.TransportApplication.security.repository.PasswordResetTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.repository.UserRepository;
 import pl.skowrondariusz.TransportApplication.security.repository.VerificationTokenRepository;
-import sun.security.util.Password;
 
 import java.util.UUID;
 
