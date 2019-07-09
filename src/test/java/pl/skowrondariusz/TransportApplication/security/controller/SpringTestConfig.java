@@ -1,3 +1,5 @@
+package pl.skowrondariusz.TransportApplication.security.controller;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.skowrondariusz.TransportApplication.security.recaptcha.ReCaptchaService;
