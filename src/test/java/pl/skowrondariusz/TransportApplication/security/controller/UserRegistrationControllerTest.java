@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-//@ContextConfiguration(locations = {"classpath:application.yml"})
+//@ContextConfiguration(locations = {"classpath:application-test.properties"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRegistrationControllerTest {
 
