@@ -5,14 +5,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.skowrondariusz.TransportApplication.TransportApplicationTests;
 import pl.skowrondariusz.TransportApplication.security.recaptcha.ReCaptchaService;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -23,14 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRegistrationControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
-    
+
     @Autowired
     private ReCaptchaService reCaptchaService;
 
-    
     @Test
     public void submitRegistrationPasswordNotValid() throws Exception {
         this.mockMvc
@@ -75,7 +69,7 @@ public class UserRegistrationControllerTest {
         this.mockMvc
                 .perform(
                         post("/registration")
-                            .with(csrf())
+                                .with(csrf())
                                 .param("firstName", "dsfgdsgdg")
                                 .param("lastName", "sdfgdsfgsd")
                                 .param("userName", "lolololo")
@@ -85,10 +79,21 @@ public class UserRegistrationControllerTest {
                                 .param("confirmPassword", "Testing132!")
                                 .param("terms", "on")
                 )
-//                .andExpect(model().hasNoErrors())
+                .andExpect(model().hasNoErrors())
                 .andExpect(redirectedUrl("/registration?success"))
                 .andExpect(status().is3xxRedirection());
     }
-    
- 
+
+    @Test
+    public void submitWithoutReCaptcha() throws Exception {
+        this.mockMvc
+                .perform(
+                        post("/forgot-password")
+                                .param("email", "new@memorynotfound.com")
+                )
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeHasFieldErrors("forgotPasswordForm", "reCaptchaResponse"))
+                .andExpect(status().isOk());
+    }
+
 }
