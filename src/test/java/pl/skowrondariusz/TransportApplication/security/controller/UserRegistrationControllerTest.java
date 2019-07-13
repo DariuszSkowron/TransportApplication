@@ -15,15 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-//@ContextConfiguration(locations = {"classpath:application.yml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRegistrationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ReCaptchaService reCaptchaService;
 
     @Test
     public void submitRegistrationPasswordNotValid() throws Exception {
@@ -83,17 +80,4 @@ public class UserRegistrationControllerTest {
                 .andExpect(redirectedUrl("/registration?success"))
                 .andExpect(status().is3xxRedirection());
     }
-
-    @Test
-    public void submitWithoutReCaptcha() throws Exception {
-        this.mockMvc
-                .perform(
-                        post("/forgot-password")
-                                .param("email", "new@memorynotfound.com")
-                )
-                .andExpect(model().hasErrors())
-                .andExpect(model().attributeHasFieldErrors("forgotPasswordForm", "reCaptchaResponse"))
-                .andExpect(status().isOk());
-    }
-
 }

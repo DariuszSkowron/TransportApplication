@@ -15,6 +15,7 @@ import pl.skowrondariusz.TransportApplication.security.model.PasswordResetToken;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.repository.PasswordResetTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.service.EmailService;
+import pl.skowrondariusz.TransportApplication.security.service.TokenService;
 import pl.skowrondariusz.TransportApplication.security.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,8 @@ public class PasswordForgotController {
     private UserService userService;
     @Autowired private PasswordResetTokenRepository tokenRepository;
     @Autowired private EmailService emailService;
+    @Autowired
+    private TokenService tokenService;
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotForm passwordForgotForm() {
@@ -57,6 +60,13 @@ public class PasswordForgotController {
             result.rejectValue("email", null, "We could not find an account for that e-mail address.");
             return "forgot-password";
         }
+
+        PasswordResetToken token = tokenService.getPasswordResetToken(user);
+        if (token != null){
+            result.rejectValue("email", null,"Password reset token has been sent to your email already, check spam");
+            return "forgot-password";
+        }
+
 
 
         emailService.sendPasswordResetEmail(user, request);

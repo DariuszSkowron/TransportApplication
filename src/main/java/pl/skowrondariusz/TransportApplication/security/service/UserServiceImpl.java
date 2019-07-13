@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
 import pl.skowrondariusz.TransportApplication.security.model.Role;
 import pl.skowrondariusz.TransportApplication.security.model.User;
+import pl.skowrondariusz.TransportApplication.security.repository.PasswordResetTokenRepository;
 import pl.skowrondariusz.TransportApplication.security.repository.UserRepository;
 import pl.skowrondariusz.TransportApplication.security.utils.EncryptedPasswordUtils;
 
@@ -23,6 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
+
+
+
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -64,6 +71,7 @@ public class UserServiceImpl implements UserService {
     public User findByUserName(String username){
         return userRepository.findByUserName(username);
     }
+
 
     public User save(UserRegistrationForm registration){
         User user = new User();
