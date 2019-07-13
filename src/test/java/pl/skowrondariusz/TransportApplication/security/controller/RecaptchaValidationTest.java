@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 //@ContextConfiguration(classes= SpringTestConfig.class, loader= AnnotationConfigContextLoader.class)
-public class PasswordForgotWithRecaptcha {
+public class RecaptchaValidationTest {
 
     @Rule
     public SmtpServerRule smtpServerRule = new SmtpServerRule(2525);

@@ -38,6 +38,7 @@ public class ApiTransitController {
         this.reportsService = reportsService;
     }
 
+
     @GetMapping(value = "/api/transits/{id}", produces = "application/json")
     public Optional<Transit> getTransitFromId(@PathVariable Long id) {
         return transitService.getTransit(id);

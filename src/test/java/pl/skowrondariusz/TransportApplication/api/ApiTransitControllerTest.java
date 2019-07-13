@@ -27,16 +27,17 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ApiTransitController.class)
 public class ApiTransitControllerTest {
+
+
     
     @Autowired
     private MockMvc mockMvc;
@@ -57,17 +58,19 @@ public class ApiTransitControllerTest {
         List<Transit> transitList = Arrays.asList(
                 new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5)));
 
+
         given(transitService.findAll()).willReturn(transitList);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/transits"))
                 .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].distance", is("230")))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].date", is("2018-12-05")));
     }
     
     @WithMockUser(value = "spring")
     @Test
-    public void shouldCreateBook() throws Exception {
+    public void shouldCreateTransit() throws Exception {
 
         Transit transit = new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5));
 
@@ -98,7 +101,42 @@ public class ApiTransitControllerTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/transits/{id}", 1L))
                 .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.sourceAdress", is("Warsaw")));
 
+    }
+
+
+    @WithMockUser(value = "spring")
+    @Test
+    public void shouldAddTransitAndCalculateDistance11() throws Exception {
+
+        Transit transit = new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5));
+
+        doNothing().when(transitService).addTransit(transit);
+//        given(transitService.findAll()).willReturn(transitList);
+
+        mockMvc.perform(
+                post("/api/transit")
+                        .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(transit)))
+                .andExpect(status().isCreated());
+//                .andExpect(jsonPath("$[0].distance", is("230")))
+//                .andExpect(jsonPath("$", hasSize(1)))
+//                .andExpect(jsonPath("$[0].date", is("2018-12-05")));
+
+        verify(transitService, times(1)).addTransit(transit);
+//        verifyNoMoreInteractions(transitService);
+    }
+
+
+    public static String asJsonString(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
