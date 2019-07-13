@@ -6,13 +6,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import pl.skowrondariusz.TransportApplication.model.Transit;
 import pl.skowrondariusz.TransportApplication.repository.TransitRepository;
+import pl.skowrondariusz.TransportApplication.security.config.SecurityConfig;
 import pl.skowrondariusz.TransportApplication.service.ReportsService;
 import pl.skowrondariusz.TransportApplication.service.TransitService;
 
@@ -26,6 +29,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,8 +76,10 @@ public class ApiTransitControllerTest {
 
 
         this.mockMvc.perform(post("/api/transit")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(transitJsonString))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isCreated());
 
         verify(transitService).addTransit(eq(new Transit("Poznań", "Kraków", 12d, LocalDate.of(2018, 12, 5))));
