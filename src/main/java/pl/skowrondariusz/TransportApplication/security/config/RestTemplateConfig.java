@@ -1,6 +1,5 @@
 package pl.skowrondariusz.TransportApplication.security.config;
 
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.context.annotation.Bean;
@@ -29,5 +28,4 @@ public class RestTemplateConfig {
     public HttpClient httpClient() {
         return HttpClientBuilder.create().build();
     }
-
 }

@@ -3,7 +3,6 @@ package pl.skowrondariusz.TransportApplication.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import pl.skowrondariusz.TransportApplication.config.DateSerializer;
 import pl.skowrondariusz.TransportApplication.config.DistanceSerializer;
 import pl.skowrondariusz.TransportApplication.config.PriceSerializer;
@@ -21,7 +20,6 @@ public class MonthlyReport {
     private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonSerialize(using = DateSerializer.class)
-//    @JsonFormat(pattern = "MMMM, d", locale = "en_US")
     private LocalDate date;
     @JsonSerialize(using = DistanceSerializer.class)
     private Long totalDistance;
