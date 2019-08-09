@@ -50,9 +50,9 @@ public class PasswordResetToken {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
+//    public void setExpiryDate(Date expiryDate) {
+//        this.expiryDate = expiryDate;
+//    }
 
     public void setExpiryDate(int minutes){
         Calendar now = Calendar.getInstance();

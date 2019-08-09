@@ -24,8 +24,6 @@ public class UserConnectionDAO {
 
             Query query = entityManager.createQuery(sql, UserConnection.class);
             query.setParameter("userProviderId", userProviderId);
-
-            @SuppressWarnings("unchecked")
             List<UserConnection> list = query.getResultList();
 
             return list.isEmpty() ? null : list.get(0);

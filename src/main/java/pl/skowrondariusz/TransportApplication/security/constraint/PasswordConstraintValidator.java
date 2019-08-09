@@ -60,4 +60,5 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
                 .disableDefaultConstraintViolation();
         return false;
     }
+
 }
