@@ -25,6 +25,7 @@ import pl.skowrondariusz.TransportApplication.security.service.UserService;
 import pl.skowrondariusz.TransportApplication.security.service.ConnectionSignUpImpl;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 @EnableSocial
@@ -46,22 +47,20 @@ public class SocialConfig implements SocialConfigurer {
             this.autoSignUp = false;
         }
 
-        FacebookConnectionFactory ffactory = new FacebookConnectionFactory(env.getProperty("facebook.app.id"), env.getProperty("facebook.app.secret"));
-        ffactory.setScope(env.getProperty("facebook.scope"));
-        cfConfig.addConnectionFactory(ffactory);
+        FacebookConnectionFactory facebookFactory = new FacebookConnectionFactory(Objects.requireNonNull(env.getProperty("facebook.app.id")), Objects.requireNonNull(env.getProperty("facebook.app.secret")));
+        facebookFactory.setScope(env.getProperty("facebook.scope"));
+        cfConfig.addConnectionFactory(facebookFactory);
 
-        GoogleConnectionFactory gfactory = new GoogleConnectionFactory(env.getProperty("google.client.id"), env.getProperty("google.client.secret"));
-        gfactory.setScope(env.getProperty("google.scope"));
-        cfConfig.addConnectionFactory(gfactory);
+        GoogleConnectionFactory googleFactory = new GoogleConnectionFactory(Objects.requireNonNull(env.getProperty("google.client.id")), Objects.requireNonNull(env.getProperty("google.client.secret")));
+        googleFactory.setScope(env.getProperty("google.scope"));
+        cfConfig.addConnectionFactory(googleFactory);
 
-        LinkedInConnectionFactory lfactory = new LinkedInConnectionFactory(env.getProperty("linkedin.consumer.key"), env.getProperty("linkedin.consumer.secret"));
-        lfactory.setScope(env.getProperty("linkedin.scope"));
-        cfConfig.addConnectionFactory(lfactory);
+        LinkedInConnectionFactory linkedinFactory = new LinkedInConnectionFactory(Objects.requireNonNull(env.getProperty("linkedin.consumer.key")), Objects.requireNonNull(env.getProperty("linkedin.consumer.secret")));
+        linkedinFactory.setScope(env.getProperty("linkedin.scope"));
+        cfConfig.addConnectionFactory(linkedinFactory);
 
-        TwitterConnectionFactory tfactory = new TwitterConnectionFactory(env.getProperty("twitter.consumer.key"), env.getProperty("twitter.consumer.secret"));
-        cfConfig.addConnectionFactory(tfactory);
-
-
+        TwitterConnectionFactory twitterFactory = new TwitterConnectionFactory(Objects.requireNonNull(env.getProperty("twitter.consumer.key")), Objects.requireNonNull(env.getProperty("twitter.consumer.secret")));
+        cfConfig.addConnectionFactory(twitterFactory);
     }
 
     @Override

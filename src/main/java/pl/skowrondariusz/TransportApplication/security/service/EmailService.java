@@ -1,27 +1,20 @@
 package pl.skowrondariusz.TransportApplication.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
-import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import pl.skowrondariusz.TransportApplication.security.model.Mail;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 import pl.skowrondariusz.TransportApplication.security.model.VerificationToken;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +23,6 @@ public class EmailService {
 
     private static final String THYMELEAF_BANNER_IMAGE = "../../static/images/LOGO-NEW.png";
     private static final String PNG_MIME = "image/png";
-
 
     @Autowired
     private JavaMailSender emailSender;
@@ -61,16 +53,12 @@ public class EmailService {
             helper.addInline("imageResourceName", new ClassPathResource("static/images/LOGO-NEW.png"));
 
             emailSender.send(message);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-
-
-
-
-    public void accountActivationEmail(VerificationToken token, User user, HttpServletRequest request){
+    public void accountActivationEmail(VerificationToken token, User user, HttpServletRequest request) {
         Mail mail = new Mail();
         mail.setFrom("no-reply@skowrondariusz.com");
         mail.setTo(user.getEmail());
@@ -87,8 +75,7 @@ public class EmailService {
         sendEmail(mail);
     }
 
-
-    public void sendPasswordResetEmail(User user, HttpServletRequest request){
+    public void sendPasswordResetEmail(User user, HttpServletRequest request) {
         tokenService.createPasswordResetToken(user);
         Mail mail = new Mail();
         mail.setFrom("no-reply@skowrondariusz.com");
@@ -105,10 +92,5 @@ public class EmailService {
         mail.setModel(model);
         sendEmail(mail);
     }
-
-
-
-
-
 
 }

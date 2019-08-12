@@ -12,9 +12,6 @@ public class ConnectionSignUpImpl implements ConnectionSignUp {
         this.userService = userService;
     }
 
-    // After logging in social networking.
-    // This method will be called to create a corresponding App_User record
-    // if it does not already exist.
     @Override
     public String execute(Connection<?> connection) {
 

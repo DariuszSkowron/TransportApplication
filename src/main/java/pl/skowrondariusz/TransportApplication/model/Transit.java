@@ -15,7 +15,6 @@ import java.util.Objects;
 @Entity
 public class Transit {
 
-
     @Id
     @GeneratedValue
     private Long id;
@@ -127,4 +126,3 @@ public class Transit {
                 '}';
     }
 }
-//

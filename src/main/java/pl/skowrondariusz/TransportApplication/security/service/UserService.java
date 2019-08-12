@@ -7,7 +7,6 @@ import org.springframework.social.connect.Connection;
 import pl.skowrondariusz.TransportApplication.security.form.UserRegistrationForm;
 import pl.skowrondariusz.TransportApplication.security.model.User;
 
-
 public interface UserService extends UserDetailsService {
 
     User findByEmail(String email);

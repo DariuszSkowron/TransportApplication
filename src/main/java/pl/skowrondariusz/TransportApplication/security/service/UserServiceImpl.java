@@ -16,10 +16,12 @@ import pl.skowrondariusz.TransportApplication.security.repository.PasswordResetT
 import pl.skowrondariusz.TransportApplication.security.repository.UserRepository;
 import pl.skowrondariusz.TransportApplication.security.utils.EncryptedPasswordUtils;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
