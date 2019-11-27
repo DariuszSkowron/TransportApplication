@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 
-    <title>Forgot Password</title>
+    <title>Account Activated</title>
 </head>
 <body>
 <div class="container">
@@ -17,8 +17,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="text-center">
-                        <h3><i class="glyphicon glyphicon-lock" style="font-size:2em;"></i></h3>
-                        <h2 class="text-center">Reset password</h2>
+                        <h3><i class="glyphicon glyphicon-ok" style="font-size:2em;"></i></h3>
+                        <h2 class="text-center">Account Activated</h2>
                         <div class="panel-body">
 
                             <div th:if="${error}">
@@ -85,9 +85,9 @@
                 <div class="col-md-12">
                     Already registered? <a href="/" th:href="@{/login}">Login</a>
                 </div>
-            </div>
-            <div class="col-md-12">
-                Are you already registered but cant verificate? <a href="/" th:href="@{/login}">Resend verification token</a>
+                <div class="col-md-12">
+                    Are you already registered but can't verificate? <a href="/" th:href="@{/resendToken}">Resend verification token</a>
+                </div>
             </div>
             </div>
         </div>

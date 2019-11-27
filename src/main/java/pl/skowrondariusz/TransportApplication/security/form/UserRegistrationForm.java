@@ -59,13 +59,13 @@ public class UserRegistrationForm {
     }
 
     public UserRegistrationForm(Connection<?> connection) {
-        UserProfile socialUserProfile = connection.fetchUserProfile();
+//        UserProfile socialUserProfile = connection.fetchUserProfile();
         this.userId = null;
-        this.email = socialUserProfile.getEmail();
-        this.confirmEmail = socialUserProfile.getEmail();
-        this.userName = socialUserProfile.getUsername();
-        this.firstName = socialUserProfile.getFirstName();
-        this.lastName = socialUserProfile.getLastName();
+        this.email = connection.fetchUserProfile().getEmail();
+        this.confirmEmail = connection.fetchUserProfile().getEmail();
+        this.userName = connection.fetchUserProfile().getUsername();
+        this.firstName = connection.fetchUserProfile().getFirstName();
+        this.lastName = connection.fetchUserProfile().getLastName();
 
         ConnectionKey key = connection.getKey();
         this.signInProvider = key.getProviderId();

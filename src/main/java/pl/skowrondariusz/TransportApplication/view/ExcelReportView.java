@@ -34,6 +34,8 @@ public class ExcelReportView extends AbstractXlsView {
         header.createCell(0).setCellValue("Transit Id");
         header.createCell(1).setCellValue("Transit source address");
         header.createCell(2).setCellValue("Transit destination address");
+        header.createCell(3).setCellValue("Price");
+        header.createCell(4).setCellValue("Distance");
 
         int rowNum = 1;
         for (Transit transit : transitList) {
@@ -41,6 +43,8 @@ public class ExcelReportView extends AbstractXlsView {
             row.createCell(0).setCellValue(transit.getId());
             row.createCell(1).setCellValue(transit.getSourceAdress());
             row.createCell(2).setCellValue(transit.getDestinationAdress());
+            row.createCell(3).setCellValue(transit.getPrice());
+            row.createCell(4).setCellValue(transit.getDistance());
         }
 
 
