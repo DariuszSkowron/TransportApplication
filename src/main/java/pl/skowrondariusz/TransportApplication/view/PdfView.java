@@ -27,12 +27,12 @@ public class PdfView extends AbstractPdfView {
         List<Transit> transits = (List<Transit>) model.get("transitList");
         document.add(new Paragraph("Generated Transits " + LocalDate.now()));
 
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100.0f);
         table.setSpacingBefore(10);
         Path path = Paths.get(ClassLoader.getSystemResource("static/logo.jpg").toURI());
         Image img = Image.getInstance(path.toAbsolutePath().toString());
-        img.scalePercent(100);
+        img.scalePercent(30);
 
         // define font for table header row
         Font font = FontFactory.getFont(FontFactory.TIMES);
@@ -51,8 +51,6 @@ public class PdfView extends AbstractPdfView {
         cell.setPhrase(new Phrase("Transit Id", font));
         table.addCell(cell);
 
-
-
         cell.setPhrase(new Phrase("source adress", font));
         table.addCell(cell);
 
@@ -62,12 +60,16 @@ public class PdfView extends AbstractPdfView {
         cell.setPhrase(new Phrase("Distance", font));
         table.addCell(cell);
 
+        cell.setPhrase(new Phrase("Price", font));
+        table.addCell(cell);
+
 
         for(Transit transit : transits){
             table.addCell(transit.getId().toString());
             table.addCell(transit.getSourceAdress());
             table.addCell(transit.getDestinationAdress());
             table.addCell(transit.getDistance().toString());
+            table.addCell(transit.getPrice().toString());
         }
 
         document.add(table);
