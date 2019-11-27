@@ -24,8 +24,8 @@ public class DatabaseInitializer implements CommandLineRunner {
         public void run(String... args){
             User defaultUser = new User("admin", "admin", "admin", "admin1", "admin", Arrays.asList(new Role("ROLE_USER")));
             defaultUser.setEnabled(true);
-//            String encrytedPassword = EncryptedPasswordUtils.encryptPassword(defaultUser.getPassword());
-//            defaultUser.setPassword("{bcrypt}" + encrytedPassword);
+            String encrytedPassword = EncryptedPasswordUtils.encryptPassword(defaultUser.getPassword());
+            defaultUser.setPassword("{bcrypt}" + encrytedPassword);
             this.userRepository.save(defaultUser);
 
 
